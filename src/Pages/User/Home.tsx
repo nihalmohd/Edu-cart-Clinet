@@ -1,5 +1,5 @@
 
-import Nav from '../Components/Home/Nav'
+import Nav from '../../Components/Home/Nav'
 
 const Home = () => {
   return (
