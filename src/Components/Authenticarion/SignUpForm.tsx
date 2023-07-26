@@ -1,10 +1,35 @@
+import axios  from 'axios'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const SignUpForm = () => {
-    const [Email,setEmail]=useState<string>()
-    const [Username,setUsername]=useState<string>()
-    const [Password,setPassword]=useState<string>()
-    // console.log("register Email:"+Email,"register Username:"+Username, "Register Password:"+Password);
+    const navigate=useNavigate()
+const [user,Setuser]=useState({
+    Email:"",
+    Username:"",
+    Password:""
+})
+
+const handlesubmit=async (e:React.FormEvent)=>{
+    e.preventDefault();
+    console.log(user);
+    try {
+        const {data}=await axios.post("http://localhost:5000/user/register",{...user})
+        console.log(data);
+if(data.User){
+    navigate("/")
+}else{
+
+navigate("/Auth")
+}
+    } catch (error) {
+        
+        console.log(error);
+        
+    }
+
+
+}
     
   return (
     <>
@@ -25,22 +50,22 @@ const SignUpForm = () => {
             <h1>Email Address</h1>
         </div>
         <div className="w-full h-10 mt-1 ">
-            <input className="w-full h h-full rounded-2xl border border-black p-2"  name="Email" id="" placeholder="Enter Your Email Address"  onChange={(e)=>setEmail(e.target.value)} />
+            <input className="w-full h h-full rounded-2xl border border-black p-2"  name="Email" id="" placeholder="Enter Your Email Address"  onChange={(e)=>Setuser({...user,[e.target.name]:e.target.value})} />
         </div>
         <div className=" w-full h-6 ">
             <h1>Username</h1>
         </div>
         <div className="w-full h-10 mt-1 ">
-            <input className="w-full h h-full rounded-2xl border border-black p-2" type="text" name="Username" id="" placeholder="Enter Username" required onChange={(e)=>setUsername(e.target.value)}/>
+            <input className="w-full h h-full rounded-2xl border border-black p-2" type="text" name="Username" id="" placeholder="Enter Username" required onChange={(e)=>Setuser({...user,[e.target.name]:e.target.value})}/>
         </div>
         <div className=" w-full h-6 ">
             <h1>Password</h1>
         </div>
         <div className="w-full h-10 mt-1 ">
-            <input className="w-full h h-full rounded-2xl border border-black p-2" type="password" name="Password" id="" placeholder="Enter Password" required onChange={(e)=>setPassword(e.target.value)} />
+            <input className="w-full h h-full rounded-2xl border border-black p-2" type="password" name="Password" id="" placeholder="Enter Password" required onChange={(e)=>Setuser({...user,[e.target.name]:e.target.value})} />
         </div>
         <div className=" w-full h-10 mt-4 justify-center items-center">
-            <button className="bg-black w-1/2 h-10 text-white ml-20 rounded-3xl">Register</button>
+            <button onClick={handlesubmit} className="bg-black w-1/2 h-10 text-white ml-20 rounded-3xl">Register</button>
         </div>
     </form>
 </div>
