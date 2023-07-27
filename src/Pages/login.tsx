@@ -1,10 +1,9 @@
-// import React from 'react'
-import LoginForn from '../Components/SignIn/LoginForn'
+import LoginFormImage from '../Components/SignIn/LoginFormImage'
 
 const login = () => {
   return (
     <div>
-        <LoginForn/>
+        <LoginFormImage/>
     </div>
   )
 }

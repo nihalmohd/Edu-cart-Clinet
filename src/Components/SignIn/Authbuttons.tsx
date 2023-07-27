@@ -1,6 +1,6 @@
 import { useState } from "react"
 // import {useNavigate} from "react-router-dom"
-import LoginForn from "./LoginForn"
+import LoginForn from "./LoginForm"
 import SignUpForm from "./SignUpForm"
 import MentorSignUp from "./MentorSignUp"
 
