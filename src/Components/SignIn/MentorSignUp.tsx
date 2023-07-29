@@ -28,6 +28,13 @@ const MentorSignUp = () => {
         e.preventDefault()
        try {
         const {data}=await axiosIntance.post("/Mentor/MentorRegister",{...Mentor})
+        console.log(data);
+        const {AccessToken,User} = data
+        const mentorData={
+          AccessToken,
+          User
+        }
+        localStorage.setItem("Mentor",JSON.stringify(mentorData))
         navigate("/")
        } catch (error) {
         const MentorErr=error as AxiosError
@@ -55,11 +62,10 @@ const MentorSignUp = () => {
                     IsGoogle:true
                     
                 }
-                
                 const {data}=await axiosIntance.post("/Mentor/MentorRegister",{...Mentor})
                 if(data){
                     
-                    navigate("/")
+                    navigate("/MentorHome")
                 }
                 console.log(decoded);
                 
@@ -84,9 +90,6 @@ const MentorSignUp = () => {
                             onSuccess={handleMetorGoogleSignUp}    />
                     </GoogleOAuthProvider>
                     </div>
-                    
-                        {/* <h1  >SignUp With Google</h1> */}
-                    
                 </div>
                 <div className=" w-full h-10 mt-1 p-1 flex-col" >
                     <h1 className="text-black text-sm ml-10" >--  Or SignUp With Your Email -- </h1>

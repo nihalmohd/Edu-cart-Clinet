@@ -18,8 +18,14 @@ const AdminLoginForm = () => {
   const handleAdminLogin = async (e: FormEvent) => {
     e.preventDefault()
     try {
-      const response = await axiosIntance.post("/admin/Login", { ...AdminEmail }) as AxiosResponse;
-      console.log(response.data)
+      const {data} = await axiosIntance.post("/admin/Login", { ...AdminEmail }) as AxiosResponse;
+      console.log(data)
+      const {AdminAccessToken,Adminlogincheck} = data
+      const AdminDatas={
+        AdminAccessToken,
+        Adminlogincheck
+    }
+    localStorage.setItem("Admin",JSON.stringify(AdminDatas))
       navigate("/EducartDash")
     } catch (error) {
       const errormsg = error as AxiosError;

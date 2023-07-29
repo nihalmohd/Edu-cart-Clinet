@@ -1,11 +1,10 @@
 import { useState } from "react"
 // import {useNavigate} from "react-router-dom"
-import LoginForn from "./LoginForm"
 import SignUpForm from "./SignUpForm"
 import MentorSignUp from "./MentorSignUp"
 
 
-const   Authbuttons = () => {  
+const  Authbuttons = () => {  
     // const navigate=useNavigate()
     const [ShowMentorSignUpForm,setShowMentorSignUpForm]=useState(false)
     const [showUserSignUpForm,setshowUserSignUpForm]=useState(true)

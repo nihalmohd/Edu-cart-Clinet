@@ -1,9 +1,10 @@
 import axios, { AxiosError } from 'axios'
-import { useState } from 'react'
+import { Children, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { axiosIntance } from '../../Api/config'
-import { GoogleOAuthProvider ,GoogleLogin, GoogleCredentialResponse} from '@react-oauth/google';
+import { GoogleOAuthProvider, GoogleLogin, GoogleCredentialResponse } from '@react-oauth/google';
 import jwt_decode from "jwt-decode";
+import OTP from './OTPVerification';
 
 interface ApiError {
     message: string;
@@ -12,12 +13,13 @@ interface JwtPayload {
     sub: string;
     name: string;
     exp: number;
-    email:string;
-  }
+    email: string;
+}
 
 const SignUpForm = () => {
     const navigate = useNavigate()
-
+    const [Otp, setOTP] = useState(false)
+    const [userOtp, setUserOtp] = useState<boolean>(false)
     const [SignUpErr, setSignUpErr] = useState<string | null>(null)
     const [user, Setuser] = useState({
         Email: "",
@@ -30,8 +32,15 @@ const SignUpForm = () => {
         console.log(user);
         try {
             const { data } = await axiosIntance.post("/user/register", { ...user })
+            const {AccessToken,User} = data
+             const Userdatas={
+                AccessToken,
+                User
+             }
+
+            localStorage.setItem("User",JSON.stringify(Userdatas))
             console.log(data);
-            navigate("/")
+            handleUserOTP()
         } catch (error) {
             const Error = error as AxiosError
             const SignUpError = Error.response?.data as ApiError
@@ -45,86 +54,105 @@ const SignUpForm = () => {
     const handleLogin = () => {
         navigate("/Login")
     }
-    const handleGoogleSignUp=async(credentialResponse:GoogleCredentialResponse)=>{
-        const {credential}=credentialResponse as GoogleCredentialResponse
-        if(credential){
+    const handleGoogleSignUp = async (credentialResponse: GoogleCredentialResponse) => {
+        const { credential } = credentialResponse as GoogleCredentialResponse
+        if (credential) {
             try {
-                var decoded:JwtPayload = jwt_decode(credential);
-                const User={
-                    Username:decoded.name,
-                    Email:decoded.email,
-                    Password:decoded.email.split("@")[0],
-                    IsGoogle:true
-                    
+                var decoded: JwtPayload = jwt_decode(credential);
+                const UserGoole = {
+                    Username: decoded.name,
+                    Email: decoded.email,
+                    Password: decoded.email.split("@")[0],
+                    IsGoogle: true
+
                 }
-                
-                const {data}=await axiosIntance.post("/user/register",{...User})
-                if(data){
-                    
-                    navigate("/")
+
+                const { data } = await axiosIntance.post("/user/register", { ...UserGoole })
+                const {AccessToken,User}=data
+                const Userdatas={
+                    AccessToken,
+                    User
                 }
+                localStorage.setItem("User",JSON.stringify(Userdatas))
+                if (data) {
+                    
+                    navigate("/",{replace:true})
+                }   
                 console.log(decoded);
-                
-                
+
+
             } catch (error) {
-                const googleSignUpErr=error as AxiosError
-                const googlesignUpErrMsg=googleSignUpErr?.response?.data as ApiError
-                const GoogleSignUpErrMess=googlesignUpErrMsg.message
+                const googleSignUpErr = error as AxiosError
+                const googlesignUpErrMsg = googleSignUpErr?.response?.data as ApiError
+                const GoogleSignUpErrMess = googlesignUpErrMsg.message
                 setSignUpErr(GoogleSignUpErrMess)
             }
-        }else{
+        } else {
             console.error('Invalid tokenId in GoogleCredentialResponse');
         }
     }
+    const handleUserOTP = async () => {
+        try {
+            setOTP(true)
+            const { data } = await axiosIntance.post("/user/OTP", {...user })
 
+        } catch (error) {
+
+        }
+    }
     return (
         <>
             <div className="w-80 h-10 pl-5 mt-3  ">
                 <div className="w-9 h-10 ml-3 flex-row justify-center items-center ">
-                    
+
                     <GoogleOAuthProvider clientId="357324625808-l9b5cg7tura0jriu178jdomecjkehfeh.apps.googleusercontent.com">
                         <GoogleLogin
-                            onSuccess={handleGoogleSignUp}    />
+                            onSuccess={handleGoogleSignUp} />
                     </GoogleOAuthProvider>
                     {/* <h1  >SignUp With Google</h1> */}
-                
-                            </div>
+
+                </div>
             </div>
             <div className=" w-full h-10 mt-1 p-1 flex-col" >
                 <h1 className="text-black text-sm ml-10" >--  Or SignUp With Your Email -- </h1>
             </div>
-            <div className=" w-full h-80 flex-col p-1">
-                <form action="">
-                    <div className=" w-full h-6 ">
-                        <h1>Email Address</h1>
-                    </div>
-                    <div className="w-full h-10 mt-1 ">
-                        <input className="w-full h h-full rounded-2xl border border-black p-2" name="Email" id="" placeholder="Enter Your Email Address" onInput={handleSignUpError} onChange={(e) => Setuser({ ...user, [e.target.name]: e.target.value })} />
-                    </div>
-                    <div className=" w-full h-6 ">
-                        <h1>Username</h1>
-                    </div>
-                    <div className="w-full h-10 mt-1 ">
-                        <input className="w-full h h-full rounded-2xl border border-black p-2" type="text" name="Username" id="" placeholder="Enter Username" required onInput={handleSignUpError} onChange={(e) => Setuser({ ...user, [e.target.name]: e.target.value })} />
-                    </div>
-                    <div className=" w-full h-6 ">
-                        <h1>Password</h1>
-                    </div>
-                    <div className="w-full h-10 mt-1 ">
-                        <input className="w-full h h-full rounded-2xl border border-black p-2" type="password" name="Password" id="" placeholder="Enter Password" required onInput={handleSignUpError} onChange={(e) => Setuser({ ...user, [e.target.name]: e.target.value })} />
-                    </div>
-                    <div className="w-full p-2">
-                        <h1 className='text-sm'>Already Have Account! <span className='text-blue-800 text-sm underline cursor-pointer' onClick={handleLogin} > Login</span></h1>
-                    </div>
-                    <p className='text-red-600 p-1 text-sm'>{SignUpErr}</p>
-                    <div className=" w-full h-10  justify-center items-center">
-                        <button onClick={handlesubmit} className="bg-black w-1/2 h-10 text-white ml-20 rounded-3xl">Register</button>
-                    </div>
-                </form>
-            </div>
+            {!Otp &&
+                <div className=" w-full h-80 flex-col p-1">
+                    <form action="">
+                        <div className=" w-full h-6 ">
+                            <h1>Email Address</h1>
+                        </div>
+                        <div className="w-full h-10 mt-1 ">
+                            <input className="w-full h h-full rounded-2xl border border-black p-2" name="Email" id="" placeholder="Enter Your Email Address" onInput={handleSignUpError} onChange={(e) => Setuser({ ...user, [e.target.name]: e.target.value })} />
+                        </div>
+                        <div className=" w-full h-6 ">
+                            <h1>Username</h1>
+                        </div>
+                        <div className="w-full h-10 mt-1 ">
+                            <input className="w-full h h-full rounded-2xl border border-black p-2" type="text" name="Username" id="" placeholder="Enter Username" required onInput={handleSignUpError} onChange={(e) => Setuser({ ...user, [e.target.name]: e.target.value })} />
+                        </div>
+                        <div className=" w-full h-6 ">
+                            <h1>Password</h1>
+                        </div>
+                        <div className="w-full h-10 mt-1 ">
+                            <input className="w-full h h-full rounded-2xl border border-black p-2" type="password" name="Password" id="" placeholder="Enter Password" required onInput={handleSignUpError} onChange={(e) => Setuser({ ...user, [e.target.name]: e.target.value })} />
+                        </div>
+                        <div className="w-full p-2">
+                            <h1 className='text-sm'>Already Have Account! <span className='text-blue-800 text-sm underline cursor-pointer' onClick={handleLogin} > Login</span></h1>
+                        </div>
+                        <p className='text-red-600 p-1 text-sm'>{SignUpErr}</p>
+                        <div className=" w-full h-10  justify-center items-center">
+                            <button onClick={handlesubmit} className="bg-black w-1/2 h-10 text-white ml-20 rounded-3xl">Register</button>
+                        </div>
+                    </form>
+                </div>}
+            {Otp && <OTP user={user}/>}
         </>
     )
-    }
+}
 
 
 export default SignUpForm
+
+
+
