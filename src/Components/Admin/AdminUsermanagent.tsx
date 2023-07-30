@@ -5,10 +5,11 @@ interface User {
     Email: string;
     Username: string;
     Status: boolean;
+    _id:string
   }
 const AdminUsermanagent :React.FC= () => {
 
-
+    const [blockUser,setBlockUsers]=useState <boolean>(true)
     const [getUser,SetGotUser]=useState<User [] >([])
     useEffect(()=>{
         handleUsers()
@@ -19,6 +20,26 @@ const AdminUsermanagent :React.FC= () => {
         SetGotUser(data.DisplayGetUser)
         console.log(data.DisplayGetUser);
     }
+    const handleBlockUser= async(_id:string)=>{
+       try {
+        const {data}=await axiosIntance.post("/Admin/blockUser",{_id})
+        handleUsers()
+        console.log(data);
+        console.log(blockUser);
+       } catch (error) {
+        console.log(error);
+       }
+    }
+    const handleUnBlockUser= async(_id:string)=>{
+        try {
+         const {data}=await axiosIntance.post("/Admin/UnblockUser",{_id})
+         handleUsers()
+         console.log(data);
+         console.log(blockUser);
+        } catch (error) {
+         console.log(error);
+        }
+     }
     
   return (
     <div>
@@ -80,14 +101,18 @@ const AdminUsermanagent :React.FC= () => {
      </tr>
    </thead>
    <tbody>
-    {
+    {   
         getUser.map((item,index)=>
             <tr>
         <td className='p-2'>{index}</td>
         <td>{item.Email}</td>
         <td>{item.Username}</td>
-        <td>Active</td>
-        <td><button className='w-20 h-6 bg-red-600  text-center text-black '>Block</button></td>
+        {item.Status?
+        <td className='text-green-400' >Active</td>:
+        <td className='text-red-500'>Non Active</td>}
+        {item.Status===true?
+        <td><button onClick={()=>handleBlockUser(item._id)} className='w-20 h-6 bg-red-600 rounded-3xl  text-center text-black  hover:cursor-pointer hover:scale-110 hover:bg-black hover:text-white hover:rounded-3xl '>Block</button></td>:
+        <td><button onClick={()=>handleUnBlockUser(item._id)} className='w-20 h-6 bg-green-500  rounded-3xl  text-center text-black  hover:cursor-pointer hover:scale-110 hover:bg-black hover:text-white hover:rounded-3xl '>Unblock</button></td>}
     </tr>
     )
     }
