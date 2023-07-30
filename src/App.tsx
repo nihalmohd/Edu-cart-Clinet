@@ -9,6 +9,7 @@ import ProtectedRoute from "./Pages/User/UserProtectedRouter"
 import MentorHome from "./Pages/Mentor/MentorHome"
 import MentorUsers from "./Pages/Mentor/MentorUsers"
 import AdminUsers from "./Pages/Admin/AdminUsers"
+import AdminProtectedRouter from "./Pages/Admin/AdminProtectedRouter"
 
 
 function App() {
@@ -27,7 +28,7 @@ function App() {
 
       {/*Mentor Side */}
       <Route path="/MentorHome" element={<MentorHome/>}/>
-      <Route path="/MentorUsers" element={<MentorUsers/>}/>
+      <Route path="/MentorUsers" element={<AdminProtectedRouter><MentorUsers/></AdminProtectedRouter>}/>
     </Routes>
    </Router>
   )
