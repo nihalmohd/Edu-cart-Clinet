@@ -1,7 +1,3 @@
-import React from 'react'
-import { FaRegHeart,FaShoppingCart } from 'react-icons/fa'
-import { GrNotification } from 'react-icons/gr';
-
 
 const MentorNav = () => {
   return (

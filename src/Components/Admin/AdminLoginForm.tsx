@@ -1,6 +1,6 @@
 import { FormEvent, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import axios,{AxiosError,AxiosResponse} from "axios"
+import {AxiosError,AxiosResponse} from "axios"
 import { axiosIntance } from "../../Api/config";
 
 interface ApiError {

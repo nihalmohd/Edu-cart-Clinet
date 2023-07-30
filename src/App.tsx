@@ -10,6 +10,7 @@ import MentorHome from "./Pages/Mentor/MentorHome"
 import MentorUsers from "./Pages/Mentor/MentorUsers"
 import AdminUsers from "./Pages/Admin/AdminUsers"
 import AdminProtectedRouter from "./Pages/Admin/AdminProtectedRouter"
+import AdminMentors from "./Pages/Admin/AdminMentors"
 
 
 function App() {
@@ -24,11 +25,13 @@ function App() {
       {/*Admin Side */}
       <Route path="/EducartLogin" Component={AdminLogin} />
       <Route path="/EducartDash" Component={AdminDashboard}/>
-      <Route path="/EducartUsers" element={<AdminUsers/>}/>
+      <Route path="/EducartUsers" element={<AdminProtectedRouter><AdminUsers/></AdminProtectedRouter>}/>
+      <Route path="/EducartMentors" element={<AdminProtectedRouter><AdminMentors/></AdminProtectedRouter>}/>
+
 
       {/*Mentor Side */}
       <Route path="/MentorHome" element={<MentorHome/>}/>
-      <Route path="/MentorUsers" element={<AdminProtectedRouter><MentorUsers/></AdminProtectedRouter>}/>
+      <Route path="/MentorUsers" element={<MentorUsers/>}/>
     </Routes>
    </Router>
   )

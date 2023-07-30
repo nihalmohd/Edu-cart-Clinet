@@ -1,4 +1,3 @@
-import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const AdminNav = () => {
@@ -12,7 +11,7 @@ const AdminNav = () => {
     <div className="hidden sm:flex items-center space-x-4 p-2">
       <span className="text-black hover:font-bold"> Courses</span>
       <span className="text-black hover:font-bold" onClick={()=>{navigate("/EducartUsers")}} >Users</span>
-      <span className="text-black hover:font-bold">Mentor</span>
+      <span className="text-black hover:font-bold" onClick={()=>{navigate("/EducartMentor")}} >Mentor</span>
       <span className="text-black hover:font-bold" >Dashboard</span>
       <span className="text-black hover:font-bold">Profile</span>
       <img

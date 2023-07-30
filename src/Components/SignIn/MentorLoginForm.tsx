@@ -25,6 +25,12 @@ const MentorLoginForm = () => {
     e.preventDefault()
     try {
       const {data}=await axiosIntance.post("/Mentor/MentorLogin", { ...MentorLogin })
+      const {AccessToken,Mentor}=data
+      const MentorDatas={
+        AccessToken,
+        Mentor
+      }
+      localStorage.setItem("Mentor",JSON.stringify(MentorDatas))
       navigate("/")
     } catch (error) {
       const MentorLoginError = error as AxiosError
@@ -46,7 +52,7 @@ const MentorLoginForm = () => {
     if(credential){
         try {
             var decoded:JwtPayload = jwt_decode(credential);
-            const Mentor={
+            const MentorGoogle={
                 Username:decoded.name,
                 Email:decoded.email,
                 Password:decoded.email.split("@")[0],
@@ -54,11 +60,14 @@ const MentorLoginForm = () => {
                 
             }
             
-            const {data}=await axiosIntance.post("/Mentor/MentorRegister",{...Mentor})
-            if(data){
-                
+            const {data}=await axiosIntance.post("/Mentor/MentorRegister",{...MentorGoogle})
+                const {AccessToken,Mentor} = data
+                const MentorDatas={
+                  AccessToken,
+                  Mentor
+                }
+                localStorage.setItem("Mentor",JSON.stringify(MentorDatas))
                 navigate("/")
-            }
             console.log(decoded);
             
             

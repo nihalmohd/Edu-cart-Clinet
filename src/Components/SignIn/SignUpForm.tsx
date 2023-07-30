@@ -1,5 +1,5 @@
-import axios, { AxiosError } from 'axios'
-import { Children, useState } from 'react'
+import { AxiosError } from 'axios'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { axiosIntance } from '../../Api/config'
 import { GoogleOAuthProvider, GoogleLogin, GoogleCredentialResponse } from '@react-oauth/google';
@@ -32,13 +32,13 @@ const SignUpForm = () => {
         console.log(user);
         try {
             const { data } = await axiosIntance.post("/user/register", { ...user })
-            const {AccessToken,User} = data
-             const Userdatas={
+            const { AccessToken, User } = data
+            const Userdatas = {
                 AccessToken,
                 User
-             }
+            }
 
-            localStorage.setItem("User",JSON.stringify(Userdatas))
+            localStorage.setItem("User", JSON.stringify(Userdatas))
             console.log(data);
             handleUserOTP()
         } catch (error) {
@@ -68,16 +68,16 @@ const SignUpForm = () => {
                 }
 
                 const { data } = await axiosIntance.post("/user/register", { ...UserGoole })
-                const {AccessToken,User}=data
-                const Userdatas={
+                const { AccessToken, User } = data
+                const Userdatas = {
                     AccessToken,
                     User
                 }
-                localStorage.setItem("User",JSON.stringify(Userdatas))
+                localStorage.setItem("User", JSON.stringify(Userdatas))
                 if (data) {
-                    
-                    navigate("/",{replace:true})
-                }   
+
+                    navigate("/", { replace: true })
+                }
                 console.log(decoded);
 
 
@@ -94,8 +94,9 @@ const SignUpForm = () => {
     const handleUserOTP = async () => {
         try {
             setOTP(true)
-            const { data } = await axiosIntance.post("/user/OTP", {...user })
-
+            const { data } = await axiosIntance.post("/user/OTP", { ...user })
+            console.log(data);
+            
         } catch (error) {
 
         }
@@ -146,7 +147,7 @@ const SignUpForm = () => {
                         </div>
                     </form>
                 </div>}
-            {Otp && <OTP user={user}/>}
+            {Otp && <OTP user={user} />}
         </>
     )
 }

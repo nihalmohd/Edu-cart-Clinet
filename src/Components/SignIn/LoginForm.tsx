@@ -28,6 +28,12 @@ const LoginForm = () => {
         e.preventDefault();
         try {
             const { data } = await axiosIntance.post("/user/login", { ...LoginUser })
+            const {AccessToken,User}=data
+            const UserDatas={
+                AccessToken,
+                User
+            }
+            localStorage.setItem("User",JSON.stringify(UserDatas))
             navigate("/")
         } catch (error) {
             const err = error as AxiosError;
