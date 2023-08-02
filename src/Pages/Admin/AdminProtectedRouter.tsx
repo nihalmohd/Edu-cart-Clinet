@@ -1,13 +1,12 @@
 
-import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 interface AdminProtectedRouterProps {
     children: React.ReactNode
 }
 const AdminProtectedRouter:React.FC<AdminProtectedRouterProps> = ({ children}): any => {
-    const navigate=useNavigate()
-    const User = JSON.parse(localStorage.getItem("Admin") as string);
-    return User ? children: navigate("/EducartLogin") 
+    const Admin = JSON.parse(localStorage.getItem("Admin") as string);
+    return Admin ? children: <Navigate to={"/EducartLogin"}/>
 }
 
 export default AdminProtectedRouter

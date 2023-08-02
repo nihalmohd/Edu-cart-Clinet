@@ -9,7 +9,7 @@ interface User {
   }
 const AdminUsermanagent :React.FC= () => {
 
-    const [blockUser,setBlockUsers]=useState <boolean>(true)
+    // const [blockUser,setBlockUsers]=useState <boolean>(true)
     const [getUser,SetGotUser]=useState<User [] >([])
     useEffect(()=>{
         handleUsers()
@@ -25,7 +25,7 @@ const AdminUsermanagent :React.FC= () => {
         const {data}=await axiosIntance.post("/Admin/blockUser",{_id})
         handleUsers()
         console.log(data);
-        console.log(blockUser);
+        // console.log(blockUser);
        } catch (error) {
         console.log(error);
        }
@@ -35,14 +35,14 @@ const AdminUsermanagent :React.FC= () => {
          const {data}=await axiosIntance.post("/Admin/UnblockUser",{_id})
          handleUsers()
          console.log(data);
-         console.log(blockUser);
+        //  console.log(blockUser);
         } catch (error) {
          console.log(error);
         }
      }
     
   return (
-    <div>
+    <div >
     <div className='p-3'> 
    <div className="relative overflow-x-auto shadow-md sm:rounded-lg ">
  <div className="flex items-center justify-between pb-4 bg-white dark:bg-gray-900">
@@ -114,8 +114,7 @@ const AdminUsermanagent :React.FC= () => {
         <td><button onClick={()=>handleBlockUser(item._id)} className='w-20 h-6 bg-red-600 rounded-3xl  text-center text-black  hover:cursor-pointer hover:scale-110 hover:bg-black hover:text-white hover:rounded-3xl '>Block</button></td>:
         <td><button onClick={()=>handleUnBlockUser(item._id)} className='w-20 h-6 bg-green-500  rounded-3xl  text-center text-black  hover:cursor-pointer hover:scale-110 hover:bg-black hover:text-white hover:rounded-3xl '>Unblock</button></td>}
     </tr>
-    )
-    }
+    )}
     </tbody>
     </table>
     </div>

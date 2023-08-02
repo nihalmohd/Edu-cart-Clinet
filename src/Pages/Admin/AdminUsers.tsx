@@ -5,7 +5,7 @@ import AdminUsermanagent from '../../Components/Admin/AdminUsermanagent'
 
 const AdminUsers = () => {
   return (
-    <div>
+    <div  >
         <AdminNav/>
         <AdminUsermanagent/>
     </div>

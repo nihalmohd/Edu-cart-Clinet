@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { axiosIntance } from "../../Api/config"
 import {AxiosError} from "axios"
@@ -15,6 +15,13 @@ interface ApiError {
   }
 
 const LoginForm = () => {
+    useEffect(() => {
+        const User=  localStorage.getItem("User")      
+        if(User){
+            navigate("/")
+        }
+        }, [])
+
     const navigate=useNavigate()
     const [UserLoginErr,setUserLoginErr]=useState<string|null>(null)
     const [LoginUser, setLoginUser] = useState({
@@ -64,7 +71,12 @@ const handleSignUp=()=>{
             
             const {data}=await axiosIntance.post("/user/register",{...User})
             if(data){
-                
+                const {AccessToken,User}=data
+                const UserDatas={
+                    AccessToken,
+                    User
+                }
+                localStorage.setItem("User",JSON.stringify(UserDatas))
                 navigate("/")
             }
             console.log(decoded);

@@ -1,4 +1,48 @@
+import { useEffect, useState } from "react";
+import { axiosIntance } from "../../Api/config";
+
+
+interface Mentor {
+  Email: string;
+  Username: string;
+  Status: boolean;
+  _id:string
+}
+
 const AdminMentorManagment = () => {
+  const [GetMentor,SetGotMentor]=useState<Mentor [] >([])
+  useEffect(()=>{
+    handleMentors()
+  },[])
+
+  const handleMentors=async ()=>{
+    const {data}= await axiosIntance.post("/Admin/getMentors")
+    SetGotMentor(data.DisplayGetUser)
+    console.log(data.DisplayGetUser);
+}
+const handleBlockMentor=async (_id:string)=>{
+try {
+  const {data}=await axiosIntance.post("/Admin/blockMentor",{_id})
+  handleMentors()
+  console.log(data);
+} catch (error) {
+  console.log(error);
+  
+}
+
+}
+const handleUnBlockMentor=async (_id:string)=>{
+  try {
+    const {data}=await axiosIntance.post("/Admin/UnblockMentor",{_id})
+    handleMentors()
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+    
+  }
+  
+  }
+
   return (
     <div>
     <div className='p-3'> 
@@ -59,13 +103,20 @@ const AdminMentorManagment = () => {
      </tr>
    </thead>
    <tbody>
+    {
+      GetMentor.map((items,index)=>
        <tr>
-        <td className='p-2'>{}</td>
-        <td>Email</td>
-        <td>Username</td>
-        <td className='text-red-500'>Non Active</td>
-        <td><button className='w-20 h-6 bg-red-600 rounded-3xl  text-center text-black  hover:cursor-pointer hover:scale-110 hover:bg-black hover:text-white hover:rounded-3xl '>Block</button></td>
+        <td className='p-2'>{index+1}</td>
+        <td>{items.Email}</td>
+        <td>{items.Username}</td>
+        {items.Status?
+        <td className='text-green-400' >Active</td>:
+        <td className='text-red-500'>Non Active</td>}
+        {items.Status===true?
+        <td><button className='w-20 h-6 bg-red-600 rounded-3xl  text-center text-black  hover:cursor-pointer hover:scale-110 hover:bg-black hover:text-white hover:rounded-3xl' onClick={()=>handleBlockMentor(items._id)} >Block</button></td>:
+        <td><button className='w-20 h-6 bg-green-500  rounded-3xl  text-center text-black  hover:cursor-pointer hover:scale-110 hover:bg-black hover:text-white hover:rounded-3xl' onClick={()=>handleUnBlockMentor(items._id)} >Unblock</button></td>}
     </tr>
+      )}
     </tbody>
     </table>
     </div>

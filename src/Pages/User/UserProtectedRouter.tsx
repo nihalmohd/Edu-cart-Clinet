@@ -1,5 +1,5 @@
 import React from 'react'
-import { useNavigate } from "react-router-dom"
+import { Navigate, useNavigate } from "react-router-dom"
 
 interface UserProtectedRouterProps {
     children: React.ReactNode
@@ -7,8 +7,9 @@ interface UserProtectedRouterProps {
 
 
 const UserProtectedRouter:React.FC<UserProtectedRouterProps> = ({ children}): any => {
-    const navigate=useNavigate()
     const User = JSON.parse(localStorage.getItem("User") as any);
-    return User ? children: navigate("/Signup") 
+    console.log(User,"prottectd routil yethiiiiiii");
+    
+    return User ? children: <Navigate to={"/Login"}/>
 }
 export default UserProtectedRouter

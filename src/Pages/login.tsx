@@ -1,6 +1,7 @@
+import React from 'react'
 import LoginFormImage from '../Components/SignIn/LoginFormImage'
 
-const login = () => {
+const Login = () => {
   return (
     <div>
         <LoginFormImage/>
@@ -8,4 +9,4 @@ const login = () => {
   )
 }
 
-export default login
+export default Login

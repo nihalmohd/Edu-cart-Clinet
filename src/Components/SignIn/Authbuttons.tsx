@@ -2,6 +2,7 @@ import { useState } from "react"
 // import {useNavigate} from "react-router-dom"
 import SignUpForm from "./SignUpForm"
 import MentorSignUp from "./MentorSignUp"
+import { Navigate, useNavigate } from "react-router-dom"
 
 
 const  Authbuttons = () => {  

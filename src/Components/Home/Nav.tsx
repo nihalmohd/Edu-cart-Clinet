@@ -1,7 +1,17 @@
+import { useState } from 'react';
 import { FaRegHeart,FaShoppingCart } from 'react-icons/fa'
 import { GrNotification } from 'react-icons/gr';
+import { useNavigate } from 'react-router-dom';
 
 const Nav = () => {
+  const navigate=useNavigate()
+  const [showDropdown,SetshowDropdown]= useState<boolean>(false)
+
+  const handleLogout=()=>{
+   const User= localStorage.removeItem("User")
+   navigate("/SignUp")
+   console.log(User);
+  }
   return (
     <div className="flex flex-col justify-center">
       <div className="w-full h-20 sm:h-[65px] flex justify-between border shadow-lg border-b">
@@ -63,9 +73,17 @@ const Nav = () => {
           <img
             className="h-8 w-8 rounded-3xl border border-black mr-2"
             src="\Images\profile-icon-png-910.png"
-            alt="User Profile"
+            alt="User Profile" onClick={()=>{SetshowDropdown(!showDropdown)}}
           />
         </div>
+        {showDropdown && (
+              <div className="absolute right-0 mt-20 w-40  bg-white border border-gray-300 rounded-lg shadow-lg">
+                <ul >
+                  <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">My Profile</li>
+                  <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer" onClick={handleLogout}  >Logout</li>
+                </ul>
+              </div>
+            )}
       </div>
     </div>
   )

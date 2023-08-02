@@ -1,7 +1,6 @@
 import {BrowserRouter as Router,Route,Routes} from "react-router-dom"
 import Home from "./Pages/User/Home"
 import SignIn from "./Pages/SignIn "
-import login from "./Pages/login"
 import './App.css'
 import AdminLogin from "./Pages/Admin/AdminLogin"
 import AdminDashboard from "./Pages/Admin/AdminDashboard"
@@ -11,6 +10,8 @@ import MentorUsers from "./Pages/Mentor/MentorUsers"
 import AdminUsers from "./Pages/Admin/AdminUsers"
 import AdminProtectedRouter from "./Pages/Admin/AdminProtectedRouter"
 import AdminMentors from "./Pages/Admin/AdminMentors"
+import Login from "./Pages/Login"
+import MentoProtectedRouter from "./Pages/Mentor/MentoProtectedRouter"
 
 
 function App() {
@@ -20,8 +21,8 @@ function App() {
    <Router>
     <Routes>
       <Route path="/" element={<ProtectedRoute><Home/></ProtectedRoute>} />
-      <Route path="/signUp" Component={SignIn}  />
-      <Route path="/Login" Component={login}/>
+      <Route path="/signUp" element={<SignIn/>}  />
+      <Route path="/Login" element={<Login />}/>
       {/*Admin Side */}
       <Route path="/EducartLogin" Component={AdminLogin} />
       <Route path="/EducartDash" Component={AdminDashboard}/>
@@ -30,8 +31,8 @@ function App() {
 
 
       {/*Mentor Side */}
-      <Route path="/MentorHome" element={<MentorHome/>}/>
-      <Route path="/MentorUsers" element={<MentorUsers/>}/>
+      <Route path="/MentorHome" element={<MentoProtectedRouter><MentorHome/></MentoProtectedRouter>}/>
+      <Route path="/MentorUsers" element={<MentoProtectedRouter><MentorUsers/></MentoProtectedRouter>}/>
     </Routes>
    </Router>
   )

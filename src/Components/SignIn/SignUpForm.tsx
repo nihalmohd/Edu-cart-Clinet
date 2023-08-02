@@ -1,5 +1,5 @@
 import { AxiosError } from 'axios'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { axiosIntance } from '../../Api/config'
 import { GoogleOAuthProvider, GoogleLogin, GoogleCredentialResponse } from '@react-oauth/google';
@@ -17,9 +17,17 @@ interface JwtPayload {
 }
 
 const SignUpForm = () => {
+useEffect(() => {
+const User=  localStorage.getItem("User")      
+if(User){
+    navigate("/")
+}
+}, [])
+
+
     const navigate = useNavigate()
     const [Otp, setOTP] = useState(false)
-    const [userOtp, setUserOtp] = useState<boolean>(false)
+    // const [userOtp, setUserOtp] = useState<boolean>(false)
     const [SignUpErr, setSignUpErr] = useState<string | null>(null)
     const [user, Setuser] = useState({
         Email: "",
@@ -68,15 +76,15 @@ const SignUpForm = () => {
                 }
 
                 const { data } = await axiosIntance.post("/user/register", { ...UserGoole })
-                const { AccessToken, User } = data
-                const Userdatas = {
-                    AccessToken,
-                    User
-                }
-                localStorage.setItem("User", JSON.stringify(Userdatas))
                 if (data) {
-
+                    
                     navigate("/", { replace: true })
+                    const { AccessToken, User } = data
+                    const Userdatas = {
+                        AccessToken,
+                        User
+                    }
+                    localStorage.setItem("User", JSON.stringify(Userdatas))
                 }
                 console.log(decoded);
 

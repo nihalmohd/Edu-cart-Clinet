@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from 'react'
+import React, { FormEvent, useEffect, useState } from 'react'
 import { axiosIntance } from '../../Api/config'
 import { useNavigate } from 'react-router-dom'
 import { AxiosError } from 'axios'
@@ -16,6 +16,13 @@ interface JwtPayload {
 
 const MentorLoginForm = () => {
   const navigate = useNavigate()
+  useEffect(() => {
+    const Mentor=localStorage.getItem("Mentor")
+    if(Mentor){
+   navigate("/MentorHome")
+    }
+  }, [])
+  
   const [MentorLoignErr, setmentorLoginErr] = useState<string | null>(null)
   const [MentorLogin, setMentorLogin] = useState({
     Username: "",
@@ -31,7 +38,7 @@ const MentorLoginForm = () => {
         Mentor
       }
       localStorage.setItem("Mentor",JSON.stringify(MentorDatas))
-      navigate("/")
+      navigate("/MentorHome")
     } catch (error) {
       const MentorLoginError = error as AxiosError
       const MentorLognErrorMsg = MentorLoginError?.response?.data as ApiError
