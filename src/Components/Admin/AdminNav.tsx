@@ -22,6 +22,9 @@ const AdminNav = () => {
           <span className="text-black hover:font-bold" onClick={() => navigate('/EducartMentors')}>
             Mentor
           </span>
+          <span className="text-black hover:font-bold" onClick={() => navigate('/EducartBanner')}>
+            Banner
+          </span>
           <span className="text-black hover:font-bold">Dashboard</span>
           <span className="text-black hover:font-bold">Profile</span>
           <div style={{ position: 'relative' }}>

@@ -1,10 +1,12 @@
-import AdminDashboardD from "../../Components/Admin/AdminDashboardD"
+
+import AdminNav from "../../Components/Admin/AdminNav"
 
 
 const AdminDashboard = () => {
   return (
     <div>
-        <AdminDashboardD/>
+        <AdminNav/>
+        DashBoard
     </div>
   )
 }
