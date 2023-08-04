@@ -35,10 +35,12 @@ const LoginForm = () => {
         e.preventDefault();
         try {
             const { data } = await axiosIntance.post("/user/login", { ...LoginUser })
-            const {AccessToken,User}=data
+            const {AccessToken,logincheck}=data
+            console.log(data);
+            
             const UserDatas={
                 AccessToken,
-                User
+                logincheck
             }
             localStorage.setItem("User",JSON.stringify(UserDatas))
             navigate("/")
