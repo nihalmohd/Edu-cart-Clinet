@@ -104,7 +104,7 @@ const AdminUsermanagent :React.FC= () => {
     {   
         getUser.map((item,index)=>
             <tr>
-        <td className='p-2'>{index}</td>
+        <td className='p-2'>{index+1}</td>
         <td>{item.Email}</td>
         <td>{item.Username}</td>
         {item.Status?

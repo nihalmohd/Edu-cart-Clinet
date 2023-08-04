@@ -11,7 +11,12 @@ const AdminBannerForm = () => {
         </div>
       </div>
       <div className="w-full bg-red-500">
-        div.w-
+        <div className="w-10 h-20 bg-yellow-500 flex justify-between">
+          
+        </div>
+          <div className="w-10 h-20 bg-green-500 ">
+
+          </div>
       </div>
     </div>
   )
