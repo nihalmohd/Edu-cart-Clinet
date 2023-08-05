@@ -1,14 +1,26 @@
-import React, { useRef, ChangeEvent, useState,FormEvent } from 'react';
+import React, { useRef, ChangeEvent, useState,FormEvent, useEffect } from 'react';
 import { axiosIntance } from '../../Api/config';
+
+interface BannerForm {
+  Image:string|null
+  Content:string
+}
 
 const AdminBannerForm: React.FC = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
-  const [bannerdata,setBannerdata]=useState({
-    Image:imagePreview,
+  console.log(imagePreview);
+  
+  const [bannerdata,setBannerdata]=useState<BannerForm>({
+    Image:"",
     Content:""
   })
+  useEffect(()=>{
+    setBannerdata({...bannerdata,Image:imagePreview})
+  },[imagePreview]);
+
+console.log({bannerdata});
 
   
   const handleBannerForm=(e:FormEvent)=>{
@@ -81,6 +93,7 @@ const AdminBannerForm: React.FC = () => {
             </div>
             {/* Use the hidden file input and attach the ref */}
             <input
+            required
               type="file"
               id="image"
               name="image"
@@ -97,9 +110,10 @@ const AdminBannerForm: React.FC = () => {
               </label>
             </div>
             <textarea
+            onChange={(e)=>setBannerdata({...bannerdata,[e.target.name]:e.target.value})}
               required
               id="bannerContent"
-              name="bannerContent"
+              name="Content"
               className="w-full h-12 rounded-lg bg-transparent border-2 text-lg border-black"
             ></textarea>
           </div>
