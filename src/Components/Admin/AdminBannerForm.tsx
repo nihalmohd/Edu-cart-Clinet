@@ -6,8 +6,8 @@ const AdminBannerForm: React.FC = () => {
   const formRef = useRef<HTMLFormElement>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [bannerdata,setBannerdata]=useState({
-    Image:imagePreview
-    Content:
+    Image:imagePreview,
+    Content:""
   })
 
   
