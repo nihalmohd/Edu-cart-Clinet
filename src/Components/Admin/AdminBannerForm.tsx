@@ -1,10 +1,15 @@
 import React, { useRef, ChangeEvent, useState,FormEvent, useEffect } from 'react';
 import { axiosIntance } from '../../Api/config';
+import { AxiosResponse } from 'axios';
 
 interface BannerForm {
   Image:string|null
   Content:string
 }
+interface ApiError {
+  message: string;
+}
+
 
 const AdminBannerForm: React.FC = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -23,7 +28,10 @@ const AdminBannerForm: React.FC = () => {
 console.log({bannerdata});
 
   
-  const handleBannerForm=(e:FormEvent)=>{
+  const handleBannerForm=async(e:FormEvent)=>{
+    e.preventDefault()
+     const {data}=await axiosIntance.post("/Admin/BannerUpload",{...bannerdata})
+     console.log(data);
      
   }
 
@@ -57,22 +65,20 @@ console.log({bannerdata});
     } else {
       setImagePreview(null);
     }
-
-    // Handle the file as needed (e.g., upload to server)
     console.log('Selected file:', selectedFile);
   };
 
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault(); // Prevent the default form submission
-    formRef.current?.submit(); // Submit the form using the submit() method
+    event.preventDefault(); 
+    formRef.current?.submit(); 
   };
 
   return (
     <div className="max-w-2xl mx-auto">
       <form
-        ref={formRef} // Attach the form ref here
+        ref={formRef} 
         className="border-dotted border-2 border-black p-2 relative m-4"
-        onSubmit={handleFormSubmit} // Attach the form submission handler
+        onSubmit={handleFormSubmit} 
       >
         <div className="w-full flex justify-center items-center p-2">
           <h1 className="font-bold text-2xl sm:text-lg md:text-2xl">Educart Banners</h1>
@@ -84,22 +90,22 @@ console.log({bannerdata});
                 Image<span className="text-red-700 flex-row">*</span>
               </label>
             </div>
-            {/* Replace the input element with a custom-styled div */}
+          
             <div
               className="w-full h-12 rounded-lg bg-gray-200 border-2 border-black flex justify-center items-center cursor-pointer"
               onClick={handleBrowseButtonClick}
             >
               Take a Banner Image
             </div>
-            {/* Use the hidden file input and attach the ref */}
+           
             <input
             required
               type="file"
               id="image"
               name="image"
-              accept="image/*" // To restrict the selection to image files
+              accept="image/*" 
               className="hidden w-full h-12 rounded-lg bg-transparent border-2 border-black"
-              ref={fileInputRef} // Attach the ref here
+              ref={fileInputRef} 
               onChange={handleFileChange}
             />
           </div>
@@ -118,13 +124,13 @@ console.log({bannerdata});
             ></textarea>
           </div>
         </div>
-        {/* Image preview div */}
+
         {imagePreview && (
           <div className="w-full mt-3">
             <img src={imagePreview} alt="Banner Preview" className="w-full h-40 object-cover rounded-lg" />
           </div>
         )}
-        {/* You can add the "Browse" button if you prefer */}
+
         <div className="w-full flex justify-center items-center mt-3">
           <button
             className="w-40 h-10 bg-black rounded-lg text-white hover:bg-white hover:text-black hover:border-2 hover:border-black flex justify-center items-center cursor-pointer"
