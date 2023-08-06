@@ -10,7 +10,7 @@ interface User {
 const AdminUsermanagent :React.FC= () => {
 
     // const [blockUser,setBlockUsers]=useState <boolean>(true)
-    const [getUser,SetGotUser]=useState<User [] >([])
+    const [getUser,SetGotUser]=useState<User []>([])
     useEffect(()=>{
         handleUsers()
         

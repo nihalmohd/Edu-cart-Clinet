@@ -1,38 +1,37 @@
-import React, { useRef, ChangeEvent, useState,FormEvent, useEffect } from 'react';
+import React, { useRef, ChangeEvent, useState, FormEvent, useEffect } from 'react';
 import { axiosIntance } from '../../Api/config';
-import { AxiosResponse } from 'axios';
+import AdminDisplayBanner from './AdminDisplayBanner';
 
 interface BannerForm {
-  Image:string|null
-  Content:string
+  Image: string | null
+  Content: string
 }
 interface ApiError {
   message: string;
 }
-
-
 const AdminBannerForm: React.FC = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [dataProps, setDataprops] = useState()
   console.log(imagePreview);
-  
-  const [bannerdata,setBannerdata]=useState<BannerForm>({
-    Image:"",
-    Content:""
+
+  const [bannerdata, setBannerdata] = useState<BannerForm>({
+    Image: "",
+    Content: ""
   })
-  useEffect(()=>{
-    setBannerdata({...bannerdata,Image:imagePreview})
-  },[imagePreview]);
+  useEffect(() => {
+    setBannerdata({ ...bannerdata, Image: imagePreview })
+  }, [imagePreview]);
 
-console.log({bannerdata});
+  console.log({ bannerdata });
 
-  
-  const handleBannerForm=async(e:FormEvent)=>{
+
+  const handleBannerForm = async (e: FormEvent) => {
     e.preventDefault()
-     const {data}=await axiosIntance.post("/Admin/BannerUpload",{...bannerdata})
-     console.log(data);
-     
+    const { data } = await axiosIntance.post("/Admin/BannerUpload", { ...bannerdata })
+    console.log(data);
+    setDataprops(data)
   }
 
   const handleBrowseButtonClick = () => {
@@ -45,20 +44,20 @@ console.log({bannerdata});
     const selectedFile = event.target.files && event.target.files[0];
 
     if (selectedFile) {
-      
+
       const formData = new FormData();
       formData.append('file', selectedFile);
       formData.append('upload_preset', 'Educart');
-      
+
       try {
         const { data } = await axiosIntance.post(
           'https://api.cloudinary.com/v1_1/dgb07yvbv/image/upload/',
           formData
-          );
-          const imageUrl=data.secure_url
-          console.log(imageUrl,
-            'cloudinrn data kittiiyo');
-          setImagePreview(imageUrl);
+        );
+        const imageUrl = data.secure_url
+        console.log(imageUrl,
+          'cloudinrn data kittiiyo');
+        setImagePreview(imageUrl);
       } catch (error) {
         console.error('Upload error:', error);
       }
@@ -69,16 +68,16 @@ console.log({bannerdata});
   };
 
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault(); 
-    formRef.current?.submit(); 
+    event.preventDefault();
+    formRef.current?.submit();
   };
 
   return (
-    <div className="max-w-2xl mx-auto">
+    <div className="max-w-2xl mx-auto flex-row">
       <form
-        ref={formRef} 
+        ref={formRef}
         className="border-dotted border-2 border-black p-2 relative m-4"
-        onSubmit={handleFormSubmit} 
+        onSubmit={handleFormSubmit}
       >
         <div className="w-full flex justify-center items-center p-2">
           <h1 className="font-bold text-2xl sm:text-lg md:text-2xl">Educart Banners</h1>
@@ -90,22 +89,22 @@ console.log({bannerdata});
                 Image<span className="text-red-700 flex-row">*</span>
               </label>
             </div>
-          
+
             <div
               className="w-full h-12 rounded-lg bg-gray-200 border-2 border-black flex justify-center items-center cursor-pointer"
               onClick={handleBrowseButtonClick}
             >
               Take a Banner Image
             </div>
-           
+
             <input
-            required
+              required
               type="file"
               id="image"
               name="image"
-              accept="image/*" 
+              accept="image/*"
               className="hidden w-full h-12 rounded-lg bg-transparent border-2 border-black"
-              ref={fileInputRef} 
+              ref={fileInputRef}
               onChange={handleFileChange}
             />
           </div>
@@ -116,7 +115,7 @@ console.log({bannerdata});
               </label>
             </div>
             <textarea
-            onChange={(e)=>setBannerdata({...bannerdata,[e.target.name]:e.target.value})}
+              onChange={(e) => setBannerdata({ ...bannerdata, [e.target.name]: e.target.value })}
               required
               id="bannerContent"
               name="Content"
@@ -135,11 +134,13 @@ console.log({bannerdata});
           <button
             className="w-40 h-10 bg-black rounded-lg text-white hover:bg-white hover:text-black hover:border-2 hover:border-black flex justify-center items-center cursor-pointer"
             onClick={handleBannerForm}
-           >
+          >
             Upload
           </button>
         </div>
       </form>
+    <AdminDisplayBanner/>
+      
     </div>
   );
 };

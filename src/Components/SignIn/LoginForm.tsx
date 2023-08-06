@@ -79,7 +79,7 @@ const handleSignUp=()=>{
                     User
                 }
                 localStorage.setItem("User",JSON.stringify(UserDatas))
-                navigate("/")
+                navigate("/") 
             }
             console.log(decoded);
             
