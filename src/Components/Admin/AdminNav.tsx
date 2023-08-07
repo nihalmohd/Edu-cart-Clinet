@@ -9,11 +9,12 @@ const AdminNav = () => {
     localStorage.removeItem('Admin');
     navigate('/EducartLogin');
   };
+
   return (
     <div className="flex flex-col justify-center">
-      <div className="w-full h-20 sm:h-[65px]  flex justify-between border shadow-lg border-b">
-        <img className="h-full w-1/3 sm:1/3" src="/Images/Untitled-1-01.png" alt="Logo" />
-        <div className={`hidden md:flex items-center space-x-4 p-2 bg-red-300 ${""}` }>
+      <div className="w-full h-20 sm:h-[65px] flex justify-between border shadow-lg border-b">
+        <img className="h-full w-1/3 sm:w-1/6" src="/Images/Untitled-1-01.png" alt="Logo" />
+        <div className="hidden sm:flex items-center space-x-4 p-2 relative ">
           <span className="text-black hover:font-bold">
             Courses
           </span>
