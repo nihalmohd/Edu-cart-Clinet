@@ -7,12 +7,13 @@ import { axiosIntance } from '../../Api/config'
 
 
 interface Banner{
-    Image:""
-    Content:""
+    Image:string
+    Content:string
+    _id:string
+    Status:boolean
 }
 
 const AdminDisplayBanner: React.FC= ()=> {
-    const [bannerBlock,SetbannerBlock]=useState<Boolean>(true)
     const [Banners,setBanners]=useState <Banner[]> ([])
 useEffect(() => {
     HandleBanners()
@@ -23,6 +24,16 @@ const HandleBanners=async()=>{
       console.log(Banner);
     setBanners(Banner)
 }
+const HandleBlockBanner=async (_id:string)=>{
+   const {data} = await axiosIntance.post("/Admin/AdminHideBanner",{_id})
+   console.log(data);
+      HandleBanners()
+}
+const HandleVisibleBanner=async (_id:string)=>{
+    const {data} = await axiosIntance.post("/Admin/AdminVisibleBanner",{_id})
+    console.log(data);
+       HandleBanners()
+ }
     return (
         Banners.map((item)=>
         <div className="flex items-center border-2 border-black rounded-lg  p-4 mb-2">
@@ -38,11 +49,11 @@ const HandleBanners=async()=>{
           <BiEdit/>
             </div>
             {
-                bannerBlock?
-            <div className="w-10 h-10 flex justify-center items-center  border-black text-black rounded border hover:bg-black hover:text-white ">
+                item.Status?
+            <div onClick={()=>HandleBlockBanner(item._id)} className="w-10 h-10 flex justify-center items-center  border-black text-black rounded border hover:bg-black hover:text-white ">
           <BiBlock/>
             </div>:
-            <div className="w-10 h-10 flex justify-center items-center  border-black text-black rounded border hover:bg-black hover:text-white ">
+            <div  onClick={()=>HandleVisibleBanner(item._id)} className="w-10 h-10 flex justify-center items-center  border-black text-black rounded border hover:bg-black hover:text-white ">
           <CgUnblock/>
             </div>
             }
