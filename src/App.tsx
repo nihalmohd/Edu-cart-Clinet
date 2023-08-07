@@ -13,6 +13,7 @@ import AdminMentors from "./Pages/Admin/AdminMentors"
 import Login from "./Pages/Login"
 import MentoProtectedRouter from "./Pages/Mentor/MentoProtectedRouter"
 import AdminBanner from "./Pages/Admin/AdminBanner"
+import AdminCategory from "./Pages/Admin/AdminCategory"
 
 
 function App() {
@@ -24,9 +25,12 @@ function App() {
       <Route path="/" element={<ProtectedRoute><Home/></ProtectedRoute>} />
       <Route path="/signUp" element={<SignIn/>}  />
       <Route path="/Login" element={<Login />}/>
+
+
       {/*Admin Side */}
       <Route path="/EducartLogin" Component={AdminLogin} />
       <Route path="/EducartDash" Component={AdminDashboard}/>
+      <Route path="/EducartCategory" element={<AdminProtectedRouter><AdminCategory/></AdminProtectedRouter>}/>
       <Route path="/EducartUsers" element={<AdminProtectedRouter><AdminUsers/></AdminProtectedRouter>}/>
       <Route path="/EducartMentors" element={<AdminProtectedRouter><AdminMentors/></AdminProtectedRouter>}/>
       <Route path="/EducartBanner" element={<AdminProtectedRouter><AdminBanner/></AdminProtectedRouter>}/>

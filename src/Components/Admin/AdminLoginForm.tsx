@@ -43,12 +43,9 @@ const AdminLoginForm = () => {
   return (
     <div>
       <div className=" w-full h-full flex justify-center p-5" >
-
-        <div className="w-2/5 justify-center items-center mt-28 ">
-
-
-          <div className="w-10/12 h-4/5 bg-gray-200 shadow-2xl border  border-black">
-            <div className="flex flex-col justify-center items-center p-3">
+        <div className="sm:w-full md:w-2/5 flex justify-center items-center sm:mt-36 ">
+          <div className= "  sm:w-full md: w-10/12 h-4/5 bg-gray-200 shadow-2xl border  border-black">
+            <div className="  flex flex-col justify-center items-center p-3">
               <h1 className="text-xl font-bold mb-4">Welcome to Educart...!</h1>
               <div className=" w-full h-60 flex-col mb-6">
                 <form action="submit">
@@ -73,7 +70,8 @@ const AdminLoginForm = () => {
             </div>
           </div>
         </div>
-      </div></div>
+      </div>
+      </div>
   )
 }
 

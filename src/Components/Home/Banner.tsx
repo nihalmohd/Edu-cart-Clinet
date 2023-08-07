@@ -1,9 +1,31 @@
-import React from "react";
+import React, { useEffect,useState } from "react";
 import Slider, { Settings } from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { axiosIntance } from "../../Api/config";
+
+interface Banner{
+  Image:string
+  Content:string
+  _id:string
+  Status:boolean
+}
+
+
 
 const Banner: React.FC = () => {
+  const [Banner,setBanner]=useState<Banner[]>([])
+  useEffect(() => {
+    HandleBanners()
+  },[Banner])
+  
+  const HandleBanners=async()=>{
+    const {data}=await axiosIntance.post("/Admin/AdminShowBanner")
+      const {Banner} =data
+      console.log(Banner);
+      setBanner(Banner)
+}
+
   const settings: Settings = {
     dots: true,
     infinite: true,
@@ -19,28 +41,20 @@ const Banner: React.FC = () => {
       <div className="w-full h-24 relative img-container" >
         
         <Slider {...settings}>
-          <div className="img-container " >
-            <img className="w-full h-[455px]" src="\Images\technical-studies-1.jpg" alt="Banner" />
+
+          {
+            Banner.map((item)=>
+            <div className="img-container " >
+            <img className="w-full h-[455px]" src={item.Image}alt="Banner" />
             <div className="w-[400px] h-48 ml-8  absolute top-1/2  text-white p-10 flex-col justify-center ">
-              <h1 className=" text-black text-xl font-extrabold" >Grow up your skills by online courses with Educart</h1>
+              <h1 className=" text-black text-xl font-extrabold" >{item.Content}</h1>
               <h1 className=" text-black text-sm font-bold underline">Join With Us</h1>
             </div>
 
           </div>
-          <div className="img-container " >
-            <img className="w-full h-[455px]"  src="\Images\EducationLaptop01.jpg" alt="" />
-            <div className="w-[400px] h-48 ml-8  absolute top-1/2  text-white p-10 flex-col justify-center ">
-              <h1 className=" text-black text-xl font-extrabold" >Grow up your skills by online courses with Educart</h1>
-              <h1 className=" text-black text-sm font-bold underline">Join With Us</h1>
-              </div>
-          </div>
-          <div className="img-container " >
-            <img className="w-full h-[455px]"  src="\Images\EducationLaptop01.jpg" alt="" />
-            <div className="w-[400px] h-48 ml-8  absolute top-1/2  text-white p-10 flex-col justify-center ">
-              <h1 className=" text-black text-xl font-extrabold" >Grow up your skills by online courses with Educart</h1>
-              <h1 className=" text-black text-sm font-bold underline">Join With Us</h1>
-              </div>
-          </div>
+          )
+          }
+
         </Slider>
       </div>
 
