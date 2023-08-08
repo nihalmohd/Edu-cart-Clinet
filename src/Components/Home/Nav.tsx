@@ -40,31 +40,10 @@ const Nav = () => {
 
         
         <div className="hidden sm:flex items-center">
-          {/* <img
-            className="h-6 w-6 border border-black rounded-full"
-            src="AiOutlineHeart"
-            alt="Love Icon"
-          /> */}
           <FaRegHeart/>
         </div>
-
-        
-        <div className="hidden sm:flex items-center">
-          {/* <img
-            className="h-6 w-6 bg-transparent border border-black rounded-full"
-            src="/path-to-chart-logo.png"
-            alt="Chart Logo"
-          /> */}
-          <FaShoppingCart/>
-        </div>
-
        
         <div className="hidden sm:flex items-center">
-          {/* <img
-            className="h-6 w-6 border border-black rounded-full"
-            src="/path-to-bell-icon.png"
-            alt="Bell Icon"
-          /> */}
           <GrNotification/>
         </div>
 

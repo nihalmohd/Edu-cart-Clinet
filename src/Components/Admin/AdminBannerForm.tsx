@@ -110,7 +110,7 @@ const AdminBannerForm: React.FC = () => {
           </div>
           <div className="w-1/2 h-28 p-1">
             <div className="w-2/4 h-10 p-1">
-              <label htmlFor="bannerContent" className="text-black font-semibold sm:text-sm md:text">
+              <label htmlFor="bannerContent" className="text-black font-semibold sm:text-sm md:text-base">
                 Banner Content<span className="text-red-700">*</span>
               </label>
             </div>
