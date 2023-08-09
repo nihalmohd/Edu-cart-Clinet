@@ -4,7 +4,11 @@
     "skipLibCheck": true,
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@material-tailwind/react": ["./path/to/node_modules/@material-tailwind/react"]
+    }
   },
   "include": ["vite.config.ts"]
 }
