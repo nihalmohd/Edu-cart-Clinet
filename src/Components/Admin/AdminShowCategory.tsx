@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { FormEvent, useEffect, useState } from 'react'
 import { BiEdit, BiBlock } from "react-icons/bi"
 import { CgUnblock } from "react-icons/Cg"
 import { IoMdAdd } from "react-icons/io"
@@ -16,15 +16,16 @@ interface Category {
 const AdminShowCategory = () => {
     const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false)
     const [category, setCategory] = useState<Category[]>([])
-    const [subCategory, setSubcategory] = useState<string>("")
+    const [Subcategory, setSubcategory] = useState<string>("")
 
-
+     console.log(Subcategory,"kjslkdjflksdjflksdjflkj");
+     
 
     useEffect(() => {
         handleDisplayCategories()
     }, [])
 
-    const handleDisplayCategories = async () => {
+     const handleDisplayCategories = async () => {
         const { data } = await axiosIntance.post("/Admin/AdminDisplayCategory")
         console.log(data);
         const { FoundedCategroy } = data
@@ -45,11 +46,16 @@ const AdminShowCategory = () => {
 
     const openPaymentModal = () => {
         setIsPaymentModalOpen(true);
-    };
+    }; 
 
-    const closePaymentModal = (_id: string) => {
-
+    const closePaymentModal =async (_id: string) => {
+         const {data} =await axiosIntance.post("/Admin/AdminAddSubcategory",{_id,Subcategory})
+         console.log(data);
+         
+         if(data){  
         setIsPaymentModalOpen(false);
+        handleDisplayCategories()
+        }
     };
     return (
         <>
@@ -106,7 +112,7 @@ const AdminShowCategory = () => {
                                                             placeholder='Please Enter a Subcategory Name'
                                                             className='w-3/4 h-10 border-black border-2 rounded-lg bg-transparent'
                                                         />
-                                                        <button className='w-28 h-10 bg-black rounded-lg text-white ml-1' onClick={() => closePaymentModal(items._id)} >Upload</button>
+                                                        <button className='w-28 h-10 bg-black rounded-lg text-white ml-1' onClick={()=>closePaymentModal(items._id)} >Upload</button>
                                                     </div>
                                                 </form>
                                             </div>

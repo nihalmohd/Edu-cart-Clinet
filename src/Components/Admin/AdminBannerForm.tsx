@@ -55,8 +55,8 @@ const AdminBannerForm: React.FC = () => {
           formData
         );
         const imageUrl = data.secure_url
-        console.log(imageUrl,
-          'cloudinrn data kittiiyo');
+        // console.log(imageUrl,
+        //   'cloudinrn data kittiiyo');
         setImagePreview(imageUrl);
       } catch (error) {
         console.error('Upload error:', error);

@@ -20,7 +20,8 @@ const AdminAddCategory = () => {
         } catch (error) {
            console.log(error);   
         }
-    } 
+    }
+     
     return (
         <>
             <div className="w-full  flex p-1 sm:flex justify-center items-center">

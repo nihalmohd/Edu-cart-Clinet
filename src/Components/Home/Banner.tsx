@@ -11,15 +11,13 @@ interface Banner {
   Status: boolean
 }
 
-
-
 const Banner: React.FC = () => {
   const [Banner, setBanner] = useState<Banner[]>([])
   const [showBanner,setShowbanner] = useState<boolean>()
+
   useEffect(() => {
     HandleBanners()
-  }, [Banner])
-
+  }, []) 
   const HandleBanners = async () => {
     const { data } = await axiosIntance.post("/Admin/AdminShowBanner")
     const { Banner } = data
@@ -54,7 +52,7 @@ const Banner: React.FC = () => {
                   <h1 className=" text-black text-sm font-bold underline">Join With Us {item.Status}</h1>
                 </div>
               </div>:
-              ""
+             ""
             )
           }
 
