@@ -1,4 +1,4 @@
-import SignInImage from '../Components/SignIn/SignInImage '
+import SignInImage from '../Components/SignIn/SignUpImage '
 
 const SignIn  = () => {
   return (

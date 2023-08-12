@@ -4,8 +4,8 @@ import SignInForm from "./Authbuttons"
 
 const SignInImage = () => {
   return (
-    <div className="w-screen h-screen overflow-x-hidden">
-      <div className="flex flex-col justify-center">
+    <div className="w-full  h-screen ">
+      <div className="flex flex-col justify-center ">
       <div className="w-full h-20 sm:h-14 flex justify-between border shadow-lg border-b ">
           <img className=" h-full " src="\Images\Untitled-1-01.png" alt="" />
       </div>

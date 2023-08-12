@@ -14,6 +14,7 @@ import Login from "./Pages/Login"
 import MentoProtectedRouter from "./Pages/Mentor/MentoProtectedRouter"
 import AdminBanner from "./Pages/Admin/AdminBanner"
 import AdminCategory from "./Pages/Admin/AdminCategory"
+import MentorCourse from "./Pages/Mentor/MentorCourse"
 
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
       {/*Mentor Side */}
       <Route path="/MentorHome" element={<MentoProtectedRouter><MentorHome/></MentoProtectedRouter>}/>
       <Route path="/MentorUsers" element={<MentoProtectedRouter><MentorUsers/></MentoProtectedRouter>}/>
+      <Route path="/MentorCourse" element={<MentoProtectedRouter><MentorCourse/></MentoProtectedRouter>}/>
     </Routes>
    </Router>
   )

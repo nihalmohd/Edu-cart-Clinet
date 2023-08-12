@@ -15,14 +15,17 @@ const Banner: React.FC = () => {
   const [Banner, setBanner] = useState<Banner[]>([])
   const [showBanner,setShowbanner] = useState<boolean>()
 
-  useEffect(() => {
-    HandleBanners()
-  }, []) 
+useEffect(() => {
+HandleBanners()
+}, [])
+
+
   const HandleBanners = async () => {
-    const { data } = await axiosIntance.post("/Admin/AdminShowBanner")
+    const { data } = await axiosIntance.get("/user/GetBanners")
     const { Banner } = data
-    console.log(Banner);
+    console.log(Banner,"ithann banner");
     setBanner(Banner)
+    setShowbanner(true)
   }
 
   const settings: Settings = {

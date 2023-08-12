@@ -50,7 +50,7 @@ const AdminLoginForm = () => {
               <div className=" w-full h-60 flex-col mb-6">
                 <form action="submit">
                   <div className=" w-full h-6 ">
-                    <h1>Username</h1>
+                    <h1>Email</h1>
                   </div>
                   <div className="w-full h-10 mt-1 ">
                     <input className="w-full h h-full rounded-2xl border border-black p-2" type="Email" name="Email" id="" placeholder="Enter Email Address" required onInput={handleError} onChange={(e) => setAdminEmail({ ...AdminEmail, [e.target.name]: e.target.value })} />

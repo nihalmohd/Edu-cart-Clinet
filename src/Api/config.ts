@@ -13,7 +13,7 @@ axiosIntance.interceptors.request.use(
         const AccessToken =User.AccessToken
         console.log(AccessToken);
         if(AccessToken){
-            config.headers["UserAuthorization"] = `Bearer ${AccessToken}`;
+            config.headers["Authorization"] = `Bearer ${AccessToken}`;
         }
     }
 
@@ -22,15 +22,16 @@ axiosIntance.interceptors.request.use(
     if(Mentor){
         const MentorAccessToken=Mentor.AccessToken
         if(MentorAccessToken){
-            config.headers["MentorAuthorization"] = `Bearer ${MentorAccessToken}`
+            config.headers["Authorization"] = `MentorBearer ${MentorAccessToken}`
         }
     }
 
     const Admin = JSON.parse(localStorage.getItem("Admin") as string)
     if(Admin){
         const AdminAccessToken = Admin.AdminAccessToken
+        console.log(AdminAccessToken,"dminAcesstoken");
         if(AdminAccessToken){
-            config.headers["AdminAuthorization"] = `Bearer ${AdminAccessToken}`
+            config.headers["Authorization"] = `AdminBearer ${AdminAccessToken}`
         }
     }
      return config

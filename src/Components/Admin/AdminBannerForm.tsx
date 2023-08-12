@@ -85,13 +85,13 @@ const AdminBannerForm: React.FC = () => {
         <div className="w-full h-28 flex items-start">
           <div className="w-1/2 h-28 p-1">
             <div className="w-2/4 h-10 p-1">
-              <label htmlFor="image" className="text-black font-semibold">
+              <label htmlFor="image" className="text-black font-semibold sm:text-sm md:text-base">
                 Image<span className="text-red-700 flex-row">*</span>
               </label>
             </div>
 
             <div
-              className="w-full h-12 rounded-lg bg-gray-200 border-2 border-black flex justify-center items-center cursor-pointer"
+              className=" w-full h-12 rounded-lg bg-gray-200 border-2 border-black flex justify-center items-center cursor-pointer"
               onClick={handleBrowseButtonClick}
             >
               Take a Banner Image
@@ -109,17 +109,18 @@ const AdminBannerForm: React.FC = () => {
             />
           </div>
           <div className="w-1/2 h-28 p-1">
-            <div className="w-2/4 h-10 p-1">
+            <div className=" sm:w-fullw-2/4 h-10 p-1">
               <label htmlFor="bannerContent" className="text-black font-semibold sm:text-sm md:text-base">
                 Banner Content<span className="text-red-700">*</span>
               </label>
             </div>
             <textarea
+            placeholder='Please Enter any banner Content'
               onChange={(e) => setBannerdata({ ...bannerdata, [e.target.name]: e.target.value })}
               required
               id="bannerContent"
               name="Content"
-              className="w-full h-12 rounded-lg bg-transparent border-2 text-lg border-black"
+              className="w-full h-12 rounded-lg bg-transparent border-2 border-black p-2 "
             ></textarea>
           </div>
         </div>
