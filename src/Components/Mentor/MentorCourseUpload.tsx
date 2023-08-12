@@ -1,10 +1,24 @@
-import React,{useRef} from 'react'
+import React, { useRef } from 'react'
+
+
+interface ImageRef{
+ 
+}
+
+import {IoIosCloudOutline,IoMdCloudOutline} from "react-icons/io"
 const MentorCourseUpload = () => {
-    const ImageRef=useRef()
+    const ImageRef = useRef<HTMLInputElement>(null)
+
+const HandleClick =()=>{
+    if(ImageRef.current){
+        ImageRef.current.click()
+    }
+}
+
     return (
         <div>
             <div className="w-full h-screen bg-gray-300 flex">
-                <div className="w-1/2 h-full bg-red-300 p-2 ">
+                <div className="w-1/2 h-full bg-red-500 p-2 ">
                     <div className="w-full h-[480px] bg-violet-200  border-dotted border-2 border-black p-2">
                         <div className="w-full h-10 bg-transparent flex justify-center items-center border-2 border-black ">
                             <h1 className='text-center text-3xl font-bold text-black font-serif'>Course upload</h1>
@@ -83,16 +97,26 @@ const MentorCourseUpload = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="w-full h-20 bg-yellow-400 flex ">
-                                <div className="w-[150px] h-8 bg-white flex justify-start items-center  ">
-                                            <h1 className='font-bold' >Thumbnail Image <span className="text-red-700 flex-row">*</span></h1>
-                                        </div>
+                                <div className="w-full h-28 bg-yellow-400">
+                                    <div className="w-[150px] h-8 bg-white flex justify-start items-center  ">
+                                        <h1 className='font-bold' >Thumbnail Image <span className="text-red-700 flex-row">*</span></h1>
+                                    </div>
+                                   <div className="w-full h-20 bg-orange-600 border-2 border-b-slate-800 flex justify-center items-center "onClick={HandleClick} >
+                                            <div className="w-[full]-h-[full] bg-white flex gap-2">
+                                            <h1 className='text-gray-500 text-xl  font-serif'>Upload your thumbnail here </h1>
+                                            </div>
+                                            <div className="  h-5 bg-red-200">
+                                                Image
+                                            </div>
+                                            <input className='hidden' ref={ImageRef} name='Image' type="file"
+                                            />
+                                   </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="w-1/2 h-full bg-yellow-300"></div>
+                <div className="w-1/2 h-full bg-blue-600"></div>
             </div>
         </div>
     )
