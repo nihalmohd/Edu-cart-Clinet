@@ -22,69 +22,69 @@ const MentorCourseUpload = () => {
 
     return (
         <div>
-            <div className="w-full h-screen bg-gray-300 flex">
-                <div className="w-1/2 h-[700px] bg-red-500 p-2 ">
-                    <div className="w-full h-[680px] bg-violet-200  border-dotted border-2 border-black p-2">
-                        <div className="w-full h-10 flex bg-red-900 justify-center items-center border-2 border-black ">
+            <div className="w-full h-screen  md:flex ">
+                <div className="md:w-1/2 h-[700px] p-2 bg-red-400 sm:w-full ">
+                    <div className="w-full h-[680px] border-dotted border-2 bg-red-600 border-black p-2">
+                        <div className="w-full h-10 flex justify-center items-center border-2 border-black ">
                             <h1 className='text-center text-3xl font-bold text-black font-serif'>Course upload</h1>
                         </div>
-                        <div className="w-full h-[620px] bg-gray-100 mt-1 p-1">
-                            <div className="w-full h-full bg-green-200 p-1">
-                                <div className="w-full h-20 bg-yellow-100 ">
-                                    <div className="w-[150px] h-8 bg-white flex justify-start items-center  ">
+                        <div className="w-full h-[620px] mt-1 p-1">
+                            <div className="w-full h-full  p-1">
+                                <div className="w-full h-20  ">
+                                    <div className="w-[150px] h-8 flex justify-start items-center  ">
                                         <h1 className='font-bold' >Title <span className="text-red-700 flex-row">*</span></h1>
                                     </div>
-                                    <div className="w-full h-1/2 bg-blue-500">
+                                    <div className="w-full h-1/2 ">
                                         <textarea className='w-full h-full border-2 border-black rounded-xl bg-transparent p-1 text-lg' placeholder='Enter a Course Name' />
                                     </div>
                                 </div>
-                                <div className="w-full h-20 bg-yellow-200 ">
-                                    <div className="w-[200px] h-8 bg-white flex justify-start items-center  ">
+                                <div className="w-full h-20 ">
+                                    <div className="w-[200px] h-8 flex justify-start items-center  ">
                                         <h1 className='font-bold' > Description <span className="text-red-700 flex-row">*</span></h1>
                                     </div>
-                                    <div className="w-full h-1/2 bg-blue-500">
+                                    <div className="w-full h-1/2 ">
                                         <textarea className='w-full h-full border-2 border-black rounded-xl bg-transparent p-1 text-lg' placeholder='Enter a Description' />
                                     </div>
                                 </div>
-                                <div className="w-full h-20 bg-yellow-800 ">
-                                    <div className="w-[300px] h-8 bg-white flex justify-start items-center  ">
+                                <div className="w-full h-20 ">
+                                    <div className="w-[300px] h-8 flex justify-start items-center  ">
                                         <h1 className='font-bold' >What you learn with this course <span className="text-red-700 flex-row">*</span></h1>
                                     </div>
-                                    <div className="w-full h-1/2 bg-blue-500">
-                                        <textarea className='w-full h-full border-2 border-black rounded-xl bg-transparent p-1 text-lg' placeholder='Enter a Course Name' />
+                                    <div className="w-full h-1/2 ">
+                                        <textarea className='w-full h-full border-2 border-black rounded-xl bg-transparent p-1 text-lg' placeholder=' eg:-Build multiple demo projects & explore realistic examples ' />
                                     </div>
                                 </div>
-                                <div className="w-full h-20 bg-yellow-900 ">
-                                    <div className="w-[250px] h-8 bg-white flex justify-start items-center  ">
+                                <div className="w-full h-20  ">
+                                    <div className="w-[250px] h-8  flex justify-start items-center  ">
                                         <h1 className='font-bold' >This course Includes <span className="text-red-700 flex-row">*</span></h1>
                                     </div>
-                                    <div className="w-full h-1/2 bg-blue-500">
-                                        <textarea className='w-full h-full border-2 border-black rounded-xl bg-transparent p-1 text-lg' placeholder='Enter a Course Name' />
+                                    <div className="w-full h-1/2 ">
+                                        <textarea className='w-full h-full border-2 border-black rounded-xl bg-transparent p-1 text-lg' placeholder='eg:-Certificate of completion' />
                                     </div>
                                 </div>
-                                <div className="w-full h-20 bg-red-300 flex">
-                                    <div className="w-full h-20 bg-yellow-900 ">
-                                        <div className="w-[100px] h-8 bg-white flex justify-start items-center  ">
+                                <div className="w-full h-20 flex">
+                                    <div className="w-full h-20 ">
+                                        <div className="w-[100px] h-8 flex justify-start items-center  ">
                                             <h1 className='font-bold' >Price <span className="text-red-700 flex-row">*</span></h1>
                                         </div>
-                                        <div className="full h-1/2 bg-blue-500 mr-1">
+                                        <div className="full h-1/2  mr-1">
                                             <textarea className='w-full h-full border-2 border-black rounded-xl bg-transparent p-1 text-lg' placeholder='Enter a Course Name' />
                                         </div>
 
                                     </div>
-                                    <div className="w-full h-20 bg-yellow-900 ">
-                                        <div className="w-[150px] h-8 bg-white flex justify-start items-center  ">
+                                    <div className="w-full h-20 ">
+                                        <div className="w-[150px] h-8  flex justify-start items-center  ">
                                             <h1 className='font-bold' >Thumbnail Image <span className="text-red-700 flex-row">*</span></h1>
                                         </div>
-                                        <div className="w-full h-1/2 bg-blue-500 border-2 border-dashed border-black flex justify-center items-center" onClick={HandleImageClick}>
+                                        <div className="w-full h-1/2 bg-gray-300 border-2 border-dashed border-black flex justify-center items-center" onClick={HandleImageClick}>
                                             <h1 className='font-serif text-base text-center'>Unpload your thumbnail image</h1>
                                             <input type="file" ref={ImageRef} name='Image' className='hidden' />
                                         </div>
                                     </div>
                                 </div>
-                                <div className="w-full h-20 bg-yellow-300 flex ">
-                                    <div className="w-1/2 h-20 bg-pink-200">
-                                        <div className="w-[200px] h-8 bg-white flex justify-start items-center  ">
+                                <div className="w-full h-20  flex ">
+                                    <div className="w-1/2 h-20 ">
+                                        <div className="w-[200px] h-8  flex justify-start items-center  ">
                                             <h1 className='font-bold' >Category <span className="text-red-700 flex-row">*</span></h1>
                                         </div>
                                         <div className="w-full max-w-md border-2 border-black rounded-lg ">
@@ -110,8 +110,8 @@ const MentorCourseUpload = () => {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="w-1/2 h-20 bg-neutral-700">
-                                        <div className="w-[200px] h-8 bg-white flex justify-start items-center  ">
+                                    <div className="w-1/2 h-20 ">
+                                        <div className="w-[200px] h-8  flex justify-start items-center  ">
                                             <h1 className='font-bold' >Sub Category <span className="text-red-700 flex-row">*</span></h1>
                                         </div>
                                         <div className="w-full max-w-md border-2 border-black rounded-lg bg-transparent">
@@ -139,15 +139,15 @@ const MentorCourseUpload = () => {
                                     </div>
                                 </div>
 
-                                <div className="w-full h-28 bg-yellow-400">
-                                    <div className="w-[150px] h-8 bg-white flex justify-start items-center  ">
+                                <div className="w-full h-28 ">
+                                    <div className="w-[150px] h-8  justify-start items-center  ">
                                         <h1 className='font-bold' >Demo Video <span className="text-red-700 flex-row">*</span></h1>
                                     </div>
-                                    <div className="w-full h-20 bg-orange-600 border-2 border-b-slate-800 flex justify-center items-center " onClick={HandleVideoClick}  >
-                                        <div className="w-[full]-h-[full] bg-white flex gap-2">
+                                    <div className="w-full h-20  border-2 bg-gray-200 border-dashed border-slate-800 flex justify-center items-center " onClick={HandleVideoClick}  >
+                                        <div className="w-[full]-h-[full]  flex gap-2">
                                             <h1 className='text-gray-500 text-xl  font-serif'>Upload your Demo Video Here </h1>
                                         </div>
-                                        <div className="  h-5 bg-red-200">
+                                        <div className="  h-5 ">
                                             Image
                                         </div>
                                         <input className='hidden' ref={videoRef}  type="file"
@@ -158,7 +158,14 @@ const MentorCourseUpload = () => {
                         </div>
                     </div>
                 </div>
-                <div className="w-1/2 h-[700px] bg-blue-600"></div>
+                <div className="md:w-1/2 h-[700px] bg-blue-500 p-2">
+                    <div className="w-full h-screen bg-yellow-200 border-2 border-dotted border-black p-2">
+                        <div className="w-full h-10 bg-green-200 border-2 border-black flex justify-center items-center">
+                        <h1 className='text-center text-3xl font-bold text-black font-serif'>Class upload</h1>
+                        </div>
+
+                    </div>
+                </div>
             </div>
         </div>
     )
