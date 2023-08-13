@@ -43,7 +43,7 @@ const AdminNav = () => {
               alt="User Profile"
               onClick={() => setShowDropdown(!showDropdown)}
             />
-            {showDropdown && (
+            {showDropdown ? (
               <div
                 className="absolute top-12 right-0 w-40 bg-white border border-gray-300 rounded-lg shadow-lg z-10"
               >
@@ -54,7 +54,7 @@ const AdminNav = () => {
                   </li>
                 </ul>
               </div>
-            )}
+            ):<></>}
           </div>
         </div>
       </div>

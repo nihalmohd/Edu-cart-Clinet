@@ -55,14 +55,14 @@ const Nav = () => {
             alt="User Profile" onClick={()=>{SetshowDropdown(!showDropdown)}}
           />
         </div>
-        {showDropdown && (
+        {showDropdown ? (
               <div className="absolute right-0 mt-20 w-40  bg-white border border-gray-300 rounded-lg shadow-lg z-10">
                 <ul >
                   <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">My Profile</li>
                   <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer" onClick={handleLogout}  >Logout</li>
                 </ul>
               </div>
-            )}
+            ):<></>}
       </div>
     </div>
   )
