@@ -1,5 +1,6 @@
 
 import SimpleSlider from '../../Components/Home/Banner'
+import CourseDisplay from '../../Components/Home/CourseDisplay'
 import Nav from '../../Components/Home/Nav'
 
 const Home = () => {
@@ -7,6 +8,7 @@ const Home = () => {
     <div>
       <Nav/>
       <SimpleSlider/>
+      <CourseDisplay/>
     </div>
   )
 }

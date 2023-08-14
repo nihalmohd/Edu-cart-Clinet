@@ -30,7 +30,7 @@ const MentorCourseUpload = () => {
     return (
         <div>
             <form action="">
-                <div className="w-full h-screen md:flex ">
+                <div className="w-full h-full md:flex  ">
                     <div className="md:w-1/2 h-[700px] p-2 sm:w-full ">
                         <div className="w-full h-[680px] border-dotted border-2 border-black p-2">
                             <div className="w-full h-10 flex justify-center items-center border-2 border-black ">
@@ -77,7 +77,7 @@ const MentorCourseUpload = () => {
                                                 <h1 className='font-bold' >Price <span className="text-red-700 flex-row">*</span></h1>
                                             </div>
                                             <div className="full h-1/2  mr-1">
-                                                <textarea className='w-full h-full border-2 border-black rounded-xl bg-transparent p-1 text-lg' placeholder='Enter a Course Name' name='price' />
+                                                <textarea className='w-full h-full border-2 border-black rounded-xl bg-transparent p-1 text-lg' placeholder='Enter course price' name='price' />
                                             </div>
 
                                         </div>
@@ -156,8 +156,8 @@ const MentorCourseUpload = () => {
                                             <div className="w-[full]-h-[full]  flex gap-2">
                                                 <h1 className='text-gray-500 text-xl  font-serif'>Upload your Demo Video Here </h1>
                                             </div>
-                                            <div className="  h-5 ">
-                                                Image
+                                            <div className=" w-10 h-5 ">
+                                                <img src="" alt="UploadImage" />
                                             </div>
                                             <input className='hidden' ref={videoRef} type="file" name='DemoVideo'
                                             />
@@ -169,7 +169,7 @@ const MentorCourseUpload = () => {
                         </div>
                     </div>
                     <div className="md:w-1/2 h-[700px] p-2">
-                        <div className="w-full h-2/3  border-2 border-dotted border-black p-2">
+                        <div className="w-full h-[400px]  border-2 border-dotted border-black p-2">
                             <div className="w-full h-10  border-2 border-black flex justify-center items-center">
                                 <h1 className='text-center text-3xl font-bold text-black font-serif'>Class upload</h1>
                             </div>

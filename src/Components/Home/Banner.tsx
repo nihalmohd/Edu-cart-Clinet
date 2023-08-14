@@ -13,17 +13,17 @@ interface Banner {
 
 const Banner: React.FC = () => {
   const [Banner, setBanner] = useState<Banner[]>([])
-  const [showBanner,setShowbanner] = useState<boolean>()
+  const [showBanner, setShowbanner] = useState<boolean>()
 
-useEffect(() => {
-HandleBanners()
-}, [])
+  useEffect(() => {
+    HandleBanners()
+  }, [])
 
 
   const HandleBanners = async () => {
     const { data } = await axiosIntance.get("/user/GetBanners")
     const { Banner } = data
-    console.log(Banner,"ithann banner");
+    console.log(Banner, "ithann banner");
     setBanner(Banner)
     setShowbanner(true)
   }
@@ -39,31 +39,32 @@ HandleBanners()
     autoplaySpeed: 2000
   };
   return (
-    <div className="  flex justify-center items-centerp-2">
-      <div className="w-full h-24 relative img-container" >
-        {
-
-        <Slider {...settings}>
+    <div className="w-full h-full">
+  
+        <div className="w-full h-24 relative img-container" >
           {
-            
-            Banner.map((item) =>
-            item.Status ?
-              <div className="img-container " >
-                <img className="w-full h-[455px]" src={item.Image} alt="Banner" />
-                <div className="w-[400px] h-48 ml-8  absolute top-1/2  text-white p-10 flex-col justify-center ">
-                  <h1 className=" text-black text-xl font-extrabold" >{item.Content}</h1>
-                  <h1 className=" text-black text-sm font-bold underline">Join With Us {item.Status}</h1>
-                </div>
-              </div>:
-             ""
-            )
+
+            <Slider {...settings}>
+              {
+
+                Banner.map((item) =>
+                  item.Status ?
+                    <div className="img-container " >
+                      <img className="w-full h-[455px]" src={item.Image} alt="Banner" />
+                      <div className="w-[400px] h-48 ml-8  absolute top-1/2  text-white p-10 flex-col justify-center ">
+                        <h1 className=" text-black text-xl font-extrabold" >{item.Content}</h1>
+                        <h1 className=" text-black text-sm font-bold underline">Join With Us {item.Status}</h1>
+                      </div>
+                    </div> :
+                    ""
+                )
+              }
+
+            </Slider>
           }
-
-        </Slider>
-        }
+        </div>
       </div>
-
-    </div>
+  
   )
 }
 
