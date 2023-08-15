@@ -9,7 +9,6 @@ export const s3cofing ={
 
 const S3_BUCKET = s3cofing.bucketName
 const REGION = s3cofing.region
-
 AWS.config.update({
     accessKeyId: s3cofing.accesskeyId,
     secretAccessKey: s3cofing.secretAccessKey,

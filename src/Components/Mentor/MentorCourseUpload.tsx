@@ -1,12 +1,30 @@
-import React, { useRef } from 'react'
-
-
-interface ImageRef {
-
-}
-
+import { File } from 'aws-sdk/clients/codecommit'
+import React, { useRef, useState } from 'react'
 import { IoIosCloudOutline, IoMdCloudOutline } from "react-icons/io"
+import { axiosIntance } from '../../Api/config'
+
+
+
 const MentorCourseUpload = () => {
+    
+    const [Thumbnail,setThumbnail] = useState<File>()
+    const [DemoVideo,setDemoVideo] = useState<File>()
+
+    const [courseTitle,setCourseTitle] = useState<string>("")
+    const [courseDescription,setCourseDescription] = useState<string>("")
+    const [courseLearning,setCouresLearning] = useState<string>("")
+    const [courseIncludes,setIncludes] = useState<string>("")
+    const [coursePrice,setCoursePrice] = useState<string>("")
+    const [courseCategory,setCourseCategory] = useState<string[]>([])
+    const [courseSubCategory,setSubCourseCategory] = useState<string[]>([])
+
+    const handleCategory = async() =>{
+        const {data} = await axiosIntance.get("user/showCategory")
+        console.log(data,"nihallllllll");
+        
+    }
+
+
     const ImageRef = useRef<HTMLInputElement>(null)
     const videoRef = useRef<HTMLInputElement>(null)
     const Classvideoref = useRef<HTMLInputElement>(null)
