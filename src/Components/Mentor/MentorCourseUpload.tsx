@@ -1,12 +1,26 @@
 import { File } from 'aws-sdk/clients/codecommit'
-import React, { useRef, useState } from 'react'
+import React, { FormEvent, useEffect, useRef, useState } from 'react'
 import { IoIosCloudOutline, IoMdCloudOutline } from "react-icons/io"
 import { axiosIntance } from '../../Api/config'
 
 
+interface Category {
+    Category: string
+    Subcategory: [string]
+    _id: string
+    Status: boolean
+}
 
 const MentorCourseUpload = () => {
-    
+
+    useEffect(()=>{
+        handleCategory()  
+    },[])
+    const [SelectedCategory,setSelectedCategory] = useState<string>("")
+    const [dropCategory,setdropCategory] = useState<Category[]>([])
+
+     console.log(SelectedCategory,"Selected Categroy");
+     
     const [Thumbnail,setThumbnail] = useState<File>()
     const [DemoVideo,setDemoVideo] = useState<File>()
 
@@ -17,34 +31,45 @@ const MentorCourseUpload = () => {
     const [coursePrice,setCoursePrice] = useState<string>("")
     const [courseCategory,setCourseCategory] = useState<string[]>([])
     const [courseSubCategory,setSubCourseCategory] = useState<string[]>([])
+    const [cate, setCate] = useState<Category|null>(null);
 
     const handleCategory = async() =>{
-        const {data} = await axiosIntance.get("user/showCategory")
+        const {data} = await axiosIntance.get("/Mentor/MentorDisplayCategories")
         console.log(data,"nihallllllll");
-        
+        const{FoundedCategroy} = data
+        console.log(FoundedCategroy);
+        setdropCategory(FoundedCategroy)
+        setCate(FoundedCategroy[0])   ;
     }
-
 
     const ImageRef = useRef<HTMLInputElement>(null)
     const videoRef = useRef<HTMLInputElement>(null)
     const Classvideoref = useRef<HTMLInputElement>(null)
+
+    const handleCateotrychange= (e:React.ChangeEvent<HTMLSelectElement>)=>{
+     e.preventDefault()
+     setSelectedCategory(e.target.value)
+    }
 
     const HandleImageClick = () => {
         if (ImageRef.current) {
             ImageRef.current.click()
         }
     }
+
     const HandleVideoClick = () => {
         if (videoRef.current) {
             videoRef.current.click()
         }
     }
+
     const HandleClassVideoClick = () => {
         if (Classvideoref.current) {
             Classvideoref.current.click()
         }
     }
 
+    console.log(cate,"cate")
     return (
         <div>
             <form action="">
@@ -117,13 +142,18 @@ const MentorCourseUpload = () => {
                                             <div className="w-full max-w-md border-2 border-black rounded-lg ">
                                                 <div className="relative">
                                                     <select
-                                                        id="dropdown"
-                                                        name="category"
-                                                        className="block appearance-none w-full bg-transparent border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:ring"
+                                                    onChange={handleCateotrychange}
+                                                    onClick={handleCategory}
+                                                    id="dropdown"
+                                                    name="category"
+                                                    className="block appearance-none w-full bg-transparent border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:ring"
                                                     >
-                                                        <option value="option1">Option 1</option>
-                                                        <option value="option2">Option 2</option>
-                                                        <option value="option3">Option 3</option>
+                                                    {
+                                                            
+                                                      dropCategory?.map((items)=>(
+                                                          <option key={items?._id} value={items?._id}>{items?.Category}</option>
+                                                      ))  
+                                                    }
                                                     </select>
                                                     <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                                                         <svg
@@ -148,9 +178,9 @@ const MentorCourseUpload = () => {
                                                         name="subCategory"
                                                         className="block appearance-none w-full bg-transparent border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:ring"
                                                     >
-                                                        <option value="option1">Option 1</option>
-                                                        <option value="option2">Option 2</option>
-                                                        <option value="option3">Option 3</option>
+                                                        {
+                                                            cate?.Subcategory.map((item)=>(<option>{item}</option>))
+                                                        }
                                                     </select>
                                                     <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                                                         <svg
