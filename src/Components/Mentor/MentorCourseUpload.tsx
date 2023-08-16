@@ -3,6 +3,8 @@ import React, { FormEvent, useEffect, useRef, useState } from 'react'
 import { IoIosCloudOutline, IoMdCloudOutline } from "react-icons/io"
 import { axiosIntance } from '../../Api/config'
 import { String } from 'aws-sdk/clients/cloudsearch'
+import AWS from 'aws-sdk'
+import { s3cofing } from '../../s3config'
 
 
 interface Category {
@@ -14,69 +16,69 @@ interface Category {
 
 const MentorCourseUpload = () => {
 
-    useEffect(()=>{
-        handleCategory()  
-    },[])
-    const [SelectedCategory,setSelectedCategory] = useState<string>('')
-    const [SelectedSubCategory,setSelectedSubCategory] = useState<string>('')
-    const [dropCategory,setdropCategory] = useState<Category[]>([])
-    const [dropSubCategory,setdropSubCategory] = useState<Category>()
-     console.log(SelectedCategory,"Selected Categroy");
-     
-    const [Thumbnail,setThumbnail] = useState<File | null>(null)
-    const [DemoVideo,setDemoVideo] = useState<File | null>(null)
-    const [classVideo,SetClassVideo] = useState<File | null> (null)
+    useEffect(() => {
+        handleCategory()
+    }, [])
+    const [SelectedCategory, setSelectedCategory] = useState<string>('')
+    const [SelectedSubCategory, setSelectedSubCategory] = useState<string>('')
+    const [dropCategory, setdropCategory] = useState<Category[]>([])
+    const [dropSubCategory, setdropSubCategory] = useState<Category>()
+    console.log(SelectedCategory, "Selected Categroy");
 
-    const [courseTitle,setCourseTitle] = useState<string>("")
-    const [courseDescription,setCourseDescription] = useState<string>("")
-    const [courseLearning,setCouresLearning] = useState<string>("")
-    const [courseIncludes,setIncludes] = useState<string>("")
-    const [coursePrice,setCoursePrice] = useState<string>("")
-    const [className,setClassname] = useState<string>("")
-    const [ClassDescription,setClassDescription] = useState<string>("")
-console.log(Thumbnail,DemoVideo,className,courseTitle,courseDescription,courseLearning,courseIncludes,coursePrice,className,ClassDescription,classVideo,SelectedCategory,SelectedSubCategory,"all of them getting")
+    const [Thumbnail, setThumbnail] = useState<File | null>(null)
+    const [DemoVideo, setDemoVideo] = useState<File | null>(null)
+    const [classVideo, SetClassVideo] = useState<File | null>(null)
 
-    const handleCategory = async() =>{
-        const {data} = await axiosIntance.get("/Mentor/MentorDisplayCategories")
-        const{FoundedCategroy} = data
+    const [courseTitle, setCourseTitle] = useState<string>("")
+    const [courseDescription, setCourseDescription] = useState<string>("")
+    const [courseLearning, setCouresLearning] = useState<string>("")
+    const [courseIncludes, setIncludes] = useState<string>("")
+    const [coursePrice, setCoursePrice] = useState<string>("")
+    const [className, setClassname] = useState<string>("")
+    const [ClassDescription, setClassDescription] = useState<string>("")
+    console.log(Thumbnail, DemoVideo, className, courseTitle, courseDescription, courseLearning, courseIncludes, coursePrice, className, ClassDescription, classVideo, SelectedCategory, SelectedSubCategory, "all of them getting")
+
+    const handleCategory = async () => {
+        const { data } = await axiosIntance.get("/Mentor/MentorDisplayCategories")
+        const { FoundedCategroy } = data
         setdropCategory(FoundedCategroy)
         // setCate(FoundedCategroy[0])   ;
     }
-    const handleSubcategory =async () =>{
-        const {data} = await axiosIntance.get("/Mentor/MentorTakeSubcayegory",{params:{SelectedCategory}})
-        const {FoundedSubCategroy} = data 
+    const handleSubcategory = async () => {
+        const { data } = await axiosIntance.get("/Mentor/MentorTakeSubcayegory", { params: { SelectedCategory } })
+        const { FoundedSubCategroy } = data
         setdropSubCategory(FoundedSubCategroy)
     }
     const ImageRef = useRef<HTMLInputElement>(null)
     const videoRef = useRef<HTMLInputElement>(null)
     const Classvideoref = useRef<HTMLInputElement>(null)
 
-    const handleCateotrychange= (e:React.ChangeEvent<HTMLSelectElement>)=>{
-     e.preventDefault()
-     setSelectedCategory(e.target.value)
+    const handleCateotrychange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        e.preventDefault()
+        setSelectedCategory(e.target.value)
     }
-    const handleChangeSubcategory = (e:React.ChangeEvent<HTMLSelectElement>)=>{
+    const handleChangeSubcategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
         e.preventDefault()
         setSelectedSubCategory(e.target.value)
     }
-    const handleCorseTitle = (e: React.ChangeEvent<HTMLInputElement>) =>{
+    const handleCorseTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault()
         setCourseTitle(e.target.value)
     }
-  
-    const handleCourseDescription = (e: React.ChangeEvent<HTMLInputElement>) =>{
+
+    const handleCourseDescription = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault()
         setCourseDescription(e.target.value)
     }
-    const handleCourseLearning = (e: React.ChangeEvent<HTMLInputElement>) =>{
+    const handleCourseLearning = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault()
         setCouresLearning(e.target.value)
     }
-    const handleCourseIncludes = (e: React.ChangeEvent<HTMLInputElement>) =>{
+    const handleCourseIncludes = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault()
         setIncludes(e.target.value)
     }
-    const handleCoursePrice = (e: React.ChangeEvent<HTMLInputElement>)=>{
+    const handleCoursePrice = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault()
         setCoursePrice(e.target.value)
     }
@@ -90,19 +92,19 @@ console.log(Thumbnail,DemoVideo,className,courseTitle,courseDescription,courseLe
         console.log(Videofile)
         setDemoVideo(Videofile)
     };
-    const handleChangeClassname = (e: React.ChangeEvent<HTMLInputElement>) =>{
-     e.preventDefault()
-     setClassname(e.target.value)
+    const handleChangeClassname = (e: React.ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault()
+        setClassname(e.target.value)
     }
-    const handleChangeClassDescription = (e: React.ChangeEvent<HTMLInputElement>) =>{
+    const handleChangeClassDescription = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault()
         setClassDescription(e.target.value)
     }
-    const handleChangeClassVideo = (e: React.ChangeEvent<HTMLInputElement>)=>{
-        const classesVideo:File |null =e.target.files && e.target.files[0] as File || null
+    const handleChangeClassVideo = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const classesVideo: File | null = e.target.files && e.target.files[0] as File || null
         SetClassVideo(classesVideo)
     }
-    
+
 
     const HandleImageClick = () => {
         if (ImageRef.current) {
@@ -122,9 +124,37 @@ console.log(Thumbnail,DemoVideo,className,courseTitle,courseDescription,courseLe
         }
     }
 
-    const handleUploadThumbnail = () =>{
-        
+    const handleUploadFiles = async ( file: any) => {
+
+        if (!file) {
+            console.log('Please select both video and thumbnail files.');
+            return;
+        }
+        const s3 = new AWS.S3({
+            accessKeyId:s3cofing.accesskeyId,
+            secretAccessKey: s3cofing.secretAccessKey,
+            region: s3cofing.region
+        }); 
+
+    const params = {
+        Bucket:s3cofing.bucketName,
+        Key: `ThumbnailImages/${file.name}`,
+        Body: file,
+        ContentType: file.type,
+      };
+        try {
+            const response = await s3.upload(params).promise();
+            console.log('File uploaded:', response.Location);
+        } catch (error) {
+            console.error('Error uploading file:', error);
+        }
     }
+    const handleUpload = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault()
+        if (Thumbnail) {
+            handleUploadFiles(Thumbnail);
+        }
+    };
 
     return (
         <div>
@@ -186,7 +216,7 @@ console.log(Thumbnail,DemoVideo,className,courseTitle,courseDescription,courseLe
                                             </div>
                                             <div className="w-full h-1/2 bg-gray-300 border-2 border-dashed border-black flex justify-center items-center" onClick={HandleImageClick}>
                                                 <h1 className='font-serif text-base text-center'>Unpload your thumbnail image</h1>
-                                                <input onChange={handleCourseThumbnail} type="file" ref={ImageRef} name='Image' className='hidden'  />
+                                                <input onChange={handleCourseThumbnail} type="file" ref={ImageRef} name='Image' className='hidden' />
                                             </div>
                                         </div>
                                     </div>
@@ -198,18 +228,18 @@ console.log(Thumbnail,DemoVideo,className,courseTitle,courseDescription,courseLe
                                             <div className="w-full max-w-md border-2 border-black rounded-lg ">
                                                 <div className="relative">
                                                     <select
-                                                    onChange={handleCateotrychange}
-                                                    onClick={handleCategory}
-                                                    id="dropdown"
-                                                    name="category"
-                                                    className="block appearance-none w-full bg-transparent border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:ring"
+                                                        onChange={handleCateotrychange}
+                                                        onClick={handleCategory}
+                                                        id="dropdown"
+                                                        name="category"
+                                                        className="block appearance-none w-full bg-transparent border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:ring"
                                                     >
-                                                    {
-                                                            
-                                                      dropCategory?dropCategory.map((items)=>(
-                                                          <option key={items?._id} value={items?.Category}>{items?.Category}</option>
-                                                      )):<option>Category</option>  
-                                                    }
+                                                        {
+
+                                                            dropCategory ? dropCategory.map((items) => (
+                                                                <option key={items?._id} value={items?.Category}>{items?.Category}</option>
+                                                            )) : <option>Category</option>
+                                                        }
                                                     </select>
                                                     <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                                                         <svg
@@ -236,12 +266,12 @@ console.log(Thumbnail,DemoVideo,className,courseTitle,courseDescription,courseLe
                                                         name="subCategory"
                                                         className="block appearance-none w-full bg-transparent border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:ring"
                                                     >
-                                                     {
-                                                        dropSubCategory?.Subcategory.map((items)=>( 
-                                                            <option key={items} value={items}>{items}</option>
-                                                        ))
-                                                     }   
-                                                        
+                                                        {
+                                                            dropSubCategory?.Subcategory.map((items) => (
+                                                                <option key={items} value={items}>{items}</option>
+                                                            ))
+                                                        }
+
                                                     </select>
                                                     <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                                                         <svg
@@ -261,7 +291,7 @@ console.log(Thumbnail,DemoVideo,className,courseTitle,courseDescription,courseLe
                                         <div className="w-[150px] h-8  justify-start items-center  ">
                                             <h1 className='font-bold' >Demo Video <span className="text-red-700 flex-row">*</span></h1>
                                         </div>
-                                        <div className="w-full h-20  border-2 bg-gray-200 border-dashed border-slate-800 flex justify-center items-center " onClick={HandleVideoClick}  >
+                                        <div className="w-full h-20  border-2 bg-gray-200 border-dashed border-slate-800 flex justify-center items-center " onClick={HandleVideoClick}>
                                             <div className="w-[full]-h-[full]  flex gap-2">
                                                 <h1 className='text-gray-500 text-xl  font-serif'>Upload your Demo Video Here </h1>
                                             </div>
@@ -309,13 +339,13 @@ console.log(Thumbnail,DemoVideo,className,courseTitle,courseDescription,courseLe
                                                 <div className="w-[full]-h-[full]  flex gap-2">
                                                     <h1 className='text-gray-500 text-xl  font-serif'>Upload your Class Video Here </h1>
                                                 </div>
-                                            <input onChange={handleChangeClassVideo} className='hidden' ref={Classvideoref} type="file" name='ClassVideo'/>
+                                                <input onChange={handleChangeClassVideo} className='hidden' ref={Classvideoref} type="file" name='ClassVideo'/>
                                             </div>
- 
+
                                         </div>
                                         <div className="w-full h-16  flex items-center">
                                             <div className="w-full h-1/2 flex justify-center items-center">
-                                                <button className='w-3/6 h-10 bg-black text-white font-bold hover:border-2 hover:bg-white hover:text-black hover:border-black '>Upload </button>
+                                                <button className='w-3/6 h-10 bg-black text-white font-bold hover:border-2 hover:bg-white hover:text-black hover:border-black' onClick={handleUpload}>Upload </button>
                                             </div>
                                         </div>
                                     </div>
