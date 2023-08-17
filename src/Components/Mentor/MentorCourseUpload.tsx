@@ -138,7 +138,7 @@ const MentorCourseUpload = () => {
 
     const params = {
         Bucket:s3cofing.bucketName,
-        Key: `ThumbnailImages/${file.name}`,
+        Key: `Educart/${file.name}`,
         Body: file,
         ContentType: file.type,
       };
@@ -152,7 +152,19 @@ const MentorCourseUpload = () => {
     const handleUpload = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
         if (Thumbnail) {
-            handleUploadFiles(Thumbnail);
+        const ThumbnailLocation =  handleUploadFiles(Thumbnail);  
+        console.log(ThumbnailLocation,"Thumbnail Image Location");
+        
+        }
+        if(DemoVideo){
+         const DemoVideoLocation = handleUploadFiles(DemoVideo);
+         console.log(DemoVideoLocation,"demo Video Location");
+         
+        }
+        if(classVideo){
+            const classVideoLocation = handleUploadFiles(classVideo)
+            console.log(classVideoLocation,"class video Location");
+            
         }
     };
 
