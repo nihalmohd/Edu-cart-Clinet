@@ -13,28 +13,26 @@ interface Category {
     _id: string
     Status: boolean
 }
-
 const MentorCourseUpload = () => {
-
     useEffect(() => {
         handleCategory()
-    }, [])
-
+    },[])
+    
     const [ThumbnailLocation,SetThumbnailLocation] = useState<string>("")
     const [DemoVideoLocation,SetDemoVideoLocation] = useState<string>("")
     const [ClassVideoLocation,SetClassVideoLocation] = useState<string>("")
-
+    
     const [Thumbnail, setThumbnail] = useState<File | null>(null)
     const [DemoVideo, setDemoVideo] = useState<File | null>(null)
     const [classVideo, SetClassVideo] = useState<File | null>(null)
-
-
+    
+    
     const [SelectedCategory, setSelectedCategory] = useState<string>('')
     const [SelectedSubCategory, setSelectedSubCategory] = useState<string>('')
     const [dropCategory, setdropCategory] = useState<Category[]>([])
     const [dropSubCategory, setdropSubCategory] = useState<Category>()
-
-
+    
+    
     const [courseTitle, setCourseTitle] = useState<string>("")
     const [courseDescription, setCourseDescription] = useState<string>("")
     const [courseLearning, setCouresLearning] = useState<string>("")
@@ -42,12 +40,11 @@ const MentorCourseUpload = () => {
     const [coursePrice, setCoursePrice] = useState<string>("")
     const [className, setClassname] = useState<string>("")
     const [ClassDescription, setClassDescription] = useState<string>("")
-    console.log(Thumbnail, DemoVideo, className, courseTitle, courseDescription, courseLearning, courseIncludes, coursePrice, className, ClassDescription, classVideo, SelectedCategory, SelectedSubCategory, "all of them getting")
-
-    const handleCategory = async () => {
-        const { data } = await axiosIntance.get("/Mentor/MentorDisplayCategories")
-        const { FoundedCategroy } = data
-        setdropCategory(FoundedCategroy)
+    // console.log(ThumbnailLocation, DemoVideoLocation, courseTitle, courseDescription, courseLearning, courseIncludes, coursePrice, className, ClassDescription,CoursewithClass, "all of them getting") 
+ const handleCategory = async () => {
+     const { data } = await axiosIntance.get("/Mentor/MentorDisplayCategories")
+     const { FoundedCategroy } = data
+     setdropCategory(FoundedCategroy)
         // setCate(FoundedCategroy[0])   ;
     }
     const handleSubcategory = async () => {
@@ -108,10 +105,11 @@ const MentorCourseUpload = () => {
     }
     const handleChangeClassVideo = (e: React.ChangeEvent<HTMLInputElement>) => {
         const classesVideo: File | null = e.target.files && e.target.files[0] as File || null
+        console.log(classesVideo)
         SetClassVideo(classesVideo)
     }
-
-
+    
+    
     const HandleImageClick = () => {
         if (ImageRef.current) {
             ImageRef.current.click()
@@ -123,7 +121,7 @@ const MentorCourseUpload = () => {
             videoRef.current.click()
         }
     }
-
+    
     const HandleClassVideoClick = () => {
         if (Classvideoref.current) {
             Classvideoref.current.click()
@@ -174,9 +172,12 @@ const MentorCourseUpload = () => {
             console.log(classVideoLocation,"class video Location");
             SetClassVideoLocation(classVideoLocation as string)
         }
-    };
+        const {data} = await axiosIntance.post("/Mentor/MentorAddCoruseAndClass",{courseTitle,courseDescription,courseLearning,courseIncludes,SelectedCategory,SelectedSubCategory,coursePrice,}) 
+        if(data){
+        console.log(data);
+        }
+    };    
 
-    
     return (
         <div>
             <form action="">
