@@ -172,12 +172,11 @@ const MentorCourseUpload = () => {
             console.log(classVideoLocation,"class video Location");
             SetClassVideoLocation(classVideoLocation as string)
         }
-        const {data} = await axiosIntance.post("/Mentor/MentorAddCoruseAndClass",{courseTitle,courseDescription,courseLearning,courseIncludes,SelectedCategory,SelectedSubCategory,coursePrice,}) 
+        const {data} = await axiosIntance.post("/Mentor/MentorAddCoruseAndClass",{courseTitle,courseDescription,courseLearning,courseIncludes, coursePrice,ThumbnailLocation,SelectedCategory,SelectedSubCategory,DemoVideoLocation,className,ClassDescription,ClassVideoLocation}) 
         if(data){
         console.log(data);
         }
     };    
-
     return (
         <div>
             <form action="">
