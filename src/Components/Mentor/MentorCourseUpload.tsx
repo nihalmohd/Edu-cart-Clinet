@@ -19,15 +19,21 @@ const MentorCourseUpload = () => {
     useEffect(() => {
         handleCategory()
     }, [])
-    const [SelectedCategory, setSelectedCategory] = useState<string>('')
-    const [SelectedSubCategory, setSelectedSubCategory] = useState<string>('')
-    const [dropCategory, setdropCategory] = useState<Category[]>([])
-    const [dropSubCategory, setdropSubCategory] = useState<Category>()
-    console.log(SelectedCategory, "Selected Categroy");
+
+    const [ThumbnailLocation,SetThumbnailLocation] = useState<string>("")
+    const [DemoVideoLocation,SetDemoVideoLocation] = useState<string>("")
+    const [ClassVideoLocation,SetClassVideoLocation] = useState<string>("")
 
     const [Thumbnail, setThumbnail] = useState<File | null>(null)
     const [DemoVideo, setDemoVideo] = useState<File | null>(null)
     const [classVideo, SetClassVideo] = useState<File | null>(null)
+
+
+    const [SelectedCategory, setSelectedCategory] = useState<string>('')
+    const [SelectedSubCategory, setSelectedSubCategory] = useState<string>('')
+    const [dropCategory, setdropCategory] = useState<Category[]>([])
+    const [dropSubCategory, setdropSubCategory] = useState<Category>()
+
 
     const [courseTitle, setCourseTitle] = useState<string>("")
     const [courseDescription, setCourseDescription] = useState<string>("")
@@ -124,6 +130,7 @@ const MentorCourseUpload = () => {
         }
     }
 
+
     const handleUploadFiles = async ( file: any) => {
 
         if (!file) {
@@ -135,8 +142,7 @@ const MentorCourseUpload = () => {
             secretAccessKey: s3cofing.secretAccessKey,
             region: s3cofing.region
         }); 
-
-    const params = {
+        const params = {
         Bucket:s3cofing.bucketName,
         Key: `Educart/${file.name}`,
         Body: file,
@@ -145,29 +151,32 @@ const MentorCourseUpload = () => {
         try {
             const response = await s3.upload(params).promise();
             console.log('File uploaded:', response.Location);
+            return response.Location
         } catch (error) {
             console.error('Error uploading file:', error);
         }
     }
-    const handleUpload = (e: React.MouseEvent<HTMLButtonElement>) => {
+
+    const handleUpload = async(e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
         if (Thumbnail) {
-        const ThumbnailLocation =  handleUploadFiles(Thumbnail);  
+        const ThumbnailLocation = await handleUploadFiles(Thumbnail);  
         console.log(ThumbnailLocation,"Thumbnail Image Location");
-        
+        SetThumbnailLocation(ThumbnailLocation as string)
         }
         if(DemoVideo){
-         const DemoVideoLocation = handleUploadFiles(DemoVideo);
+         const DemoVideoLocation =await handleUploadFiles(DemoVideo);
          console.log(DemoVideoLocation,"demo Video Location");
-         
+         SetDemoVideoLocation(DemoVideoLocation as string)
         }
         if(classVideo){
-            const classVideoLocation = handleUploadFiles(classVideo)
+            const classVideoLocation =await handleUploadFiles(classVideo)
             console.log(classVideoLocation,"class video Location");
-            
+            SetClassVideoLocation(classVideoLocation as string)
         }
     };
 
+    
     return (
         <div>
             <form action="">
