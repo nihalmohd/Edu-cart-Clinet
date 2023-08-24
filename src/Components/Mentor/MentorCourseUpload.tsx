@@ -16,23 +16,23 @@ interface Category {
 const MentorCourseUpload = () => {
     useEffect(() => {
         handleCategory()
-    },[])
-    
-    const [ThumbnailLocation,SetThumbnailLocation] = useState<string>("")
-    const [DemoVideoLocation,SetDemoVideoLocation] = useState<string>("")
-    const [ClassVideoLocation,SetClassVideoLocation] = useState<string>("")
-    
+    }, [])
+
+    // const [ThumbnailLocation, SetThumbnailLocation] = useState<string>("")
+    // const [DemoVideoLocation, SetDemoVideoLocation] = useState<string>("")
+    // const [ClassVideoLocation,SetClassVideoLocation] = useState<string>("")
+
     const [Thumbnail, setThumbnail] = useState<File | null>(null)
     const [DemoVideo, setDemoVideo] = useState<File | null>(null)
     const [classVideo, SetClassVideo] = useState<File | null>(null)
-    
-    
+
+
     const [SelectedCategory, setSelectedCategory] = useState<string>('')
     const [SelectedSubCategory, setSelectedSubCategory] = useState<string>('')
     const [dropCategory, setdropCategory] = useState<Category[]>([])
     const [dropSubCategory, setdropSubCategory] = useState<Category>()
-    
-    
+
+
     const [courseTitle, setCourseTitle] = useState<string>("")
     const [courseDescription, setCourseDescription] = useState<string>("")
     const [courseLearning, setCouresLearning] = useState<string>("")
@@ -41,10 +41,10 @@ const MentorCourseUpload = () => {
     const [className, setClassname] = useState<string>("")
     const [ClassDescription, setClassDescription] = useState<string>("")
     // console.log(ThumbnailLocation, DemoVideoLocation, courseTitle, courseDescription, courseLearning, courseIncludes, coursePrice, className, ClassDescription,CoursewithClass, "all of them getting") 
- const handleCategory = async () => {
-     const { data } = await axiosIntance.get("/Mentor/MentorDisplayCategories")
-     const { FoundedCategroy } = data
-     setdropCategory(FoundedCategroy)
+    const handleCategory = async () => {
+        const { data } = await axiosIntance.get("/Mentor/MentorDisplayCategories")
+        const { FoundedCategroy } = data
+        setdropCategory(FoundedCategroy)
         // setCate(FoundedCategroy[0])   ;
     }
     const handleSubcategory = async () => {
@@ -108,8 +108,8 @@ const MentorCourseUpload = () => {
         console.log(classesVideo)
         SetClassVideo(classesVideo)
     }
-    
-    
+
+
     const HandleImageClick = () => {
         if (ImageRef.current) {
             ImageRef.current.click()
@@ -121,7 +121,7 @@ const MentorCourseUpload = () => {
             videoRef.current.click()
         }
     }
-    
+
     const HandleClassVideoClick = () => {
         if (Classvideoref.current) {
             Classvideoref.current.click()
@@ -129,23 +129,23 @@ const MentorCourseUpload = () => {
     }
 
 
-    const handleUploadFiles = async ( file: any) => {
+    const handleUploadFiles = async (file: any) => {
 
         if (!file) {
             console.log('Please select both video and thumbnail files.');
             return;
         }
         const s3 = new AWS.S3({
-            accessKeyId:s3cofing.accesskeyId,
+            accessKeyId: s3cofing.accesskeyId,
             secretAccessKey: s3cofing.secretAccessKey,
             region: s3cofing.region
-        }); 
+        });
         const params = {
-        Bucket:s3cofing.bucketName,
-        Key: `Educart/${file.name}`,
-        Body: file,
-        ContentType: file.type,
-      };
+            Bucket: s3cofing.bucketName,
+            Key: `Educart/${file.name}`,
+            Body: file,
+            ContentType: file.type,
+        };
         try {
             const response = await s3.upload(params).promise();
             console.log('File uploaded:', response.Location);
@@ -155,28 +155,55 @@ const MentorCourseUpload = () => {
         }
     }
 
-    const handleUpload = async(e: React.MouseEvent<HTMLButtonElement>) => {
+    // const Addcourse = async ( ) => {
+    //     console.log("chekkkkkkk");
+    //     console.log(ThumbnailLocation,DemoVideoLocation,ClassVideoLocation)
+
+    //     if (data) {
+    //         console.log(data, "this is responce");
+    //     }
+    // }
+
+    const handleUpload = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
+        let ThumbnailLocation
+        let DemoVideoLocation
+        let classVideoLocation
         if (Thumbnail) {
-        const ThumbnailLocation = await handleUploadFiles(Thumbnail);  
-        console.log(ThumbnailLocation,"Thumbnail Image Location");
-        SetThumbnailLocation(ThumbnailLocation as string)
+            console.log("111111");
+             ThumbnailLocation = await handleUploadFiles(Thumbnail);
+            console.log(ThumbnailLocation, "Thumbnail Image Location");
+            // SetThumbnailLocation(ThumbnailLocation as string)
+            console.log(ThumbnailLocation ? ThumbnailLocation : null, "seting and displaying thumbilLocation");
         }
-        if(DemoVideo){
-         const DemoVideoLocation =await handleUploadFiles(DemoVideo);
-         console.log(DemoVideoLocation,"demo Video Location");
-         SetDemoVideoLocation(DemoVideoLocation as string)
+        if (DemoVideo) {
+            console.log("2222");
+             DemoVideoLocation = await handleUploadFiles(DemoVideo);
+            console.log(DemoVideoLocation, "demo Video Location");
+            // SetDemoVideoLocation(DemoVideoLocation as string)
+            console.log(DemoVideoLocation ? DemoVideoLocation : null, "seting and Displaying Demovideio Location");
         }
-        if(classVideo){
-            const classVideoLocation =await handleUploadFiles(classVideo)
-            console.log(classVideoLocation,"class video Location");
-            SetClassVideoLocation(classVideoLocation as string)
+        if (classVideo) {
+            console.log("3333");
+             classVideoLocation = await handleUploadFiles(classVideo)
+            console.log(classVideoLocation, "class video Location");
+            // SetClassVideoLocation(classVideoUploadLocation as string)
         }
-        const {data} = await axiosIntance.post("/Mentor/MentorAddCoruseAndClass",{courseTitle,courseDescription,courseLearning,courseIncludes, coursePrice,ThumbnailLocation,SelectedCategory,SelectedSubCategory,DemoVideoLocation,className,ClassDescription,ClassVideoLocation}) 
-        if(data){
-        console.log(data);
+        console.log(ThumbnailLocation, DemoVideoLocation, classVideoLocation);
+
+        if (!ThumbnailLocation || !DemoVideoLocation || !classVideoLocation){
+            return
+            console.log("not found")  
         }
-    };    
+        const { data } = await axiosIntance.post("/Mentor/MentorAddCoruseAndClass", { courseTitle, courseDescription, courseLearning, courseIncludes, coursePrice, ThumbnailLocation, SelectedCategory, SelectedSubCategory, DemoVideoLocation, className, ClassDescription, classVideoLocation })
+        console.log(data)
+    };
+
+
+console.log(SelectedSubCategory,"Subcategory123");
+
+
+
     return (
         <div>
             <form action="">
@@ -236,7 +263,7 @@ const MentorCourseUpload = () => {
                                                 <h1 className='font-bold' >Thumbnail Image <span className="text-red-700 flex-row">*</span></h1>
                                             </div>
                                             <div className="w-full h-1/2 bg-gray-300 border-2 border-dashed border-black flex justify-center items-center" onClick={HandleImageClick}>
-                                                <h1 className='font-serif text-base text-center'>Unpload your thumbnail image</h1>
+                                                <h1 className='font-serif text-base text-center'>Upload your thumbnail image</h1>
                                                 <input onChange={handleCourseThumbnail} type="file" ref={ImageRef} name='Image' className='hidden' />
                                             </div>
                                         </div>
@@ -289,7 +316,7 @@ const MentorCourseUpload = () => {
                                                     >
                                                         {
                                                             dropSubCategory?.Subcategory.map((items) => (
-                                                                <option key={items} value={items}>{items}</option>
+                                                                <option key={items} value={items }>{items}</option>
                                                             ))
                                                         }
 
@@ -360,7 +387,7 @@ const MentorCourseUpload = () => {
                                                 <div className="w-[full]-h-[full]  flex gap-2">
                                                     <h1 className='text-gray-500 text-xl  font-serif'>Upload your Class Video Here </h1>
                                                 </div>
-                                                <input onChange={handleChangeClassVideo} className='hidden' ref={Classvideoref} type="file" name='ClassVideo'/>
+                                                <input onChange={handleChangeClassVideo} className='hidden' ref={Classvideoref} type="file" name='ClassVideo' />
                                             </div>
 
                                         </div>

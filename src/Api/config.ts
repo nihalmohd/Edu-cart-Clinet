@@ -6,8 +6,6 @@ const axiosIntance = axios.create({
 });
 axiosIntance.interceptors.request.use(
     (config) => {
-
-
         const User =JSON.parse(localStorage.getItem("User") as string )
         if(User) {
         const AccessToken =User.AccessToken
@@ -16,8 +14,6 @@ axiosIntance.interceptors.request.use(
             config.headers["Authorization"] = `Bearer ${AccessToken}`;
         }
     }
-
-
     const Mentor =JSON.parse(localStorage.getItem("Menror") as string)
     if(Mentor){
         const MentorAccessToken=Mentor.AccessToken
