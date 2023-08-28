@@ -15,6 +15,7 @@ import MentoProtectedRouter from "./Pages/Mentor/MentoProtectedRouter"
 import AdminBanner from "./Pages/Admin/AdminBanner"
 import AdminCategory from "./Pages/Admin/AdminCategory"
 import MentorCourse from "./Pages/Mentor/MentorCourse"
+import CourseDetail from "./Pages/User/CourseDetail"
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
    <Router>
     <Routes>
       <Route path="/" element={<ProtectedRoute><Home/></ProtectedRoute>} />
+      <Route path="/showCourse" element={<ProtectedRoute><CourseDetail/></ProtectedRoute>} />
       <Route path="/signUp" element={<SignIn/>}  />
       <Route path="/Login" element={<Login />}/>
 

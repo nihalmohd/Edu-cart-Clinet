@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Slider, { Settings } from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { axiosIntance } from "../../Api/config";
+import { axiosIntance } from "../../../Api/config";
 
 interface Banner {
   Image: string
@@ -50,7 +50,7 @@ const Banner: React.FC = () => {
                 Banner.map((item) =>
                   item.Status ?
                     <div className="img-container " >
-                      <img className="w-full h-[455px] sm:w-full sm:[300px]" src={item.Image} alt="Banner" />
+                      <img className="w-full h-[455px] sm:w-full sm:screen" src={item.Image} alt="Banner" />
                       <div className="w-[400px] h-48 ml-8  absolute top-1/2  text-white p-10 flex-col justify-center ">
                         <h1 className=" text-black text-xl font-extrabold" >{item.Content}</h1>
                         <h1 className=" text-black text-sm font-bold underline">Join With Us {item.Status}</h1>

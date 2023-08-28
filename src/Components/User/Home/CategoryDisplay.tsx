@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react'
-import { axiosIntance } from '../../Api/config'
+import { axiosIntance } from '../../../Api/config'
 
 interface Category{
   _id:string
