@@ -1,56 +1,86 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { axiosIntance } from '../../Api/config'
+import { FaRegHeart} from 'react-icons/fa'
+import {GiRoundStar} from "react-icons/gi"
+
+interface Course {
+  courseTitle: string;
+  courseDescription: string;
+  courseLearning: string
+  courseIncludes: string
+  coursePrice: number;
+  ThumbnailLocation: string;
+  SelectedCategory: string;
+  SelectedSubCategory: string;
+  DemoVideoLocation: string;
+  Class?: [{ classVideoLocation: string, classname: string, ClassDescription: string }];
+  // MentorId : string;
+  Status?: boolean;
+  // User ?: [string];
+  // stud ?: [{id:string,date:Date,month:string,fees:number}]
+  // paymentStatus ?: boolean;
+}
+
+
 
 const CourseDisplay = () => {
+  const [course, setCourse] = useState<Course[]>()
+  useEffect(() => {
+    DisplayCourse()
+  }, [])
+
+  const DisplayCourse = async () => {
+    const { data } = await axiosIntance.get("/showCourse")
+    console.log(data);
+    if (data) {
+      const { Getcourse } = data
+      setCourse(Getcourse)
+    }
+  }
   return (
-    <div>
-      <div className="w-full h-[550px] bg-slate-200 rounded-lg ">
+    <div className='p-2'>
+      <div className="w-full h-full bg-slate-200 rounded-lg ">
         <div className="w-full h-16  flex items-center p-2">
-          <h1 className='text-2xl font-serif font-bold underline' >Most Popular Courses</h1>
+          <h1 className='text-2xl font-serif font-bold underline'>Most Popular Courses</h1>
         </div>
-        <div className="w-full h-[400px] p-3 flex gap-3">
-
-        <div className="w-1/4 h-[375px] bg-gray-400 p-2 hover:shadow-2xl hover:cursor-pointer hover:translate-x-2 hover:translate-y-2">
-          <div className="w-full h-full bg-slate-50 p-2">
-             <div className="w-full h-[125px] bg-green-200 border-2 border-black">
-             <img src="\Images\technical-studies-1.jpg" alt="" className='w-full h-full ' />
-             </div>
-             <div className="w-full h-14 bg-green-100 mt-2">
-               <h1 className='text-bas font-serif font-bold underline'>Learn javascript with Educart build your cariyer </h1>
-             </div>
-          </div>
-
-        </div>
-        <div className="w-1/4 h-[375px] bg-gray-400 p-2 hover:shadow-2xl hover:cursor-pointer hover:translate-x-1 hover:translate-y-2">
-          <div className="w-full h-full bg-slate-100 p-2">
-          <div className="w-full h-[125px] bg-green-200 border-2 border-black">
-
-               <img src="\Images\technical-studies-1.jpg" alt="" className='w-full h-full ' />
-          </div>
-          <div className="w-full h-14 bg-green-100 mt-2">
-               <h1 className='text-bas font-serif font-bold underline'>Learn javascript with Educart build your cariyer </h1>
-             </div>
-          </div>
-        </div>
-        <div className="w-1/4 h-[375px] bg-gray-400 p-2 hover:shadow-2xl hover:cursor-pointer hover:translate-x-1 hover:translate-y-2">
-          <div className="w-full h-full bg-slate-100 p-2">
-          <div className="w-full h-[125px] bg-green-200 border-2 border-black">
-          <img src="\Images\technical-studies-1.jpg" alt="" className='w-full h-full ' />
-          </div>
-          <div className="w-full h-14 bg-green-100 mt-2">
-               <h1 className='text-bas font-serif font-bold underline'>Learn javascript with Educart build your cariyer </h1>
-             </div>
-          </div>
-        </div>
-        <div className="w-1/4 h-[375px] bg-gray-400 p-2 hover:shadow-2xl hover:cursor-pointer hover:translate-x-1 hover:translate-y-2">
-          <div className="w-full h-full bg-slate-100 p-2">
-          <div className="w-full h-[125px] bg-green-200 border-2 border-black">
-          <img src="\Images\technical-studies-1.jpg" alt="" className='w-full h-full ' />
-          </div>
-          <div className="w-full h-14 bg-green-100 mt-2">
-               <h1 className='text-bas font-serif font-bold underline'>Learn javascript with Educart build your cariyer </h1>
-             </div>
-          </div>
-        </div>
+        <div className="w-full h-full p-1 grid grid-cols-5 gap-2">
+        {
+          course?.map((items) => (
+            items.Status ?
+                <div className="w-full h-[375px] bg-gray-400 p-2 hover:shadow-2xl hover:cursor-pointer hover:translate-x-1 hover:translate-y-2">
+                  <div className="w-full h-full bg-slate-50 p-2">
+                    <div className="w-full h-[125px] bg-green-200 border-2 border-black">
+                      <img src={items.ThumbnailLocation} alt="" className='w-full h-full ' />
+                    </div>
+                    <div className="w-full h-14  mt-2 flex">
+                      <h1 className='text-bas font-serif font-bold underline'>{items.courseTitle} </h1>
+                    </div>
+                    <div className="w-full h-8 mb-1 flex">
+                      <div className='w-1/2 h-full  flex items-center'>
+                      <GiRoundStar/>
+                      <GiRoundStar/>
+                      <GiRoundStar/>
+                      <GiRoundStar/>
+                      <GiRoundStar/>
+                      </div>
+                      <div className='w-1/2 h-8 flex items-center justify-center'>
+                        <h1 className='text-xs font-semibold text-stone-500 text-start'>4.3</h1>
+                      </div>
+                    </div>
+                    <div className="w-full h-5 flex items-center justify-start">
+                      <h1 className='text-center font-semibold text-stone-500 text-xs'>Mr:Mentor</h1>
+                    </div>
+                    <div className="w-full h-10 flex justify-start items-center">
+                      <h1 className='font-semibold text-lg text-black'>₹3999</h1>
+                    </div>
+                    <div className='w-full h-16 p-1 flex gap-2'>
+                      <button className='bg-black text-white w-3/5 h-12 font-semibold text-lg hover:border-2 hover:border-black hover:bg-transparent hover:text-black '>Buy Now</button>
+                      <button className='bg-white border-2 border-black text-black w-1/3 h-12 font-semibold flex justify-center items-center text-xl hover:bg-black hover:text-white'><FaRegHeart/></button>
+                    </div>
+                  </div>
+              </div> : null   
+          ))
+        }
         </div>
       </div>
     </div>
