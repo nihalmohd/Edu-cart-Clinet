@@ -25,7 +25,7 @@ function App() {
    <Router>
     <Routes>
       <Route path="/" element={<ProtectedRoute><Home/></ProtectedRoute>} />
-      <Route path="/showCourse" element={<ProtectedRoute><CourseDetail/></ProtectedRoute>} />
+      <Route path="/showCourse/:_id" element={<ProtectedRoute><CourseDetail/></ProtectedRoute>} />
       <Route path="/signUp" element={<SignIn/>}  />
       <Route path="/Login" element={<Login />}/>
 

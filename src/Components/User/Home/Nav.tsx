@@ -19,12 +19,12 @@ const Nav = () => {
         <img className="h-full " src="/Images/Untitled-1-01.png" alt="Logo" />
 
         
-        <div className="hidden sm:flex items-center">
+        {/* <div className="hidden sm:flex items-center">
           <span className="mr-4 text-black">Category</span>
-        </div>
+        </div> */}
 
         
-        <div className="hidden sm:flex items-center w-1/3 sm:w-2/6">
+        <div className="hidden sm:flex items-center w-3/4 sm:w-2/6">
           <input
             type="text"
             placeholder="Search for anything"
@@ -33,7 +33,7 @@ const Nav = () => {
         </div>
 
         
-        <div className="hidden sm:flex items-center">
+        <div className="hidden sm:flex items-center gap-2">
           <span className="mx-4 text-black">Mentor</span>
           <span className="mx-4 text-black">My Course</span>
         </div>

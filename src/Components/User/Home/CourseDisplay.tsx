@@ -5,6 +5,7 @@ import { FaRegHeart} from 'react-icons/fa'
 import {GiRoundStar} from "react-icons/gi"
 
 interface Course {
+  _id:string
   courseTitle: string;
   courseDescription: string;
   courseLearning: string
@@ -49,7 +50,8 @@ const CourseDisplay = () => {
         {
           course?.map((items) => (
             items.Status ?
-                <div className="w-full h-[375px] bg-gray-400 p-2 hover:shadow-2xl hover:cursor-pointer hover:translate-x-1 hover:translate-y-2" onClick={()=>navigate('/showCourseDetails')}>
+           
+                <div className="w-full h-[375px] bg-gray-400 p-2 hover:shadow-2xl hover:cursor-pointer hover:translate-x-1 hover:translate-y-2" onClick={()=>navigate(`/showCourse/${items._id}`)}>
                   <div className="w-full h-full bg-slate-50 p-2">
                     <div className="w-full h-[125px] bg-green-200 border-2 border-black">
                       <img src={items.ThumbnailLocation} alt="" className='w-full h-full ' />
