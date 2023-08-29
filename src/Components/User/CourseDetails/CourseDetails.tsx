@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams,useNavigate } from 'react-router-dom'
 import { GiRoundStar } from "react-icons/gi"
 import { axiosIntance } from '../../../Api/config';
 import CourseDisplay from '../Home/CourseDisplay';
@@ -26,6 +26,7 @@ interface Course {
 }
 
 const CourseDetail = () => {
+  const navigate = useNavigate()
   const { _id } = useParams()
   useEffect(() => {
     DisplayCourseDetails()
@@ -83,8 +84,6 @@ const CourseDetail = () => {
               ></video>
             </div>
           </div>
-
-
         </div>
       </div>
       <div className="w-full h-full flex justify-center items-start gap-1 p-2">
@@ -108,11 +107,11 @@ const CourseDetail = () => {
                     <div className="w-full h-full  flex justify-start items-center">
                       <h1 className='text-sm ml-1' >{items.classname}</h1>
                     </div>
-                    <div className="w-full h-full flex justify-center items-center">
+                    <div className="w-2/6 h-full flex justify-center items-center">
                       <h1 className='text-sm text-blue-800 underline font-serif'>{items.classVideoLocation.length}</h1>
                     </div>
                   </div>
-                ))
+                )) 
               }
             </div>
           </div>
@@ -132,7 +131,7 @@ const CourseDetail = () => {
           </div>
           <div className="w-full h-full">
 
-          <button className="w-full h-10 bg-white border-2 border-black text-black mt-2 font-bold text-lg hover:bg-black hover:text-white hover:cursor-pointer" >Purchase Course</button>
+          <button className="w-full h-10 bg-white border-2 border-black text-black mt-2 font-bold text-lg hover:bg-black hover:text-white hover:cursor-pointer"onClick={()=>{navigate("/Paypal")}} >Purchase Course</button>
           <button className="w-full h-10 bg-white border-2 border-black text-black mt-2 font-bold text-lg hover:bg-black hover:text-white hover:cursor-pointer ">Add to whishlist</button>
           </div>
 
