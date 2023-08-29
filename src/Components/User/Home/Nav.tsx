@@ -19,9 +19,9 @@ const Nav = () => {
         <img className="h-full " src="/Images/Untitled-1-01.png" alt="Logo" />
 
         
-        {/* <div className="hidden sm:flex items-center">
+        <div className="hidden sm:flex items-center">
           <span className="mr-4 text-black">Category</span>
-        </div> */}
+        </div>
 
         
         <div className="hidden sm:flex items-center w-3/4 sm:w-2/6">
