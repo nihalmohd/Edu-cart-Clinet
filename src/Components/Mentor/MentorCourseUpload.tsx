@@ -5,6 +5,7 @@ import { axiosIntance } from '../../Api/config'
 import { String } from 'aws-sdk/clients/cloudsearch'
 import AWS from 'aws-sdk'
 import { s3cofing } from '../../s3config'
+import { useNavigate } from 'react-router-dom'
 
 
 interface Category {
@@ -14,6 +15,7 @@ interface Category {
     Status: boolean
 }
 const MentorCourseUpload = () => {
+    const navigate = useNavigate()
     useEffect(() => {
         handleCategory()
     }, [])
@@ -206,6 +208,9 @@ console.log(SelectedSubCategory,"Subcategory123");
 
     return (
         <div>
+            {/* <div className="w-full h-20  flex justify-end items-center pr-1">
+                 <div className="w-36 h-10 bg-black text-white text-center flex justify-center items-center font-bold hover:bg-transparent hover:border-2 border-black hover:text-black"onClick={()=>{navigate("/MentorCourseUpload")}} >Add Course</div>
+            </div> */}
             <form action="">
                 <div className="w-full h-full md:flex  ">
                     <div className="md:w-1/2 h-[700px] p-2 sm:w-full ">

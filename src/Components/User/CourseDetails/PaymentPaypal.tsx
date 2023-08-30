@@ -24,7 +24,7 @@ const PaymentPaypal = () => {
           <button className='bg-black w-full h-10 text-white text-lg font-bold flex justify-center items-center hover:bg-white hover:text-black hover:border-2 hover:border-black shadow-xl hover:scale-x-95 mt-3' onClick={() => handleClickButton()}>Pay Now</button>
           <button className='bg-black w-full h-10 text-white text-lg font-bold flex justify-center items-center hover:bg-white hover:text-black hover:border-2 hover:border-black shadow-xl hover:scale-x-95 mt-3' onClick={() => { navigate("/") }}>Cancel Payment</button>
           <div className="w-full h-80 p-2 " style={{ display: showPayPalButton ? 'block' : 'none' }} ref={PaypalButtonRef}>
-            <PayPalScriptProvider options={{ clientId: "test" }}>
+            <PayPalScriptProvider options={{ clientId:import.meta.env.VITE_PAYPAL_CLIENTID }}>
               <PayPalButtons style={{ layout: "horizontal" }} />
             </PayPalScriptProvider>
           </div>

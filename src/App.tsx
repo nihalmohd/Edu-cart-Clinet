@@ -30,8 +30,8 @@ function App() {
       <Route path="/" element={<ProtectedRoute><Home/></ProtectedRoute>} />
       <Route path="/showCourse/:_id" element={<ProtectedRoute><CourseDetail/></ProtectedRoute>} />
       <Route path="/paypal" element={<ProtectedRoute><Paypal/></ProtectedRoute>} />
-      <Route path="/signUp" element={<SignIn/>}  />
-      <Route path="/Login" element={<Login />}/>
+      <Route path="/signUp" element={<SignIn/>}/>
+      <Route path="/Login" element={<Login/>}/>
 
 
       {/*Admin Side */}
