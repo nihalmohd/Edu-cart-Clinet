@@ -27,9 +27,10 @@ interface Course {
 const AdminDisplayCourses = () => {
     const navigate = useNavigate()
     const [Admincourse, setAdminCourse] = useState<Course[]>()
+    const [CourseManagment,SetCourseManagment] = useState<boolean>(true)
     useEffect(() => {
       DisplayCourse()
-    }, [])
+    }, [CourseManagment])
   
     const DisplayCourse = async () => {
       const { data } = await axiosIntance.get("/Admin/AdminDisplayCourse")
@@ -38,6 +39,20 @@ const AdminDisplayCourses = () => {
         const { Getcourse } = data
         setAdminCourse(Getcourse)
       }
+    }
+    const HandleBlockCourse = async(_id:string) =>{
+        console.log("clicking is over");
+ 
+     const {data} = await axiosIntance.post("/Admin/AdminCourseVisible",{_id})
+     SetCourseManagment(false)
+     console.log(data);
+     
+    } 
+    const HandleUnblockCourse = async(_id:string) =>{
+    const {data} = await axiosIntance.post ("/Admin/AdminCourseInvisible",{_id})
+    SetCourseManagment(true)
+    console.log(data);
+    
     }
   return (
     <div>
@@ -48,11 +63,9 @@ const AdminDisplayCourses = () => {
         </div>
         <div className="w-full h-full p-1 grid grid-cols-5 gap-2">
         {
-          Admincourse?.map((items) => (
-            items.Status ?
-           
+          Admincourse?.map((items) => (       
                 <div className="w-full h-[425px] bg-gray-400 p-2 hover:shadow-2xl hover:cursor-pointer hover:translate-x-1 hover:translate-y-2">
-                  <div className="w-full h-full bg-slate-50 p-2">
+                  <div className={`${items.Status?"w-full h-full bg-slate-50 p-2":"w-full h-full bg-red-400 p-2"}`}>
                     <div className="w-full h-[125px] bg-green-200 border-2 border-black">
                       <img src={items.ThumbnailLocation} alt="" className='w-full h-full ' />
                     </div>
@@ -79,11 +92,17 @@ const AdminDisplayCourses = () => {
                     </div>
                     <div className='w-full h-16 p-1 '>
                       <button className='bg-transparent border-2 border-black text-black w-full h-12 font-semibold text-lg  hover:bg-black hover:text-white '>View Details</button>
-                      <button className='bg-transparent border-2 border-black text-black w-full h-12 font-semibold text-lg  hover:bg-black hover:text-white mt-2 '>Invisible</button>
+                      {
+                        items.Status?
+                        <button className='bg-transparent border-2 border-black text-black w-full h-12 font-semibold text-lg  hover:bg-black hover:text-white mt-2' onClick={()=>{HandleBlockCourse(items._id)}}>Invisible</button>
+                        :
+                      <button className='bg-transparent border-2 border-black text-black w-full h-12 font-semibold text-lg  hover:bg-black hover:text-white mt-2'onClick={()=>{HandleUnblockCourse(items._id)}}>visible</button>
+                    }
+                      
                      
                     </div>
                   </div>
-              </div> : null   
+              </div>  
           ))
         }
         </div>
