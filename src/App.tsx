@@ -16,7 +16,8 @@ import AdminBanner from "./Pages/Admin/AdminBanner"
 import AdminCategory from "./Pages/Admin/AdminCategory"
 import MentorCourse from "./Pages/Mentor/MentorCourse"
 import CourseDetail from "./Pages/User/CourseDetail"
-import Payment from "./Pages/User/payment"
+import Paypal from "./Pages/User/Payment"
+import AdminCourses from "./Pages/Admin/AdminCourses"
 
 
 
@@ -28,7 +29,7 @@ function App() {
     <Routes>
       <Route path="/" element={<ProtectedRoute><Home/></ProtectedRoute>} />
       <Route path="/showCourse/:_id" element={<ProtectedRoute><CourseDetail/></ProtectedRoute>} />
-      <Route path="/paypal" element={<ProtectedRoute><Payment/></ProtectedRoute>} />
+      <Route path="/paypal" element={<ProtectedRoute><Paypal/></ProtectedRoute>} />
       <Route path="/signUp" element={<SignIn/>}  />
       <Route path="/Login" element={<Login />}/>
 
@@ -40,7 +41,7 @@ function App() {
       <Route path="/EducartUsers" element={<AdminProtectedRouter><AdminUsers/></AdminProtectedRouter>}/>
       <Route path="/EducartMentors" element={<AdminProtectedRouter><AdminMentors/></AdminProtectedRouter>}/>
       <Route path="/EducartBanner" element={<AdminProtectedRouter><AdminBanner/></AdminProtectedRouter>}/>
-
+      <Route path="//EducartCourses" element={<AdminProtectedRouter><AdminCourses/></AdminProtectedRouter>}/>
 
       {/*Mentor Side */}
       <Route path="/MentorHome" element={<MentoProtectedRouter><MentorHome/></MentoProtectedRouter>}/>

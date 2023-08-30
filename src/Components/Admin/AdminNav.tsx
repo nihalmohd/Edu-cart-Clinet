@@ -15,7 +15,7 @@ const AdminNav = () => {
       <div className="w-full h-20 sm:h-[65px] flex justify-between border shadow-lg border-b">
         <img className="h-full " src="/Images/Untitled-1-01.png" alt="Logo" />
         <div className="hidden sm:flex items-center space-x-4 p-2 relative ">
-          <span className="text-black hover:font-bold">
+          <span className="text-black hover:font-bold"onClick={()=>{navigate("/EducartCourses")}}>
             Courses
           </span>
           <span className="text-black hover:font-bold" onClick={() => navigate('/EducartUsers')}>
