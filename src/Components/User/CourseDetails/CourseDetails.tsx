@@ -88,7 +88,7 @@ const CourseDetail = () => {
       </div>
       <div className="w-full h-full flex justify-center items-start gap-1 p-2">
         <div className="w-4/6 h-full  p-2 ">
-          <div className="w-full h-full  border-2  border-black p-1  ">
+          <div className="w-full h-full  border  border-black p-1  ">
             <div className="w-full h-10 flex justify-start items-center border-2 border-black">
               <h1 className='text-lg font-bold text-black ml-3 font-serif underline'>What you Learn with This Course</h1>
             </div>
@@ -97,13 +97,13 @@ const CourseDetail = () => {
             </div>
           </div>
           <div className="w-full h-full  mt-1 ">
-            <div className="w-full h-full  border-2 border-black p-1  ">
+            <div className="w-full h-full  border border-black p-1  ">
               <div className="w-full h-10 0 flex justify-start items-center border-2 border-black">
                 <h1 className='text-lg font-bold text-black ml-3 font-serif underline'>Classes and Dutation</h1>
               </div>
               {
                 courseDetails?.Class?.map((items) => (
-                  <div className="w-full h-fit  mt-1 border-2 border-black flex gap-3">
+                  <div className="w-full h-fit  mt-1 border border-black flex gap-3">
                     <div className="w-full h-full  flex justify-start items-center">
                       <h1 className='text-sm ml-1' >{items.classname}</h1>
                     </div>
