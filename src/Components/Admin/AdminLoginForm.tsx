@@ -26,13 +26,13 @@ const AdminLoginForm = () => {
         Adminlogincheck
     }
     localStorage.setItem("Admin",JSON.stringify(AdminDatas))
-      navigate("/EducartDash")
+      navigate("/Educart/EducartDash")
     } catch (error) {
       const errormsg = error as AxiosError;
       const message = errormsg.response?.data as ApiError
       console.log(message.message); 
       seterr(message.message)
-        navigate("/EducartLogin")
+        navigate("/Educart/EducartLogin")
     }
   }
   const handleError=()=>{

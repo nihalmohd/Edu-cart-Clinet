@@ -19,7 +19,7 @@ const MentorLoginForm = () => {
   useEffect(() => {
     const Mentor=localStorage.getItem("Mentor")
     if(Mentor){
-   navigate("/MentorHome")
+   navigate("/Mentor/MentorHome")
     }
   }, [])
   
@@ -38,7 +38,7 @@ const MentorLoginForm = () => {
         Mentor
       }
       localStorage.setItem("Mentor",JSON.stringify(MentorDatas))
-      navigate("/MentorHome")
+      navigate("/Mentor/MentorHome")
     } catch (error) {
       const MentorLoginError = error as AxiosError
       const MentorLognErrorMsg = MentorLoginError?.response?.data as ApiError

@@ -7,7 +7,7 @@ const AdminNav = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('Admin');
-    navigate('/EducartLogin');
+    navigate('/Educart/EducartLogin');
   };
 
   return (
@@ -15,19 +15,19 @@ const AdminNav = () => {
       <div className="w-full h-20 sm:h-[65px] flex justify-between border shadow-lg border-b">
         <img className="h-full " src="/Images/Untitled-1-01.png" alt="Logo" />
         <div className="hidden sm:flex items-center space-x-4 p-2 relative ">
-          <span className="text-black hover:font-bold"onClick={()=>{navigate("/EducartCourses")}}>
+          <span className="text-black hover:font-bold"onClick={()=>{navigate("/Educart/EducartCourses")}}>
             Courses
           </span>
-          <span className="text-black hover:font-bold" onClick={() => navigate('/EducartUsers')}>
+          <span className="text-black hover:font-bold" onClick={() => navigate('/Educart/EducartUsers')}>
             Users
           </span>
-          <span className="text-black hover:font-bold" onClick={() => navigate('/EducartMentors')}>
+          <span className="text-black hover:font-bold" onClick={() => navigate('/Educart/EducartMentors')}>
             Mentor
           </span>
-          <span className="text-black hover:font-bold" onClick={() => navigate('/EducartBanner')}>
+          <span className="text-black hover:font-bold" onClick={() => navigate('/Educart/EducartBanner')}>
             Banner
           </span>
-          <span className="text-black hover:font-bold" onClick={() => navigate('/EducartCategory')}>
+          <span className="text-black hover:font-bold" onClick={() => navigate('/Educart/EducartCategory')}>
             Category
           </span>
           <span className="text-black hover:font-bold">

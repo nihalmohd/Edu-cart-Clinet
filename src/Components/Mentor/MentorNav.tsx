@@ -16,7 +16,7 @@ const navigate=useNavigate()
 
         {/* Profile Picture and Navigation Links */}
         <div className="hidden sm:flex items-center space-x-4 p-2 relative">
-          <span className="text-black hover:font-bold" onClick={()=>navigate("/MentorCourse")}>My Courses</span>
+          <span className="text-black hover:font-bold" onClick={()=>navigate("/Mentor/MentorCourse")}>My Courses</span>
           <span className="text-black hover:font-bold">Users</span>
           <span className="text-black hover:font-bold">Dashboard</span>
           <span className="text-black hover:font-bold">Profile</span>

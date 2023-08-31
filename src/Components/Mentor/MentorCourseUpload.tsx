@@ -209,7 +209,7 @@ console.log(SelectedSubCategory,"Subcategory123");
     return (
         <div>
             {/* <div className="w-full h-20  flex justify-end items-center pr-1">
-                 <div className="w-36 h-10 bg-black text-white text-center flex justify-center items-center font-bold hover:bg-transparent hover:border-2 border-black hover:text-black"onClick={()=>{navigate("/MentorCourseUpload")}} >Add Course</div>
+                 <div className="w-36 h-10 bg-black text-white text-center flex justify-center items-center font-bold hover:bg-transparent hover:border-2 border-black hover:text-black"onClick={()=>{navigate("/Mentor/MentorCourseUpload")}} >Add Course</div>
             </div> */}
             <form action="">
                 <div className="w-full h-full md:flex  ">

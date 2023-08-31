@@ -22,11 +22,10 @@ axiosIntance.interceptors.request.use(
             config.headers["Authorization"] = `MentorBearer ${MentorAccessToken}`
         }
     }
-
     const Admin = JSON.parse(localStorage.getItem("Admin") as string)
     if(Admin){
         const AdminAccessToken = Admin.AdminAccessToken
-        console.log(AdminAccessToken,"dminAcesstoken");
+        console.log(AdminAccessToken,"AdminAcesstoken");
         if(AdminAccessToken){
             config.headers["Authorization"] = `AdminBearer ${AdminAccessToken}`
         }
