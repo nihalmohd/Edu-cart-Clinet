@@ -14,7 +14,7 @@ interface Category {
     _id: string
     Status: boolean
 }
-const MentorCourseUpload = () => {
+const MentorCourseUploadForm = () => {
     const navigate = useNavigate()
     useEffect(() => {
         handleCategory()
@@ -208,9 +208,6 @@ console.log(SelectedSubCategory,"Subcategory123");
 
     return (
         <div>
-            {/* <div className="w-full h-20  flex justify-end items-center pr-1">
-                 <div className="w-36 h-10 bg-black text-white text-center flex justify-center items-center font-bold hover:bg-transparent hover:border-2 border-black hover:text-black"onClick={()=>{navigate("/Mentor/MentorCourseUpload")}} >Add Course</div>
-            </div> */}
             <form action="">
                 <div className="w-full h-full md:flex  ">
                     <div className="md:w-1/2 h-[700px] p-2 sm:w-full ">
@@ -363,7 +360,7 @@ console.log(SelectedSubCategory,"Subcategory123");
                     <div className="md:w-1/2 h-[700px] p-2">
                         <div className="w-full h-[400px]  border-2 border-dotted border-black p-2">
                             <div className="w-full h-10  border-2 border-black flex justify-center items-center">
-                                <h1 className='text-center text-3xl font-bold text-black font-serif'>Class upload</h1>
+                                <h1 className='text-center text-3xl font-bold text-black font-serif'>Section upload</h1>
                             </div>
                             <div className="w-full h-[400px] p-1">
                                 <div className="w-full h-[390px]  flex ">
@@ -412,4 +409,4 @@ console.log(SelectedSubCategory,"Subcategory123");
     )
 }
 
-export default MentorCourseUpload
+export default MentorCourseUploadForm

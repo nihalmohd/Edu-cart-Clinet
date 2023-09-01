@@ -39,7 +39,6 @@ const AdminLoginForm = () => {
     seterr(null)
   }
   console.log(err);
-
   return (
     <div>
       <div className=" w-full h-full flex justify-center p-5" >

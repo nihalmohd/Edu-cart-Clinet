@@ -37,4 +37,4 @@ axiosIntance.interceptors.request.use(
     }
 );
 
-export { axiosIntance };
+export { axiosIntance }; 

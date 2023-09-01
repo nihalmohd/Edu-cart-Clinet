@@ -51,10 +51,10 @@ const CourseDisplay = () => {
           course?.map((items) => (
             items.Status ?
            
-                <div className="w-full h-[375px] bg-gray-400 p-2 hover:shadow-2xl hover:cursor-pointer hover:translate-x-1 hover:translate-y-2" onClick={()=>navigate(`/showCourse/${items._id}`)}>
+                <div className="w-full h-[375px] bg-gray-400 p-2 hover:shadow-2xl hover:cursor-pointer hover:translate-x-1 hover:translate-y-2 " >
                   <div className="w-full h-full bg-slate-50 p-2">
                     <div className="w-full h-[125px] bg-green-200 border-2 border-black">
-                      <img src={items.ThumbnailLocation} alt="" className='w-full h-full ' />
+                      <img src={items.ThumbnailLocation} alt="" className='w-full h-full 'onClick={()=>navigate(`/showCourse/${items._id}`)} />
                     </div>
                     <div className="w-full h-14  mt-2 flex">
                       <h1 className='text-bas font-serif font-bold underline'>{items.courseTitle} </h1>
@@ -75,10 +75,10 @@ const CourseDisplay = () => {
                       <h1 className='text-center font-semibold text-stone-500 text-xs'>Mr:Mentor</h1>
                     </div>
                     <div className="w-full h-10 flex justify-start items-center">
-                      <h1 className='font-semibold text-lg text-black'>₹3999</h1>
+                      <h1 className='font-semibold text-lg text-black'>₹{items.coursePrice}</h1>
                     </div>
                     <div className='w-full h-16 p-1 flex gap-2'>
-                      <button className='bg-black text-white w-3/5 h-12 font-semibold text-lg hover:border-2 hover:border-black hover:bg-transparent hover:text-black '>Buy now</button>
+                      <button className='bg-black text-white w-3/5 h-12 font-semibold text-lg hover:border-2 hover:border-black hover:bg-transparent hover:text-black 'onClick={()=>navigate(`/showCourse/${items._id}`)}>Buy now</button>
                       <button className='bg-white border-2 border-black text-black w-1/3 h-12 font-semibold flex justify-center items-center text-xl hover:bg-black hover:text-white'><FaRegHeart/></button>
                     </div>
                   </div>
