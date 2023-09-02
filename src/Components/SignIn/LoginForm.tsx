@@ -3,7 +3,15 @@ import { useNavigate } from "react-router-dom"
 import { axiosIntance } from "../../Api/config"
 import {AxiosError} from "axios"
 import jwt_decode from "jwt-decode";
+import {useDispatch} from 'react-redux'
 import { GoogleCredentialResponse, GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
+import { updateUser } from "../../Redux/Slice/UserSlice";
+interface LoginCheck {
+    _id:string;
+    Username:string;
+    Email:string;
+    Password:string;
+}
 interface ApiError {
     message: string;
   }
@@ -23,6 +31,7 @@ const LoginForm = () => {
         }, [])
 
     const navigate=useNavigate()
+    const Dispatch = useDispatch()
     const [UserLoginErr,setUserLoginErr]=useState<string|null>(null)
     const [LoginUser, setLoginUser] = useState({
         Username: "",
@@ -37,12 +46,20 @@ const LoginForm = () => {
             const { data } = await axiosIntance.post("/user/login", { ...LoginUser })
             const {AccessToken,logincheck}=data
             console.log(data);
-            
+            console.log(logincheck,"nihallllllllllllllllllllllllllllll"); 
             const UserDatas={
                 AccessToken,
                 logincheck
             }
+            console.log(logincheck.Username,logincheck.Email,logincheck._id,"halooooo");
             localStorage.setItem("User",JSON.stringify(UserDatas))
+            Dispatch(
+                updateUser({
+                  username: logincheck.Username,
+                  email: logincheck.Email,
+                  id: logincheck._id,
+                })
+              );
             navigate("/")
         } catch (error) {
             const err = error as AxiosError;
@@ -79,6 +96,7 @@ const handleSignUp=()=>{
                     User
                 }
                 localStorage.setItem("User",JSON.stringify(UserDatas))
+
                 navigate("/") 
             }
             console.log(decoded);

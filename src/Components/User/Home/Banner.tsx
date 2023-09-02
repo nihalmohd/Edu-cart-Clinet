@@ -49,7 +49,7 @@ const Banner: React.FC = () => {
 
                 Banner.map((item) =>
                   item.Status ?
-                    <div className="img-container " >
+                    <div key={item._id} className="img-container " >
                       <img className="w-full h-[455px] sm:w-full sm:screen" src={item.Image} alt="Banner" />
                       <div className="w-[400px] h-48 ml-8  absolute top-1/2  text-white p-10 flex-col justify-center ">
                         <h1 className=" text-black text-xl font-extrabold" >{item.Content}</h1>

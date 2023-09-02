@@ -1,5 +1,6 @@
 import {useEffect, useState} from 'react'
 import { axiosIntance } from '../../../Api/config'
+import { useSelector } from 'react-redux'
 
 interface Category{
   _id:string
@@ -16,6 +17,8 @@ useEffect(()=>{
   DisplayCategory()
 },[])
 
+const data =useSelector((state:any)=>state.user)
+console.log(data,"redux data ann ");
 
 
 const DisplayCategory = async() =>{
@@ -37,7 +40,7 @@ const DisplayCategory = async() =>{
         {
           categories?.map((items)=>(
             items.Status?
-          <div className="sm:w-1/2 md:h-20 md:w-full relative overflow-hidden bg-transparent group hover:bg-black hover:shadow-2xl hover:-translate-y-1 hover:translate-x-1 hover:cursor-pointer  rounded-xl">
+          <div key={items._id} className="sm:w-1/2 md:h-20 md:w-full relative overflow-hidden bg-transparent group hover:bg-black hover:shadow-2xl hover:-translate-y-1 hover:translate-x-1 hover:cursor-pointer  rounded-xl">
             <p className="absolute inset-0 flex items-center justify-center text-white text-lg font-semibold underline">
               {items.Category} 
             </p>
