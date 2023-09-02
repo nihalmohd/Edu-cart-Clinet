@@ -48,7 +48,7 @@ const MentorOtpVerification:React.FC<NextComponentProps>  = ({Mentor}) => {
             setOtperr("Please Enter Valid OTP")
         navigate("/SignUp")
         }else{
-       navigate('/MentorHome')
+       navigate('/Mentor/MentorHome')
         }
       } catch (error) {
         const OTPErr=error as AxiosError

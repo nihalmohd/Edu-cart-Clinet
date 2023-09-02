@@ -7,6 +7,7 @@ interface ApiError {
 }
 interface NextComponentProps {
   user: {
+    _id?:string
     Email: string;
     Username: string;
     Password: string;
@@ -15,7 +16,6 @@ interface NextComponentProps {
 const OTPVerification:React.FC<NextComponentProps> = ({user}) => {
   const Email=user.Email
   console.log(Email,"userEmaillllll");
-  
   const navigate=useNavigate()
   const [OTP, setOTP] = useState('');
   const [remainingTime, setRemainingTime] = useState(120); // 120 seconds (2 minutes)
@@ -36,20 +36,22 @@ console.log(OTP ,"otpppppp");
     return () => clearTimeout(timer);
   }, [isTimerRunning, remainingTime]);
 
-  const handleResendOTP = () => {
-    // Call the API to resend OTP to the user
-    // Reset the timer and enable it again
-    setRemainingTime(120); // Reset the timer to 2 minutes
-    setIsTimerRunning(true); // Start the timer again
-  };
+  // const handleResendOTP = () => {
+  //   // Call the API to resend OTP to the user
+  //   // Reset the timer and enable it again
+  //   setRemainingTime(120); // Reset the timer to 2 minutes
+  //   setIsTimerRunning(true); // Start the timer again
+  // };
 
   const handleOTPVerification = async() => {
+
     try {
       const {data} = await axiosIntance.post("/user/VerifyOTP",{Email,OTP})
       if(!data){
       navigate("/SignUp")
       setOtperr("Please Enter Valid OTP")
       }else{
+       
      navigate('/')
       }
     } catch (error) {
@@ -74,7 +76,7 @@ const handleError =()=>{
       <div className='w-full h-9 flex justify-center items-center mt-3'>
       <button className='bg-white  w-28 h-9  hover:bg-black border border-black text-center text-black hover:text-white hover:scale-105' onClick={handleOTPVerification}>Verify OTP</button>
       </div>
-      {isTimerRunning && remainingTime > 0 && (
+      {/* {isTimerRunning && remainingTime > 0 && (
         <div>
           Time Remaining: {Math.floor(remainingTime / 60)}:{(remainingTime % 60).toString().padStart(2, '0')}
         </div>
@@ -82,7 +84,7 @@ const handleError =()=>{
 
       {!isTimerRunning && remainingTime === 0 && (
         <button onClick={handleResendOTP}>Resend OTP</button>
-      )}
+      )} */}
     </div>
   );
 };

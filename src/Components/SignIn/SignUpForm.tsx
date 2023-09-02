@@ -5,6 +5,8 @@ import { axiosIntance } from '../../Api/config'
 import { GoogleOAuthProvider, GoogleLogin, GoogleCredentialResponse } from '@react-oauth/google';
 import jwt_decode from "jwt-decode";
 import OTP from './OTPVerification';
+import { useDispatch } from 'react-redux';
+import { updateUser } from '../../Redux/Slice/UserSlice';
 
 interface ApiError {
     message: string;
@@ -26,6 +28,7 @@ if(User){
 
 
     const navigate = useNavigate()
+    const Dispatch =useDispatch()
     const [Otp, setOTP] = useState(false)
     // const [userOtp, setUserOtp] = useState<boolean>(false)
     const [SignUpErr, setSignUpErr] = useState<string | null>(null)
@@ -41,12 +44,21 @@ if(User){
         try {
             const { data } = await axiosIntance.post("/user/register", { ...user })
             const { AccessToken, User } = data
+            console.log(data,"Siginup Typingl ninn ");
+            
             const Userdatas = {
                 AccessToken,
                 User
             }
 
             localStorage.setItem("User", JSON.stringify(Userdatas))
+            Dispatch(
+                updateUser({
+                    username: User.Username,
+                    email: User.Email,
+                    id: User._id                        ,
+                })
+                );
             console.log(data);
             handleUserOTP()
         } catch (error) {
@@ -78,13 +90,22 @@ if(User){
                 const { data } = await axiosIntance.post("/user/register", { ...UserGoole })
                 if (data) {
                     
-                    navigate("/", { replace: true })
-                    const { AccessToken, User } = data
+                    const { AccessToken, UserExit } = data
+                    console.log(data,"signUPilln vernn");
+                    
                     const Userdatas = {
                         AccessToken,
-                        User
+                        UserExit
                     }
                     localStorage.setItem("User", JSON.stringify(Userdatas))
+                    Dispatch(
+                        updateUser({
+                            username: UserExit.Username,
+                            email: UserExit.Email,
+                            id: UserExit._id                        ,
+                        })
+                        );
+                    navigate("/", { replace: true })
                 }
                 console.log(decoded);
 
