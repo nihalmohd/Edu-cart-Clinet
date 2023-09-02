@@ -1,14 +1,18 @@
 import { useState } from 'react';
 import { FaRegHeart,FaShoppingCart } from 'react-icons/fa'
 import { GrNotification } from 'react-icons/gr';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { logoutUser } from '../../../Redux/Slice/UserSlice';
 
 const Nav = () => {
+  const Dispatch = useDispatch()
   const navigate=useNavigate()
   const [showDropdown,SetshowDropdown]= useState<boolean>(false)
 
   const handleLogout=()=>{
    const User= localStorage.removeItem("User")
+   Dispatch(logoutUser())
    navigate("/Login")
    console.log(User);
   }

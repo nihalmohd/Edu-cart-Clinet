@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom'
 import { AxiosError } from 'axios'
 import { GoogleCredentialResponse, GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 import jwt_decode from "jwt-decode";
+import { useDispatch } from 'react-redux';
+import { updateMentor } from '../../Redux/Slice/Mentorslice';
 interface ApiError {
   message: string;
 }
@@ -15,6 +17,7 @@ interface JwtPayload {
 }
 
 const MentorLoginForm = () => {
+  const Dispatch = useDispatch()
   const navigate = useNavigate()
   useEffect(() => {
     const Mentor=localStorage.getItem("Mentor")
@@ -32,12 +35,19 @@ const MentorLoginForm = () => {
     e.preventDefault()
     try {
       const {data}=await axiosIntance.post("/Mentor/MentorLogin", { ...MentorLogin })
-      const {AccessToken,Mentor}=data
+      const {AccessToken,Mentorlogincheck}=data 
       const MentorDatas={
         AccessToken,
-        Mentor
+        Mentorlogincheck
       }
       localStorage.setItem("Mentor",JSON.stringify(MentorDatas))
+      Dispatch(
+        updateMentor({
+          username: Mentorlogincheck.Username,
+          email: Mentorlogincheck.Email,
+          id: Mentorlogincheck._id,
+        })
+      );
       navigate("/Mentor/MentorHome")
     } catch (error) {
       const MentorLoginError = error as AxiosError
@@ -68,13 +78,21 @@ const MentorLoginForm = () => {
             }
             
             const {data}=await axiosIntance.post("/Mentor/MentorRegister",{...MentorGoogle})
-                const {AccessToken,Mentor} = data
+                const {AccessToken,UserExit} = data
+                console.log(data,"comes form Mentor side");
                 const MentorDatas={
                   AccessToken,
-                  Mentor
+                  UserExit
                 }
                 localStorage.setItem("Mentor",JSON.stringify(MentorDatas))
-                navigate("/")
+                Dispatch(
+                  updateMentor({
+                    username: UserExit.Username,
+                    email: UserExit.Email,
+                    id: UserExit._id,
+                  })
+                );
+                navigate("/Mentor/MentorHome")
             console.log(decoded);
             
             

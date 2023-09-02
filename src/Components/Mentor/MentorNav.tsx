@@ -1,11 +1,15 @@
 import { useState } from "react"
+import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
+import { logoutMentor } from "../../Redux/Slice/Mentorslice"
 
 const MentorNav = () => {
+  const Dispatch = useDispatch()
 const navigate=useNavigate()
     const [showDropdown,SetshowDropdown]= useState<boolean>(false)
  const handlelogout=()=>{
     localStorage.removeItem("Mentor")
+    Dispatch(logoutMentor())
     navigate('/Login')
  }
 

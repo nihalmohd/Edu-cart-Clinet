@@ -51,7 +51,7 @@ const LoginForm = () => {
                 AccessToken,
                 logincheck
             }
-            console.log(logincheck.Username,logincheck.Email,logincheck._id,"halooooo");
+            // console.log(logincheck.Username,logincheck.Email,logincheck._id,"halooooo");
             localStorage.setItem("User",JSON.stringify(UserDatas))
             Dispatch(
                 updateUser({
@@ -90,14 +90,23 @@ const handleSignUp=()=>{
             
             const {data}=await axiosIntance.post("/user/register",{...User})
             if(data){
-                const {AccessToken,User}=data
+                console.log(data,"user is consolign");
+                const {AccessToken,UserExit }=data  
                 const UserDatas={
                     AccessToken,
-                    User
+                    UserExit
                 }
+                console.log(User,"halllo this is console form google login");
+                
                 localStorage.setItem("User",JSON.stringify(UserDatas))
-
                 navigate("/") 
+                Dispatch(
+                    updateUser({
+                        username: UserExit.Username,
+                        email: UserExit.Email,
+                        id: UserExit._id                        ,
+                    })
+                    );
             }
             console.log(decoded);
             
