@@ -6,6 +6,8 @@ import { String } from 'aws-sdk/clients/cloudsearch'
 import AWS from 'aws-sdk'
 import { s3cofing } from '../../s3config'
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+
 
 
 interface Category {
@@ -23,7 +25,7 @@ const MentorCourseUploadForm = () => {
     // const [ThumbnailLocation, SetThumbnailLocation] = useState<string>("")
     // const [DemoVideoLocation, SetDemoVideoLocation] = useState<string>("")
     // const [ClassVideoLocation,SetClassVideoLocation] = useState<string>("")
-
+    const {Username} = useSelector((state:any)=>state.Mentor)
     const [Thumbnail, setThumbnail] = useState<File | null>(null)
     const [DemoVideo, setDemoVideo] = useState<File | null>(null)
     const [classVideo, SetClassVideo] = useState<File | null>(null)
@@ -65,6 +67,8 @@ const MentorCourseUploadForm = () => {
     const handleChangeSubcategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
         e.preventDefault()
         setSelectedSubCategory(e.target.value)
+        console.log(SelectedSubCategory,'selected sub category');
+        
     }
     const handleCorseTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault()
@@ -86,6 +90,8 @@ const MentorCourseUploadForm = () => {
     const handleCoursePrice = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault()
         setCoursePrice(e.target.value)
+        console.log(coursePrice,"course price is log");
+        
     }
     const handleCourseThumbnail = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file: File | null = e.target.files && e.target.files[0] as File || null;
@@ -197,10 +203,13 @@ const MentorCourseUploadForm = () => {
             return
             console.log("not found")  
         }
-        const { data } = await axiosIntance.post("/Mentor/MentorAddCoruseAndClass", { courseTitle, courseDescription, courseLearning, courseIncludes, coursePrice, ThumbnailLocation, SelectedCategory, SelectedSubCategory, DemoVideoLocation, className, ClassDescription, classVideoLocation })
+        console.log( courseTitle, courseDescription, courseLearning, courseIncludes, coursePrice, ThumbnailLocation, SelectedCategory, SelectedSubCategory, DemoVideoLocation, className, ClassDescription, classVideoLocation,Username ,'shoying')
+        
+        const { data } = await axiosIntance.post("/Mentor/MentorAddCoruseAndClass", { courseTitle, courseDescription, courseLearning, courseIncludes, coursePrice, ThumbnailLocation, SelectedCategory, SelectedSubCategory, DemoVideoLocation, className, ClassDescription, classVideoLocation,Username})
         console.log(data)
     };
 
+console.log(SelectedCategory,"category");
 
 console.log(SelectedSubCategory,"Subcategory123");
 
@@ -286,9 +295,9 @@ console.log(SelectedSubCategory,"Subcategory123");
                                                     >
                                                         {
 
-                                                            dropCategory ? dropCategory.map((items) => (
+                                                            dropCategory.map((items) => (
                                                                 <option key={items?._id} value={items?.Category}>{items?.Category}</option>
-                                                            )) : <option>Category</option>
+                                                            )) 
                                                         }
                                                     </select>
                                                     <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
@@ -317,8 +326,8 @@ console.log(SelectedSubCategory,"Subcategory123");
                                                         className="block appearance-none w-full bg-transparent border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:ring"
                                                     >
                                                         {
-                                                            dropSubCategory?.Subcategory.map((items) => (
-                                                                <option key={items} value={items }>{items}</option>
+                                                            dropSubCategory?.Subcategory.map((items,index) => (
+                                                                <option key={index} value={items }>{items}</option>
                                                             ))
                                                         }
 
@@ -357,7 +366,7 @@ console.log(SelectedSubCategory,"Subcategory123");
 
                         </div>
                     </div>
-                    <div className="md:w-1/2 h-[700px] p-2">
+                    <div className="md:w-1/2 h-[700px] p-2 sm:h-full">
                         <div className="w-full h-[400px]  border-2 border-dotted border-black p-2">
                             <div className="w-full h-10  border-2 border-black flex justify-center items-center">
                                 <h1 className='text-center text-3xl font-bold text-black font-serif'>Section upload</h1>

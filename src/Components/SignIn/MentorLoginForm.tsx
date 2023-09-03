@@ -36,6 +36,8 @@ const MentorLoginForm = () => {
     try {
       const {data}=await axiosIntance.post("/Mentor/MentorLogin", { ...MentorLogin })
       const {AccessToken,Mentorlogincheck}=data 
+      console.log(data,"Mentor typing is login");
+      
       const MentorDatas={
         AccessToken,
         Mentorlogincheck
