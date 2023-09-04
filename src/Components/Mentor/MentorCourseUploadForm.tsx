@@ -7,6 +7,7 @@ import AWS from 'aws-sdk'
 import { s3cofing } from '../../s3config'
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import Loading from '../../Loader/ButtonLoading/ButtonLoading'
 
 
 
@@ -25,6 +26,7 @@ const MentorCourseUploadForm = () => {
     // const [ThumbnailLocation, SetThumbnailLocation] = useState<string>("")
     // const [DemoVideoLocation, SetDemoVideoLocation] = useState<string>("")
     // const [ClassVideoLocation,SetClassVideoLocation] = useState<string>("")
+    const [isLoading,setIsloading] = useState<boolean>(false)
     const {Username} = useSelector((state:any)=>state.Mentor)
     const [Thumbnail, setThumbnail] = useState<File | null>(null)
     const [DemoVideo, setDemoVideo] = useState<File | null>(null)
@@ -173,6 +175,7 @@ const MentorCourseUploadForm = () => {
     // }
 
     const handleUpload = async (e: React.MouseEvent<HTMLButtonElement>) => {
+        setIsloading(true)
         e.preventDefault()
         let ThumbnailLocation
         let DemoVideoLocation
@@ -206,7 +209,12 @@ const MentorCourseUploadForm = () => {
         console.log( courseTitle, courseDescription, courseLearning, courseIncludes, coursePrice, ThumbnailLocation, SelectedCategory, SelectedSubCategory, DemoVideoLocation, className, ClassDescription, classVideoLocation,Username ,'shoying')
         
         const { data } = await axiosIntance.post("/Mentor/MentorAddCoruseAndClass", { courseTitle, courseDescription, courseLearning, courseIncludes, coursePrice, ThumbnailLocation, SelectedCategory, SelectedSubCategory, DemoVideoLocation, className, ClassDescription, classVideoLocation,Username})
-        console.log(data)
+        if(data){
+
+            setIsloading(false)
+            navigate("/Mentor/MentorCourse")
+            console.log(data)
+        }
     };
 
 console.log(SelectedCategory,"category");
@@ -403,8 +411,13 @@ console.log(SelectedSubCategory,"Subcategory123");
 
                                         </div>
                                         <div className="w-full h-16  flex items-center">
+                                           
                                             <div className="w-full h-1/2 flex justify-center items-center">
+                                            {isLoading?
+                                            <div className='w-3/6 h-10'><Loading/></div>
+                                            :
                                                 <button className='w-3/6 h-10 bg-black text-white font-bold hover:border-2 hover:bg-white hover:text-black hover:border-black' onClick={handleUpload}>Upload </button>
+                                            }
                                             </div>
                                         </div>
                                     </div>

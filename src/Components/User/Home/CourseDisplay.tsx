@@ -33,7 +33,7 @@ const CourseDisplay = () => {
   }, [])
 
   const DisplayCourse = async () => {
-    const { data } = await axiosIntance.get("/showCourse")
+    const { data } = await axiosIntance.get("/showCourse",)
     console.log(data);
     if (data) {
       const { Getcourse } = data

@@ -7,6 +7,7 @@ import CourseDetail from '../Pages/User/CourseDetail';
 import SignIn from '../Pages/SignIn ';
 import Login from '../Pages/Login';
 import Paypal from '../Pages/User/Payment';
+import Loading from '../Loader/ButtonLoading/ButtonLoading';
 
 const UserRoutes = () => {
   return (
@@ -16,6 +17,7 @@ const UserRoutes = () => {
       <Route path="paypal" element={<ProtectedRoute><Paypal /></ProtectedRoute>} />
       <Route path="signUp" element={<SignIn />}/>
       <Route path="login" element={<Login />}/>
+      <Route path='loading'element={<Loading/>}/>
     </Routes>
   );
 }
