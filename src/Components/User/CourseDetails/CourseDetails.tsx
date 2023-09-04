@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useParams,useNavigate } from 'react-router-dom'
 import { GiRoundStar } from "react-icons/gi"
 import { axiosIntance } from '../../../Api/config';
@@ -18,30 +18,69 @@ interface Course {
   SelectedSubCategory: string;
   DemoVideoLocation: string;
   Class?: [{ classVideoLocation: string, classname: string, ClassDescription: string }];
-  // MentorId : string;
+  Mentorname : string;
   Status?: boolean;
   // User ?: [string];
   // stud ?: [{id:string,date:Date,month:string,fees:number}]
   // paymentStatus ?: boolean;
 }
 
+
 const CourseDetail = () => {
   const navigate = useNavigate()
+  const VideoDurationRef = useRef<HTMLVideoElement | null>(null);
+  const [Duration,setDuration] =useState<number | null>()
+
+  const [courseDetails, setCourseDetails] = useState<Course>()
   const { _id } = useParams()
   useEffect(() => {
     DisplayCourseDetails()
-  }, [])
-  const [courseDetails, setCourseDetails] = useState<Course>()
+    const handleLoadedMetadata = () => {
+      if (VideoDurationRef.current) {
+        setDuration(VideoDurationRef.current.duration);
+      }
+    };
 
+    if (VideoDurationRef.current) {
+      VideoDurationRef.current.addEventListener(
+        "loadedmetadata",
+        handleLoadedMetadata
+      );
+    }
+    const currentVideoRef = VideoDurationRef.current;
+
+    return () => {
+      if (currentVideoRef) {
+        currentVideoRef.removeEventListener(
+          "loadedmetadata",
+          handleLoadedMetadata
+        );
+      }
+    };
+    
+  }, [])
   const DisplayCourseDetails = async () => {
     const { data } = await axiosIntance.get("/CourseDeatailsByid", { params: { _id } })
     console.log(data);
     const { FoundedCourseByid } = data
     setCourseDetails(FoundedCourseByid)
   }
+
+  const formatDuration = (seconds:number) => {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const Seconds = Math.floor(seconds % 60);
+
+    const formattedHours = hours.toString().padStart(2, "0");
+    const formattedMinutes = minutes.toString().padStart(2, "0");
+    const formattedSeconds = Seconds.toString().padStart(2, "0");
+     console.log(formattedHours,formattedMinutes,formattedSeconds,"got data is showing");
+     
+    return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+  };
   return (
     <div >
-      <div className="w-full h-full mb-2 ">
+      <div className="w-full h-full mb-2" key={courseDetails?._id}>
         <div className="w-full h-72 bg-[#2d2f31] p-1 flex gap-1 ">
           <div className="w-3/5 h-full  pl-1 pr-1">
             <div className="w-2/3 h-8  flex justify-start items-center ">
@@ -69,7 +108,7 @@ const CourseDetail = () => {
 
             </div>
             <div className="w-1/3 h-10 -100 pl-4 ">
-              <h1 className='text-start font-semibold text-white'>Created By:Mentor</h1>
+              <h1 className='text-start font-semibold text-white'>Created By:{courseDetails?.Mentorname}</h1>
             </div>
           </div>
           <div className="w-2/5 h-full p-3 flex justify-center items-center">
@@ -108,8 +147,24 @@ const CourseDetail = () => {
                       <h1 className='text-sm ml-1' >{items.classname}</h1>
                     </div>
                     <div className="w-2/6 h-full flex justify-center items-center">
-                      <h1 className='text-sm text-blue-800 underline font-serif'>{items.classVideoLocation.length}</h1>
+                    <video
+                    ref={VideoDurationRef}
+                controls
+                onContextMenu={(e) => e.preventDefault()}
+                src={`${items?.classVideoLocation}`}
+                className="w-full h-full object-cover hidden"
+                controlsList="nodownload"
+                autoPlay
+              ></video>
+                       
+                       {Duration !== null ? (
+        // <span className='text-sm text-blue-800 underline font-serif'>{formatDuration(Duration as number)}</span>
+        <h1 className='text-sm text-blue-800 underline font-serif'>{formatDuration(Duration as number)}</h1> 
+      ) : (
+        <span></span>
+      )}
                     </div>
+                    {/* <h1 className='text-sm text-blue-800 underline font-serif'>{VideoDurationRef?.current?.duration}</h1> */}
                   </div>
                 )) 
               }

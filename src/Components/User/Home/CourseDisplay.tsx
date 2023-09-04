@@ -16,7 +16,7 @@ interface Course {
   SelectedSubCategory: string;
   DemoVideoLocation: string;
   Class?: [{ classVideoLocation: string, classname: string, ClassDescription: string }];
-  // MentorId : string;
+  Mentorname:string;
   Status?: boolean;
   // User ?: [string];
   // stud ?: [{id:string,date:Date,month:string,fees:number}]
@@ -72,7 +72,7 @@ const CourseDisplay = () => {
                       </div>
                     </div>
                     <div className="w-full h-5 flex items-center justify-start">
-                      <h1 className='text-center font-semibold text-stone-500 text-xs'>Mr:Mentor</h1>
+                      <h1 className='text-center font-semibold text-stone-500 text-xs'>Mr/Mrs:{items.Mentorname}</h1>
                     </div>
                     <div className="w-full h-10 flex justify-start items-center">
                       <h1 className='font-semibold text-lg text-black'>₹{items.coursePrice}</h1>
