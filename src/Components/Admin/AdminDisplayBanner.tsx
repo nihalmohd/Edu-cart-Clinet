@@ -15,9 +15,11 @@ interface Banner{
 
 const AdminDisplayBanner: React.FC= ()=> {
     const [Banners,setBanners]=useState <Banner[]> ([])
+
 useEffect(() => {
     HandleBanners()
-},[Banners,setBanners])
+},[])
+
 const HandleBanners=async()=>{
     const {data}=await axiosIntance.post("/Admin/AdminShowBanner")
       const {Banner} =data

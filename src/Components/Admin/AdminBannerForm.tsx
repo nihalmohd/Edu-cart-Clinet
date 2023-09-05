@@ -1,6 +1,7 @@
 import React, { useRef, ChangeEvent, useState, FormEvent, useEffect } from 'react';
 import { axiosIntance } from '../../Api/config';
 import AdminDisplayBanner from './AdminDisplayBanner';
+import axios from 'axios';
 
 interface BannerForm {
   Image: string | null
@@ -13,16 +14,16 @@ const AdminBannerForm: React.FC = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
-  const [dataProps, setDataprops] = useState()
-  console.log(imagePreview);
-
   const [bannerdata, setBannerdata] = useState<BannerForm>({
     Image: "",
     Content: ""
   })
+  // const [dataProps, setDataprops] = useState()
   useEffect(() => {
     setBannerdata({ ...bannerdata, Image: imagePreview })
-  }, [imagePreview]);
+  },[]);
+  console.log(imagePreview);
+
 
   console.log({ bannerdata });
 
@@ -30,8 +31,8 @@ const AdminBannerForm: React.FC = () => {
   const handleBannerForm = async (e: FormEvent) => {
     e.preventDefault()
     const { data } = await axiosIntance.post("/Admin/BannerUpload", { ...bannerdata })
-    console.log(data);
-    setDataprops(data)
+    console.log(data, "agskgdakgdkasdkaskdkasdkj");
+    // setDataprops(data)
   }
 
   const handleBrowseButtonClick = () => {
@@ -41,6 +42,7 @@ const AdminBannerForm: React.FC = () => {
   };
 
   const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
+    const Cloudname = import.meta.env.VITE_CLOUDNAME
     const selectedFile = event.target.files && event.target.files[0];
 
     if (selectedFile) {
@@ -50,8 +52,8 @@ const AdminBannerForm: React.FC = () => {
       formData.append('upload_preset', 'Educart');
 
       try {
-        const { data } = await axiosIntance.post(
-          'https://api.cloudinary.com/v1_1/dgb07yvbv/image/upload?upload_preset=Educart',
+        const { data } = await axios.post(
+          `https://api.cloudinary.com/v1_1/${Cloudname}/image/upload?upload_preset=Educart`,
           formData
         );
         const imageUrl = data.secure_url
