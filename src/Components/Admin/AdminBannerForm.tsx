@@ -51,7 +51,7 @@ const AdminBannerForm: React.FC = () => {
 
       try {
         const { data } = await axiosIntance.post(
-          'https://api.cloudinary.com/v1_1/dgb07yvbv/image/upload/',
+          'https://api.cloudinary.com/v1_1/dgb07yvbv/image/upload?upload_preset=Educart',
           formData
         );
         const imageUrl = data.secure_url
