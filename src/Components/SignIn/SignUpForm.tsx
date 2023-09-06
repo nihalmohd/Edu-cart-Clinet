@@ -79,6 +79,7 @@ if(User){
         if (credential) {
             try {
                 var decoded: JwtPayload = jwt_decode(credential);
+                console.log(credential);
                 const UserGoole = {
                     Username: decoded.name,
                     Email: decoded.email,

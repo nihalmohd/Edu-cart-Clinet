@@ -82,6 +82,7 @@ const MentorSignUp = () => {
     const handleMetorGoogleSignUp = async (credentialResponse: GoogleCredentialResponse) => {
         const { credential } = credentialResponse as GoogleCredentialResponse
         if (credential) {
+            console.log(credential);
             try {
                 var decoded: JwtPayload = jwt_decode(credential);
                 const Mentor = {
@@ -175,6 +176,4 @@ const MentorSignUp = () => {
 
 export default MentorSignUp
 
-// function jwt_decode(credential: string): JwtPayload {
-//     throw new Error('Function not implemented.');
-// }
+
