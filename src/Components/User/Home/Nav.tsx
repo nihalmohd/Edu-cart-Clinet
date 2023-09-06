@@ -43,7 +43,7 @@ const Nav = () => {
         </div>
 
         
-        <div className="hidden sm:flex items-center">
+        <div className="hidden sm:flex items-center" onClick={()=>navigate('/Whishlist')}>
           <FaRegHeart/>
         </div>
        

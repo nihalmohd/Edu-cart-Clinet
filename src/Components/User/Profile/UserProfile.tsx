@@ -20,15 +20,17 @@ interface User {
 }
 
 const UserProfile = () => {
+    const [user,setUser] =useState<User>()
     const [ImagePreviewProfile,setImagePreviewProfile] =useState<string |null  >(null)
+    const [UpdateUsername,setUpdateUsername] = useState<string |undefined >("")
+    const [isProfileModalOpen,setisProfileModalOpen] = useState<boolean>(false)
+    // const [inputUsername,setInputUsername] = useState<string  | unknown>(user?.Username)
     const ProfileRef = useRef<HTMLInputElement>(null)
     const Dispatch =useDispatch()
     const navigate = useNavigate()
-    const [isProfileModalOpen,setisProfileModalOpen] = useState<boolean>(false)
-    const [user,setUser] =useState<User>()
 useEffect(()=>{
 fetchUser()
-},[])
+},[isProfileModalOpen])
 
 const fetchUser = async () =>{
     const {data} =await axiosIntance.get("/ProfileTakeUser")
@@ -79,8 +81,19 @@ const handleLogout=()=>{
         setImagePreviewProfile(null);
       }
       console.log('Selected file:', SelectedFilesProfile);
-    };3
-    
+    };
+    const HandleUpdateUsername = (e:ChangeEvent<HTMLInputElement>)=>{
+       e.preventDefault()
+       setUpdateUsername(e.target.value)
+    }
+   console.log(ImagePreviewProfile,UpdateUsername,"Nihaldklfjasdkflj;asdkjfkjasdfj laksdf jasd_________________");
+   const handleSubmit = async() =>{
+    const {data} = await axiosIntance.post("/UpdateProfile",{ImagePreviewProfile,UpdateUsername})
+    if(data){
+        console.log(data);
+        setisProfileModalOpen(false)
+    }
+   } 
    
     return (
         <div >
@@ -132,11 +145,11 @@ const handleLogout=()=>{
                                                         <h1 className='font-semibold text-black ml-1'>Username<span className='font-semibold text-red-700 ml-1'>*</span></h1>
                                                     </div>
                                                         <input type="text"
-                                                            onChange={(e) => (e.target.value)}
+                                                            onChange={ HandleUpdateUsername}
                                                             name='Username'
-                                                            placeholder='Please Enter a Subcategory Name'
+                                                            placeholder='Please Enter Your Username'
                                                             className='w-full h-10 border-black border-2 rounded-lg bg-transparent'
-                                                            value={user?.Username}
+                                                            
                                                         />
                                                     </div>
                                                     <div className='w-full '>
@@ -155,7 +168,7 @@ const handleLogout=()=>{
                                                     {/* <div className="w-full h-32 bg-yellow-100"></div> */}
                                                     <div className="w-full h-10  mt-2 flex gap-1 ">
                                                         <div className="w-1/2 h-10 bg-transparent border-2 border-black text-black hover:bg-black hover:text-white flex justify-center items-center font-bold text-lg hover:cursor-pointer"  onClick={()=>setisProfileModalOpen(false)}>Cancel</div>
-                                                        <div className="w-1/2 h-10 bg-transparent border-2 border-black text-black hover:bg-black hover:text-white flex justify-center items-center font-bold text-lg hover:cursor-pointer">Update</div>
+                                                        <div className="w-1/2 h-10 bg-transparent border-2 border-black text-black hover:bg-black hover:text-white flex justify-center items-center font-bold text-lg hover:cursor-pointer" onClick={()=>{(handleSubmit())}} >Update</div>
 
                                                     </div>
                                                 </form>
@@ -184,8 +197,8 @@ const handleLogout=()=>{
                               <h1 className='font-semibold text-xl p-1' >Change Password</h1>
                               </div>
                             </div>
-                            <div className="w-full h-10 mt-3 p-1 flex gap-1 border border-black  hover:bg-black hover:text-white ">
-                            <div className="w-16 h-full  flex justify-center items-center">
+                            <div className="w-full h-10 mt-3 p-1 flex gap-1 border border-black  hover:bg-black hover:text-white " onClick={()=>{navigate("/Whishlist")}}>
+                            <div className="w-16 h-full  flex justify-center items-center" >
                                 <h1 className='font-semibold text-3xl text-black'><TbHeartPlus/></h1>
                               </div>
                               <div className="w-full h-full  flex justify-start items-center">
