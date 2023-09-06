@@ -96,9 +96,9 @@ const handleLogout=()=>{
    } 
    
     return (
-        <div >
+        <div>
             <div className="w-full h-screen ">
-                <div className="w-full h-16 ">
+                <div className="w-full h-16">
                     <div className="sm:w-full md:w-1/4 h-full flex justify-center items-center">
 
                         <h1 className='md:font-serif md:text-2xl font-bold sm:text-xl '>Profile & Settings</h1>
@@ -115,7 +115,7 @@ const handleLogout=()=>{
                                             </div> 
                                     </div>
                                     
-                                    <div className="w-full h-64 flex justify-center items-center">
+                                    <div className="w-full h-64 flex justify-center items-end">
                                          <button className="w-32 h-10 t absolute border-2 border-black border-dashed bg-white bg-opacity-70 flex justify-center items-center"> <h1 className='font-bold text-black text-center ' onClick={()=>{setisProfileModalOpen(true)}}>Update profil</h1></button>
                                         
                                         <img src={user?.ProfileImage} alt="Profile Image" className='object-cover w-fit h-full' />
@@ -233,10 +233,5 @@ const handleLogout=()=>{
 
 export default UserProfile
 
-function Dispatch(arg0: any) {
-    throw new Error('Function not implemented.')
-}
-function setImagePreview(imageUrl: any) {
-    throw new Error('Function not implemented.')
-}
+
 
