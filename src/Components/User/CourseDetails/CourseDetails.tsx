@@ -240,7 +240,7 @@ const CourseDetail = () => {
                   <div className="w-full  h-full flex gap-2">
                     <div className="w-32 h-full ">
                       <video src={items.classVideoLocation}className='w-full h-full object-cover' ></video>
-                      {/* <img src={courseDetails.ThumbnailLocation}  alt="Classvideo" className='w-full h-full object-cover'/> */}
+                     
                     </div>
                     <div className="w-full h-full -500">
                         <div className="w-full h-3/5  flex items-center overflow-x-auto scroll-m-0 scroll-mx-0">

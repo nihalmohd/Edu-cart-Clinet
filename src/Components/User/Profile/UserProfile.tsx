@@ -47,8 +47,7 @@ const handleLogout=()=>{
     console.log(User);
    }
    const EditProfile =async ()=>{
-    console.log("nihallll");
-    
+    console.log("nihallll"); 
     setisProfileModalOpen(true)
    }
    const TakeClick = ()=>{

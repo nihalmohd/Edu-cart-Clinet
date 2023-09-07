@@ -165,14 +165,6 @@ const MentorCourseUploadForm = () => {
         }
     }
 
-    // const Addcourse = async ( ) => {
-    //     console.log("chekkkkkkk");
-    //     console.log(ThumbnailLocation,DemoVideoLocation,ClassVideoLocation)
-
-    //     if (data) {
-    //         console.log(data, "this is responce");
-    //     }
-    // }
 
     const handleUpload = async (e: React.MouseEvent<HTMLButtonElement>) => {
         setIsloading(true)
@@ -207,7 +199,6 @@ const MentorCourseUploadForm = () => {
             console.log("not found")  
         }
         console.log( courseTitle, courseDescription, courseLearning, courseIncludes, coursePrice, ThumbnailLocation, SelectedCategory, SelectedSubCategory, DemoVideoLocation, className, ClassDescription, classVideoLocation,Username ,'shoying')
-        
         const { data } = await axiosIntance.post("/Mentor/MentorAddCoruseAndClass", { courseTitle, courseDescription, courseLearning, courseIncludes, coursePrice, ThumbnailLocation, SelectedCategory, SelectedSubCategory, DemoVideoLocation, className, ClassDescription, classVideoLocation,Username})
         if(data){
 
