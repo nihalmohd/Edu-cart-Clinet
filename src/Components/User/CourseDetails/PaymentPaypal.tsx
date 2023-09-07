@@ -1,8 +1,10 @@
 import React, { useRef, useState } from 'react';
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { axiosIntance } from '../../../Api/config';
 
 const PaymentPaypal = () => {
+  const { _id } = useParams();
   const [showPayPalButton, setShowPayPalButton] = useState(false);
   const PaypalButtonRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
@@ -14,6 +16,14 @@ const PaymentPaypal = () => {
     }
   };
 
+  const HanldeCourse =async()=>{
+    const {data} = await axiosIntance.post("/UpdateCouseid",{CourseId:_id})
+    if(data){
+      console.log(data);
+      
+    }
+  }
+
   return (
     <div>
       <div className="w-full h-screen  flex justify-center items-center">
@@ -22,10 +32,21 @@ const PaymentPaypal = () => {
             <h1 className='font-bold text-xl text-black '>This is EduCart payment</h1>
           </div>
           <button className='bg-black w-full h-10 text-white text-lg font-bold flex justify-center items-center hover:bg-white hover:text-black hover:border-2 hover:border-black shadow-xl hover:scale-x-95 mt-3' onClick={() => handleClickButton()}>Pay Now</button>
-          <button className='bg-black w-full h-10 text-white text-lg font-bold flex justify-center items-center hover:bg-white hover:text-black hover:border-2 hover:border-black shadow-xl hover:scale-x-95 mt-3' onClick={() => { navigate("/") }}>Cancel Payment</button>
+          <button className='bg-black w-full h-10 text-white text-lg font-bold flex justify-center items-center hover:bg-white hover:text-black hover:border-2 hover:border-black shadow-xl hover:scale-x-95 mt-3' onClick={() => { navigate(`/showCourse/${_id}`) }}>Cancel Payment</button>
           <div className="w-full h-80 p-2 " style={{ display: showPayPalButton ? 'block' : 'none' }} ref={PaypalButtonRef}>
             <PayPalScriptProvider options={{ clientId:import.meta.env.VITE_PAYPAL_CLIENTID }}>
-              <PayPalButtons style={{ layout: "horizontal" }} />
+              <PayPalButtons style={{ layout: "horizontal" }}
+              className="my-3"
+              createOrder={async(_data, actions) => {
+               await HanldeCourse()
+                return actions.order.create({
+                  purchase_units: [
+                    
+                  ]
+                })
+              }}
+              
+              />
             </PayPalScriptProvider>
           </div>
         </div>

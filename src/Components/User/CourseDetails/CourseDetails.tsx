@@ -20,14 +20,26 @@ interface Course {
   Status?: boolean;
 }
 
+interface SelectedClass {
+   classVideoLocation: string;
+    classname: string;
+     ClassDescription: string 
+}
+
+
 const CourseDetail = () => {
   const navigate = useNavigate();
   const VideoDurationRef = useRef<HTMLVideoElement | null>(null);
   console.log(VideoDurationRef?.current?.duration, 'duration is checking ');
-  const [classVideo,SetclassVideo] = useState<string>("")
-  const [isPayment, setIspaymet] = useState<Boolean>(false)
+  // const [classVideo,SetclassVideo] = useState<string>("")
+  const [isPayment, setIspaymet] = useState<Boolean>(true)
   const [Duration, setDuration] = useState<number | null>(null);
   const [courseDetails, setCourseDetails] = useState<Course>();
+  const [selectedClass,SetSelectedClass] = useState<SelectedClass>()
+   console.log(courseDetails,"hallow jfsdf");
+   useEffect(()=>{
+    SetSelectedClass(courseDetails?.Class?.[0] as SelectedClass)  
+   },[courseDetails])
   const { _id } = useParams();
 
   useEffect(() => {
@@ -38,6 +50,7 @@ const CourseDetail = () => {
         });
         const { FoundedCourseByid } = response.data;
         setCourseDetails(FoundedCourseByid);
+        
       } catch (error) {
         console.error('Error fetching course details:', error);
       }
@@ -79,6 +92,10 @@ const CourseDetail = () => {
 
     return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
   };
+
+
+   
+
 
   return (
 
@@ -193,11 +210,17 @@ const CourseDetail = () => {
                   <button
                     className="w-full h-10 bg-white border-2 border-black text-black mt-2 font-bold text-lg hover:bg-black hover:text-white hover:cursor-pointer"
                     onClick={() => {
-                      navigate('/Paypal');
+                      navigate(`/Paypal/${courseDetails?._id}`);
                     }}
                     >
                     Purchase Course
                   </button>
+                  <button
+              className="w-full h-10 bg-white border-2 border-black text-black mt-2 font-bold text-lg hover:bg-black hover:text-white hover:cursor-pointer "
+              onClick={()=>navigate('/')}
+              >
+              Cancel Payment
+            </button>
                   {/* <button
               className="w-full h-10 bg-white border-2 border-black text-black mt-2 font-bold text-lg hover:bg-black hover:text-white hover:cursor-pointer "
               >
@@ -214,29 +237,29 @@ const CourseDetail = () => {
 
           </div>
             <div className="w-full  h-full flex gap-1 p-1 ">
-              <div className="w-3/5 h-full border-2 border-black ">
+              <div className="w-3/5 h-full border-2 border-black p-2 shadow-2xl ">
+
                 <div className="w-full h-[460px]   border-2 border-black">
                        <video
                              controls
                              onContextMenu={(e) => e.preventDefault()}
-                             src={`${courseDetails?.DemoVideoLocation}`}
+                             src={selectedClass?.classVideoLocation}
                              className="w-full h-full object-cover"
                              controlsList="nodownload"
                              autoPlay
                            ></video>
                            </div>
                 <div className="w-full h-14 mt-1 flex items-center">
-                  <h1 className='font-bold font-serif text-2xl text-black underline  ml-3'> 100 days of code with Flutter</h1>
+                  <h1 className='font-bold font-serif text-2xl text-black underline  ml-3'> {selectedClass?.classname}</h1>
                 </div>
                 <div className="w-full h-28  mt-1">
-                <h1 className='font-bold  text-lg text-gray-500  ml-3'> 100 days of code with Flutter with irshad and join with Educart login</h1>
+                <h1 className='font-bold  text-lg text-gray-500  ml-3'> {selectedClass?.ClassDescription}</h1>
                 </div>
               </div>
+            <div className="w-2/5 h-96 bg-slate-200 border-2 border-black p-1 overflow-auto">  
           {
-           courseDetails? courseDetails?.Class?.map((items,index)=>(
-               
-              <div className="w-2/5 h-96 bg-slate-200 border-2 border-black p-1 overflow-auto">  
-                <div className="w-full h-20 bg-white border border-black mt-1 p-1">
+            courseDetails? courseDetails?.Class?.map((items,index)=>(   
+                <div className="w-full h-20 bg-white border border-black mt-1 p-1"onClick={()=>{SetSelectedClass(items as SelectedClass)} } >
                   <div className="w-full  h-full flex gap-2">
                     <div className="w-32 h-full ">
                       <video src={items.classVideoLocation}className='w-full h-full object-cover' ></video>
@@ -254,9 +277,9 @@ const CourseDetail = () => {
                     
                   </div>
                 </div>
-              </div>
-                 )):<></>
+                )):<></>
               }
+              </div>
             </div>
           </div>
       }

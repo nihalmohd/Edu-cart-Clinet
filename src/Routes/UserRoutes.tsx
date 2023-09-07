@@ -17,7 +17,7 @@ const UserRoutes = () => {
     <Routes>
       <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
       <Route path="showCourse/:_id" element={<ProtectedRoute><CourseDetail /></ProtectedRoute>} />
-      <Route path="paypal" element={<ProtectedRoute><Paypal /></ProtectedRoute>} />
+      <Route path="paypal/:_id" element={<ProtectedRoute><Paypal /></ProtectedRoute>} />
       <Route path="Profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
       <Route path="Mycourses" element={<ProtectedRoute><Mycourses /></ProtectedRoute>} />
       <Route path="signUp" element={<SignIn />}/>

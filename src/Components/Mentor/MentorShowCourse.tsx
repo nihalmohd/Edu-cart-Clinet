@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux'
 import { axiosIntance } from '../../Api/config'
 import AWS from 'aws-sdk'
 import { s3cofing } from '../../s3config'
+import Loading from '../../Loader/ButtonLoading/ButtonLoading'
 
 
 interface Course {
@@ -32,9 +33,11 @@ const MentorShowCourse = () => {
     const ClassVideoRef = useRef<HTMLInputElement>(null)
     const [CourseByName, setCourseByName] = useState<Course[]>()
     const [isClassModalOpen, setisClassModalOpen] = useState(false)
-    const [Classname, setClassname] = useState<string>("")
+    const [classname , setClassname] = useState<string>("")
     const [ClassDescription, setClassDescription] = useState<string>("")
     const [classVideo, SetClassVideo] = useState<File | null>(null)
+    const [isLoading,setIsloading] = useState<boolean>(false)
+    const [_id,set_id] = useState<String>('')
 
     const { Username } = useSelector((state: any) => state.Mentor)
     const Mentorname = Username
@@ -50,8 +53,9 @@ const MentorShowCourse = () => {
         console.log(data, "this is Course by mentor name");
 
     }
-    const Addclasses = () => {
+    const Addclasses = (_id:string) => {
         setisClassModalOpen(true)
+        set_id(_id)
     }
 
     const HandleVidoeclick = () => {
@@ -103,10 +107,17 @@ const MentorShowCourse = () => {
             console.error('Error uploading file:', error);
         }
     }
+//    const  handleCourseid =(_id:string)=>{
+//     console.log("Nhallsdlfjasdkjflkasjdflkjskdajfsakajsdlfkjasdkfjlsajflksajdfjasdkfjadsj");
+//     set_id(_id)
+//     handleUpload
+//     }
 
-    const handleUpload = async (e: React.MouseEvent<HTMLButtonElement>) => {
-        // setIsloading(true)
+    const handleUpload = async (e:React.MouseEvent<HTMLButtonElement>) => {
+        setIsloading(true)
         e.preventDefault()
+        console.log(_id,"Course id");
+        
         let classVideoLocation
         if (classVideo) {
             console.log("3333");
@@ -120,15 +131,27 @@ const MentorShowCourse = () => {
             return
             console.log("not found")  
         }
-        console.log(  ClassDescription, classVideoLocation,Classname ,'shoying')
-       
-        
+        const Classdatas = {
+                classname:classname,
+                ClassDescription:ClassDescription,
+                classVideoLocation:classVideoLocation
+            }
+            console.log( Classdatas,'shoying')
+            const {data} = await axiosIntance.post("/Mentor/MentorAddClasses",{_id,Classdatas}) 
+            if(data){
+            console.log(data);
+             setIsloading(false)
+             setisClassModalOpen(false)
+
+            }
+            
+             
     };
 
     return (
         <div>
             <div className="w-full h-20  flex justify-end items-center pr-1">
-                <div className="w-36 h-10 bg-transparent text-black border-2 border-black text-center flex justify-center items-center font-bold  hover:bg-black hover:text-white mr-3" onClick={() => { navigate("/Mentor/MentorCourseUpload") }} >Add Course</div>
+                <div className="w-36 h-10 bg-transparent text-black border-2 border-black text-center flex justify-center items-center font-bold  hover:bg-black hover:text-white mr-3" onClick={() => { navigate("/Mentor/MentorCourseUpload") }} ><h1>Add Course</h1></div>
             </div>
 
             <div className="w-full h-full  p-1">
@@ -139,8 +162,8 @@ const MentorShowCourse = () => {
 
                     <div className="w-full h-full p-1 grid grid-cols-5 gap-2 ">
                         {
-                            CourseByName?.map((items) => (
-                                <div className="w-full h-full bg-gray-400 p-2 hover:shadow-2xl hover:cursor-pointer ">
+                            CourseByName?.map((items,key) => (
+                                <div className="w-full h-full bg-gray-400 p-2 hover:shadow-2xl hover:cursor-pointer " key={key}>
                                     {
                                         isClassModalOpen &&
                                         <div className="fixed inset-0 z-50 overflow-auto bg-gray-900 bg-opacity-50 flex items-center justify-center">
@@ -169,7 +192,7 @@ const MentorShowCourse = () => {
                                                                 <h1 className='font-semibold text-black ml-1'>Class Description<span className='font-semibold text-red-700 ml-1'>*</span></h1>
                                                             </div>
                                                             <input type="text"
-                                                                onChange={handleChangeClassname}
+                                                                onChange={handleChangeClassDescription}
                                                                 name='Class description'
                                                                 placeholder='Please enter your description '
                                                                 className='w-full h-10 border-black border-2 rounded-lg bg-transparent'
@@ -191,11 +214,14 @@ const MentorShowCourse = () => {
 
                                                         </div>
                                                         {/* <div className="w-full h-32 bg-yellow-100"></div> */}
-                                                        <div className="w-full h-10  mt-2 flex gap-1 ">
+                                                        {
+                                                            isLoading? <div className='w-full.h-10 bg-yellow-100 flex justify-center items-center'><Loading/></div>:
+                                                        <div className="w-full h-10  mt-2 flex gap-1 ">   
                                                             <div className="w-1/2 h-10 bg-transparent border-2 border-black text-black hover:bg-black hover:text-white flex justify-center items-center font-bold text-lg hover:cursor-pointer" onClick={() => handleCancel()}>Cancel</div>
                                                             <button className="w-1/2 h-10 bg-transparent border-2 border-black text-black hover:bg-black hover:text-white flex justify-center items-center font-bold text-lg hover:cursor-pointer" onClick={handleUpload} >Update</button>
 
                                                         </div>
+                                                        }
                                                     </form>
                                                 </div>
                                             </div>
@@ -227,7 +253,7 @@ const MentorShowCourse = () => {
                                             <h1 className='font-semibold text-lg text-black'>₹{items.coursePrice}</h1>
                                         </div>
                                         <div className='w-full h-16 p-1 flex gap-2'>
-                                            <button className='bg-transparent border-2 border-black text-black w-full h-12 font-semibold text-2xl  hover:bg-black hover:text-white mt-2 flex justify-center items-center' onClick={Addclasses}><IoMdAdd /></button>
+                                            <button className='bg-transparent border-2 border-black text-black w-full h-12 font-semibold text-2xl  hover:bg-black hover:text-white mt-2 flex justify-center items-center' onClick={()=>Addclasses(items._id)}><IoMdAdd /></button>
                                             <button className='bg-transparent border-2 border-black text-black w-full h-12 font-semibold text-2xl  hover:bg-black hover:text-white mt-2 flex justify-center items-center'><BiEdit /></button>
                                             <button className='bg-transparent border-2 border-black text-black w-full h-12 font-semibold text-2xl  hover:bg-black hover:text-white mt-2 flex justify-center items-center'><FcAbout /></button>
 
