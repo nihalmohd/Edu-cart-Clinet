@@ -39,6 +39,7 @@ const PaymentPaypal = () => {
               className="my-3"
               createOrder={async(_data, actions) => {
                await HanldeCourse()
+               navigate('/Mycourses')
                 return actions.order.create({
                   purchase_units: [
                     

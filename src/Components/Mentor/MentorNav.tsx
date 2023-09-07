@@ -12,7 +12,9 @@ const navigate=useNavigate()
     Dispatch(logoutMentor())
     navigate('/Login')
  }
-
+const navigateProfile =()=>{
+  navigate("/Mentor/MentorProfile")
+}
   return (
 <div className="flex flex-col justify-center">
       <div className="w-full h-20 sm:h-[65px] flex justify-between border shadow-lg border-b">
@@ -21,9 +23,9 @@ const navigate=useNavigate()
         {/* Profile Picture and Navigation Links */}
         <div className="hidden sm:flex items-center space-x-4 p-2 relative">
           <span className="text-black hover:font-bold" onClick={()=>navigate("/Mentor/MentorCourse")}>My Courses</span>
-          <span className="text-black hover:font-bold">Users</span>
+          {/* <span className="text-black hover:font-bold">Users</span> */}
           <span className="text-black hover:font-bold">Dashboard</span>
-          <span className="text-black hover:font-bold">Profile</span>
+          <span className="text-black hover:font-bold" onClick={navigateProfile}>Profile</span>
           <div className="relative">
             <img
               className="h-8 w-8 rounded-3xl border border-black cursor-pointer"
@@ -34,7 +36,7 @@ const navigate=useNavigate()
             {showDropdown ? (
               <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-300 rounded-lg shadow-lg z-10 ">
                 <ul className="py-2">
-                  <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">My Profile</li>
+                  <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer" onClick={()=>navigate("/Mentor/MentorProfile")}>My Profile</li>
                   <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer" onClick={handlelogout} >Logout</li>
                 </ul>
               </div>

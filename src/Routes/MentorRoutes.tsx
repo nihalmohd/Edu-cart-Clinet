@@ -5,6 +5,7 @@ import MentoProtectedRouter from "../Pages/Mentor/MentoProtectedRouter";
 import MentorUsers from "../Pages/Mentor/MentorUsers";
 import MentorCourse from "../Pages/Mentor/MentorCourse";
 import MentorCourseUpload from '../Pages/Mentor/MentorCourseUpload';
+import MentorProfilePage from '../Pages/Mentor/MentorProfilePage';
 
 
 const MentorRoutes = () => {
@@ -14,6 +15,7 @@ const MentorRoutes = () => {
             <Route path="MentorUsers" element={<MentoProtectedRouter><MentorUsers /></MentoProtectedRouter>} />
             <Route path="MentorCourse" element={<MentoProtectedRouter><MentorCourse /></MentoProtectedRouter>} />
             <Route path='MentorCourseUpload' element={<MentoProtectedRouter><MentorCourseUpload /></MentoProtectedRouter>}/>
+            <Route path='MentorProfile' element={<MentoProtectedRouter><MentorProfilePage /></MentoProtectedRouter>}/>
         </Routes>
     )
 }
