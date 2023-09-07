@@ -78,8 +78,8 @@ const CourseDisplay = () => {
                       <h1 className='font-semibold text-lg text-black'>₹{items.coursePrice}</h1>
                     </div>
                     <div className='w-full h-16 p-1 flex gap-2'>
-                      <button className='bg-black text-white w-3/5 h-12 font-semibold text-lg hover:border-2 hover:border-black hover:bg-transparent hover:text-black 'onClick={()=>navigate(`/showCourse/${items._id}`)}>Buy now</button>
-                      <button className='bg-white border-2 border-black text-black w-1/3 h-12 font-semibold flex justify-center items-center text-xl hover:bg-black hover:text-white'><FaRegHeart/></button>
+                      <button className='bg-black text-white w-full h-12 font-semibold text-lg hover:border-2 hover:border-black hover:bg-transparent hover:text-black 'onClick={()=>navigate(`/showCourse/${items._id}`)}>Buy now</button>
+                      {/* <button className='bg-white border-2 border-black text-black w-1/3 h-12 font-semibold flex justify-center items-center text-xl hover:bg-black hover:text-white'><FaRegHeart/></button> */}
                     </div>
                   </div>
               </div> : null   

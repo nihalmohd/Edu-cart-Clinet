@@ -64,7 +64,7 @@ const handleLogout=()=>{
         const formData = new FormData();
         formData.append('file', SelectedFilesProfile);
         formData.append('upload_preset', 'Educart');
-  console.log(formData,"__________________________");
+//   console.log(formData,"__________________________");
   
         try {
           const { data } = await axios.post(
@@ -180,48 +180,47 @@ const handleLogout=()=>{
                         </div>
 
                         <div className=" sm:w-full  md: w-4/5 h-full   p-1" >
-                        <div className="w-full h-72  p-1 border-2 bg-gray-100 border-black">
+                        <div className="w-full h-60  p-1 border-2 bg-gray-100 border-black">
                             <div className="w-full h-10 mt-3 p-1 flex gap-1 border border-black  hover:bg-black hover:text-white ">
                               <div className="w-16 h-full  flex justify-center items-center">
-                                <h1 className='font-semibold text-3xl text-black  '><SiCoursera/></h1>
+                                <h1 className='font-semibold text-3xl text-black hover:text-white  '><SiCoursera/></h1>
                               </div>
                               <div className="w-full h-full  flex justify-start items-center">
                               <h1 className='font-semibold text-xl p-1' >My course</h1>
                               </div>
                             </div>
                             <div className="w-full h-10 mt-3 p-1 flex gap-1 border border-black  hover:bg-black hover:text-white ">
-                            <div className="w-16 h-full  flex justify-center items-center">
-                                <h1 className='font-semibold text-3xl text-black'><TbLockCog/></h1>
+                            <div className="w-16 h-full  flex justify-center items-center ">
+                                <h1 className='font-semibold text-3xl text-black hover:text-white'><TbLockCog/></h1>
                               </div>
                               <div className="w-full h-full  flex justify-start items-center">
                               <h1 className='font-semibold text-xl p-1' >Change Password</h1>
                               </div>
                             </div>
-                            <div className="w-full h-10 mt-3 p-1 flex gap-1 border border-black  hover:bg-black hover:text-white " onClick={()=>{navigate("/Whishlist")}}>
+                            {/* <div className="w-full h-10 mt-3 p-1 flex gap-1 border border-black  hover:bg-black hover:text-white " onClick={()=>{navigate("/Whishlist")}}>
                             <div className="w-16 h-full  flex justify-center items-center" >
                                 <h1 className='font-semibold text-3xl text-black'><TbHeartPlus/></h1>
                               </div>
                               <div className="w-full h-full  flex justify-start items-center">
                               <h1 className='font-semibold text-xl p-1' >Whishlist</h1>
                               </div>
-                            </div>
+                            </div> */}
                             <div className="w-full h-10 mt-3  p-1 flex gap-1 border border-black hover:bg-black hover:text-white  ">
                             <div className="w-16 h-full  flex justify-center items-center">
                                 <h1 className='font-semibold text-3xl text-black hover:text-white'><TiContacts/></h1>
                               </div>
                               <div className="w-full h-full  flex justify-start items-center">
-                              <h1 className='font-semibold text-xl p-1' >Contact With Us</h1>
+                              <h1 className='font-semibold text-xl p-1 ' >Contact With Us</h1>
                               </div>
                             </div>
                             <div className="w-full h-10 mt-3  p-1 flex gap-1 border border-black hover:bg-black hover:text-white  ">
                             <div className="w-16 h-full  flex justify-center items-center">
-                                <h1 className='font-semibold text-3xl text-black'><BiLogOut/></h1>
+                                <h1 className='font-semibold text-3xl text-black hover:text-white'><BiLogOut/></h1>
                               </div>
                               <div className="w-full h-full  flex justify-start items-center">
                               <h1 className='font-semibold text-xl p-1' onClick={handleLogout}>Logout</h1>
                               </div>
                             </div>
-                           
                         </div>
                         </div>
                     </div>

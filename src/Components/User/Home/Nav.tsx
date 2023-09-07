@@ -39,7 +39,7 @@ const Nav = () => {
         
         <div className="hidden sm:flex items-center gap-2">
           <span className="mx-4 text-black">Mentor</span>
-          <span className="mx-4 text-black">My Course</span>
+          <span className="mx-4 text-black"onClick={()=>{navigate('/Mycourses')}}>My Course</span>
         </div>
 
         
