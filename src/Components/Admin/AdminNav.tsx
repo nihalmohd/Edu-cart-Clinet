@@ -30,12 +30,12 @@ const AdminNav = () => {
           <span className="text-black hover:font-bold" onClick={() => navigate('/Educart/EducartCategory')}>
             Category
           </span>
-          <span className="text-black hover:font-bold">
+          <span className="text-black hover:font-bold" onClick={()=>{navigate("/Educart/EducartDash")}} >
             Dashboard
             </span>
-          <span className="text-black hover:font-bold">
+          {/* <span className="text-black hover:font-bold">
             Profile
-            </span>
+            </span> */}
           <div style={{ position: 'relative' }}>
             <img
               className="h-8 w-8 rounded-3xl border border-black"
@@ -48,7 +48,7 @@ const AdminNav = () => {
                 className="absolute top-12 right-0 w-40 bg-white border border-gray-300 rounded-lg shadow-lg z-10"
               >
                 <ul className="py-2">
-                  <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">My Profile</li>
+                  {/* <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">My Profile</li> */}
                   <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer" onClick={handleLogout}>
                     Logout
                   </li>

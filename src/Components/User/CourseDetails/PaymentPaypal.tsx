@@ -36,16 +36,16 @@ const PaymentPaypal = () => {
           <div className="w-full h-80 p-2 " style={{ display: showPayPalButton ? 'block' : 'none' }} ref={PaypalButtonRef}>
             <PayPalScriptProvider options={{ clientId:import.meta.env.VITE_PAYPAL_CLIENTID }}>
               <PayPalButtons style={{ layout: "horizontal" }}
-              className="my-3"
-              createOrder={async(_data, actions) => {
-               await HanldeCourse()
-               navigate('/Mycourses')
-                return actions.order.create({
-                  purchase_units: [
-                    
-                  ]
-                })
-              }}
+            //   className="my-3"
+            //  createOrder={async (data, actions) => {
+            //         return actions.order
+            //             .create({
+            //               purchase_units: []
+            //             })
+            //             .then((orderId) => {
+            //                 return orderId;
+            //             });
+            //     }}
               
               />
             </PayPalScriptProvider>

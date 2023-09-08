@@ -15,6 +15,9 @@ const navigate=useNavigate()
 const navigateProfile =()=>{
   navigate("/Mentor/MentorProfile")
 }
+const navigateHome =()=>{
+  navigate("/Mentor/MentorHome")
+}
   return (
 <div className="flex flex-col justify-center">
       <div className="w-full h-20 sm:h-[65px] flex justify-between border shadow-lg border-b">
@@ -24,7 +27,7 @@ const navigateProfile =()=>{
         <div className="hidden sm:flex items-center space-x-4 p-2 relative">
           <span className="text-black hover:font-bold" onClick={()=>navigate("/Mentor/MentorCourse")}>My Courses</span>
           {/* <span className="text-black hover:font-bold">Users</span> */}
-          <span className="text-black hover:font-bold">Dashboard</span>
+          <span className="text-black hover:font-bold" onClick={()=>navigate("/Mentor/MentorHome")} >Dashboard</span>
           <span className="text-black hover:font-bold" onClick={navigateProfile}>Profile</span>
           <div className="relative">
             <img

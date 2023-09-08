@@ -171,7 +171,7 @@ const MentorShowCourse = () => {
 
                                                 <div className=" justify-between items-center mb-4">
                                                     <div className="w-full h-10  flex justify-center items-center mb-1 border-2 border-black">
-                                                        <h1 className='font-bold text-lg text-center '>Update Profile</h1>
+                                                        <h1 className='font-bold text-lg text-center '>Edcuart Add Classes on Course</h1>
 
                                                     </div>
                                                     <form action="">
