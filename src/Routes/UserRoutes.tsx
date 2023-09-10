@@ -10,6 +10,10 @@ import Paypal from '../Pages/User/Payment';
 import Loading from '../Loader/ButtonLoading/ButtonLoading';
 import Profile from '../Pages/User/Profile';
 import Mycourses from '../Pages/User/Mycourses';
+import Categorypage from '../Pages/User/Categorypage';
+import SubCategorypage from '../Pages/User/SubCategorypage';
+import PurchasedCoursepage from '../Pages/User/PurchasedCoursepage';
+
 
 
 const UserRoutes = () => {
@@ -20,6 +24,9 @@ const UserRoutes = () => {
       <Route path="paypal/:_id" element={<ProtectedRoute><Paypal /></ProtectedRoute>} />
       <Route path="Profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
       <Route path="Mycourses" element={<ProtectedRoute><Mycourses /></ProtectedRoute>} />
+      <Route path="Category" element={<ProtectedRoute><Categorypage /></ProtectedRoute>} />
+      <Route path="SubCategory/:SelectedCategory" element={<ProtectedRoute>< SubCategorypage/></ProtectedRoute>} />
+      <Route path="PurchasedCourse/:_id" element={<ProtectedRoute><PurchasedCoursepage /></ProtectedRoute>} />
       <Route path="signUp" element={<SignIn />}/>
       <Route path="login" element={<Login />}/>
       <Route path='loading'element={<Loading/>}/>

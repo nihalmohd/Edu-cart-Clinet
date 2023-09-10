@@ -21,9 +21,9 @@ interface Course {
 }
 
 interface SelectedClass {
-   classVideoLocation: string;
-    classname: string;
-     ClassDescription: string 
+  classVideoLocation: string;
+  classname: string;
+  ClassDescription: string
 }
 
 
@@ -32,15 +32,15 @@ const CourseDetail = () => {
   const VideoDurationRef = useRef<HTMLVideoElement | null>(null);
   console.log(VideoDurationRef?.current?.duration, 'duration is checking ');
   // const [classVideo,SetclassVideo] = useState<string>("")
-  const [isPayment, setIspaymet] = useState<Boolean>(true)
+  const [isPayment, setIspaymet] = useState<Boolean>(false)
+  const [dataCourseId, setDatatCourseId] = useState<string>()
   const [Duration, setDuration] = useState<number | null>(null);
   const [courseDetails, setCourseDetails] = useState<Course>();
-  const [selectedClass,SetSelectedClass] = useState<SelectedClass>()
-   console.log(courseDetails,"hallow jfsdf");
-   useEffect(()=>{
-    SetSelectedClass(courseDetails?.Class?.[0] as SelectedClass)  
-   },[courseDetails])
+  const [selectedClass, SetSelectedClass] = useState<SelectedClass>()
+  console.log(courseDetails, "hallow jfsdf");
+   
   const { _id } = useParams();
+
 
   useEffect(() => {
     async function fetchData() {
@@ -50,58 +50,76 @@ const CourseDetail = () => {
         });
         const { FoundedCourseByid } = response.data;
         setCourseDetails(FoundedCourseByid);
-        
+        SetSelectedClass(courseDetails?.Class?.[0] as SelectedClass)
+        takeCourseId()
       } catch (error) {
         console.error('Error fetching course details:', error);
       }
     }
-
+    
+    
     fetchData();
   }, [_id]);
+  
 
-  useEffect(() => {
-    const handleLoadedMetadata = () => {
-      if (VideoDurationRef?.current) {
-        if (!isNaN(VideoDurationRef?.current?.duration)) {
-          setDuration(VideoDurationRef?.current?.duration);
-        }
+
+  // useEffect(() => {
+  //   const handleLoadedMetadata = () => { 
+  //     if (VideoDurationRef?.current) {
+  //       if (!isNaN(VideoDurationRef?.current?.duration)) { 
+  //         setDuration(VideoDurationRef?.current?.duration);
+  //       }
+  //     }
+  //   };
+
+  //   if (VideoDurationRef?.current) {
+  //     VideoDurationRef?.current?.addEventListener('loadedmetadata', handleLoadedMetadata);
+  //   }
+
+  //   return () => {
+  //     if (VideoDurationRef?.current) {
+  //       VideoDurationRef?.current?.removeEventListener('loadedmetadata', handleLoadedMetadata);
+  //     }
+  //   };
+  // }, []);
+  // const formatDuration = (seconds: number) => {
+  //   const hours = Math.floor(seconds / 3600);
+  //   const minutes = Math.floor((seconds % 3600) / 60);
+  //   const Seconds = Math.floor(seconds % 60);
+
+  //   const formattedHours = hours.toString().padStart(2, '0');
+  //   const formattedMinutes = minutes.toString().padStart(2, '0');
+  //   const formattedSeconds = Seconds.toString().padStart(2, '0');
+
+  //   console.log(formattedHours, formattedMinutes, formattedSeconds, "nihallllllll");
+
+  //   return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+  // };
+
+
+  const takeCourseId = async () => {
+    try {
+      const { data } = await axiosIntance.post("/UpdatedCouseIdtake", { CourseId: _id})
+      if (data) {
+        console.log(data, "Nihalllalalalalalalalalall");
+        console.log(data);
+        const { FoundedCoursidonUser } = data
+         if(FoundedCoursidonUser){
+           setIspaymet(true)
+         }
+      } else {
+        console.log("somte thing went wrong");
       }
-    };
+    } catch (error) {
+      console.log(error);
 
-    if (VideoDurationRef?.current) {
-      VideoDurationRef?.current?.addEventListener('loadedmetadata', handleLoadedMetadata);
     }
-
-    return () => {
-      if (VideoDurationRef?.current) {
-        VideoDurationRef?.current?.removeEventListener('loadedmetadata', handleLoadedMetadata);
-      }
-    };
-  }, []);
-
-  const formatDuration = (seconds: number) => {
-    const hours = Math.floor(seconds / 3600);
-    const minutes = Math.floor((seconds % 3600) / 60);
-    const Seconds = Math.floor(seconds % 60);
-
-    const formattedHours = hours.toString().padStart(2, '0');
-    const formattedMinutes = minutes.toString().padStart(2, '0');
-    const formattedSeconds = Seconds.toString().padStart(2, '0');
-
-    console.log(formattedHours, formattedMinutes, formattedSeconds, "nihallllllll");
-
-    return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
-  };
-
-
-   
-
+  }
 
   return (
 
     <div>
-      {
-        isPayment ?
+    
           <div>
 
             <div className="w-full h-full mb-2" key={courseDetails?._id}>
@@ -166,7 +184,7 @@ const CourseDetail = () => {
                         <div className="w-full h-full  flex justify-start items-center">
                           <h1 className='text-sm ml-1'>{items.classname}</h1>
                         </div>
-                        {/* <h1>{Duration}</h1> */}
+                        <h1>{Duration}</h1>
                         <div className="w-2/6 h-full flex justify-center items-center">
                           <video
                             controls
@@ -180,7 +198,7 @@ const CourseDetail = () => {
                           ></video>
                           {Duration !== null ? (
                             <h1 className="text-sm text-blue-800 underline font-serif">
-                              {formatDuration(Duration as number)}
+                              {/* {formatDuration(Duration as number)}   */}
                             </h1>
 
 
@@ -206,83 +224,92 @@ const CourseDetail = () => {
                     <h1 className='font-bold text-sm ml-2'>{courseDetails?.courseIncludes}</h1>
                   </div>
                 </div>
+                
                 <div className="w-full h-full">
+                  {
+                    !isPayment?
                   <button
                     className="w-full h-10 bg-white border-2 border-black text-black mt-2 font-bold text-lg hover:bg-black hover:text-white hover:cursor-pointer"
                     onClick={() => {
                       navigate(`/Paypal/${courseDetails?._id}`);
                     }}
-                    >
+                  >
                     Purchase Course
-                  </button>
+                  </button>:
                   <button
-              className="w-full h-10 bg-white border-2 border-black text-black mt-2 font-bold text-lg hover:bg-black hover:text-white hover:cursor-pointer "
-              onClick={()=>navigate('/')}
-              >
-              Cancel Payment
-            </button>
-                  {/* <button
-              className="w-full h-10 bg-white border-2 border-black text-black mt-2 font-bold text-lg hover:bg-black hover:text-white hover:cursor-pointer "
-              >
-              Add to Wishlist
-            </button> */}
+                  className="w-full h-10 bg-white border-2 border-black text-black mt-2 font-bold text-lg hover:bg-black hover:text-white hover:cursor-pointer"
+                  onClick={() => {
+                    navigate(`/PurchasedCourse/${courseDetails?._id}`);
+                  }}
+                >
+                  Go to Course
+                </button>
+
+                  }
+                  <button
+                    className="w-full h-10 bg-white border-2 border-black text-black mt-2 font-bold text-lg hover:bg-black hover:text-white hover:cursor-pointer "
+                    onClick={() => navigate('/')}
+                  >
+                    Cancel Payment
+                  </button>
+
                 </div>
               </div>
             </div>
-          </div> :
-          <div className='w-full h-full p-1  '>
+          </div> 
+          {/* <div className='w-full h-full p-1  '>
             <div className="w-full h-20 bg-transparent  text-black border-2 border-black mt-2 ">
-            <h1 className='text-center text-3xl underline'>Educart Classes</h1>
-            <h1 className=' text-black text-lg text-center'>Unlock Your Learning Potential with Educart Classes</h1>
+              <h1 className='text-center text-3xl underline'>Educart Classes</h1>
+              <h1 className=' text-black text-lg text-center'>Unlock Your Learning Potential with Educart Classes</h1>
 
-          </div>
+            </div>
             <div className="w-full  h-full flex gap-1 p-1 ">
               <div className="w-3/5 h-full border-2 border-black p-2 shadow-2xl ">
 
                 <div className="w-full h-[460px]   border-2 border-black">
-                       <video
-                             controls
-                             onContextMenu={(e) => e.preventDefault()}
-                             src={selectedClass?.classVideoLocation}
-                             className="w-full h-full object-cover"
-                             controlsList="nodownload"
-                             autoPlay
-                           ></video>
-                           </div>
+                  <video
+                    controls
+                    onContextMenu={(e) => e.preventDefault()}
+                    src={selectedClass?.classVideoLocation}
+                    className="w-full h-full object-cover"
+                    controlsList="nodownload"
+                    autoPlay
+                  ></video>
+                </div>
                 <div className="w-full h-14 mt-1 flex items-center">
                   <h1 className='font-bold font-serif text-2xl text-black underline  ml-3'> {selectedClass?.classname}</h1>
                 </div>
                 <div className="w-full h-28  mt-1">
-                <h1 className='font-bold  text-lg text-gray-500  ml-3'> {selectedClass?.ClassDescription}</h1>
+                  <h1 className='font-bold  text-lg text-gray-500  ml-3'> {selectedClass?.ClassDescription}</h1>
                 </div>
               </div>
-            <div className="w-2/5 h-96 bg-slate-200 border-2 border-black p-1 overflow-auto">  
-          {
-            courseDetails? courseDetails?.Class?.map((items,index)=>(   
-                <div className="w-full h-20 bg-white border border-black mt-1 p-1"onClick={()=>{SetSelectedClass(items as SelectedClass)} } >
-                  <div className="w-full  h-full flex gap-2">
-                    <div className="w-32 h-full ">
-                      <video src={items.classVideoLocation}className='w-full h-full object-cover' ></video>
-                     
-                    </div>
-                    <div className="w-full h-full -500">
-                        <div className="w-full h-3/5  flex items-center overflow-x-auto scroll-m-0 scroll-mx-0">
-                          <h1 className='font-serif font-semibold text-sm underline'>Class no <span >{index+1}</span>:{items.classname}  </h1>
-                        </div>
-                      <div className="w-full h-2/5  overflow-y-auto scroll-m-0 scroll-mx-0">
-                        <h1 className=' font-semibold text-sm text-gray-500 '>{items.ClassDescription}</h1>
-                      </div>
+              <div className="w-2/5 h-96 bg-slate-200 border-2 border-black p-1 overflow-auto">
+                {
+                  courseDetails ? courseDetails?.Class?.map((items, index) => (
+                    <div className="w-full h-20 bg-white border border-black mt-1 p-1" onClick={() => { SetSelectedClass(items as SelectedClass) }} >
+                      <div className="w-full  h-full flex gap-2">
+                        <div className="w-32 h-full ">
+                          <video src={items.classVideoLocation} className='w-full h-full object-cover' ></video>
 
+                        </div>
+                        <div className="w-full h-full -500">
+                          <div className="w-full h-3/5  flex items-center overflow-x-auto scroll-m-0 scroll-mx-0">
+                            <h1 className='font-serif font-semibold text-sm underline'>Class no <span >{index + 1}</span>:{items.classname}  </h1>
+                          </div>
+                          <div className="w-full h-2/5  overflow-y-auto scroll-m-0 scroll-mx-0">
+                            <h1 className=' font-semibold text-sm text-gray-500 '>{items.ClassDescription}</h1>
+                          </div>
+
+                        </div>
+
+                      </div>
                     </div>
-                    
-                  </div>
-                </div>
-                )):<></>
-              }
+                  )) : <></>
+                }
               </div>
             </div>
-          </div>
-      }
+          </div> */}
+
     </div>
   );
 };

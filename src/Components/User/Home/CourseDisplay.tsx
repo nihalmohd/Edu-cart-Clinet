@@ -42,9 +42,9 @@ const CourseDisplay = () => {
   }
   return (
     <div className='p-2'>
-      <div className="w-full h-full bg-slate-200 rounded-lg ">
-        <div className="w-full h-16  flex items-center p-2">
-          <h1 className='text-2xl font-serif font-bold underline'>Most Popular Courses</h1>
+      <div className="w-full h-full bg-slate-200 rounded-lg p-2 felx justify-center items-center  ">
+        <div className="w-full h-16    flex items-center p-2">
+          <h1 className='text-2xl font-serif font-bold underline'>Educart All Courses </h1>
         </div>
         <div className="w-full h-full p-1 grid grid-cols-5 gap-2">
         {

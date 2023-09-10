@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react'
 import { axiosIntance } from '../../../Api/config'
 import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 interface Category{
   _id:string
@@ -12,6 +13,7 @@ interface Category{
 
 
 const CategoryDisplay = () => {
+  const navigate = useNavigate()
   const [categories,setcategories] = useState<Category[]>()
 useEffect(()=>{
   DisplayCategory()
@@ -40,7 +42,7 @@ const DisplayCategory = async() =>{
         {
           categories?.map((items)=>(
             items.Status?
-          <div key={items._id} className="sm:w-1/2 md:h-20 md:w-full relative overflow-hidden bg-transparent group hover:bg-black hover:shadow-2xl hover:-translate-y-1 hover:translate-x-1 hover:cursor-pointer  rounded-xl">
+          <div key={items._id} className="sm:w-1/2 md:h-20 md:w-full relative overflow-hidden bg-transparent group hover:bg-black hover:shadow-2xl hover:-translate-y-1 hover:translate-x-1 hover:cursor-pointer  rounded-xl " onClick={()=>{navigate(`SubCategory/${items.Category}`)}}>
             <p className="absolute inset-0 flex items-center justify-center text-white text-lg font-semibold underline">
               {items.Category} 
             </p>
