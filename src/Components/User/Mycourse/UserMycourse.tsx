@@ -1,6 +1,21 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { axiosIntance } from '../../../Api/config'
 
 const UserMycourse = () => {
+
+ useEffect(()=>{
+    FetchCourse()
+ },[])
+
+
+ const FetchCourse =async () =>{
+    const {data} = await axiosIntance.get('/TakeMycourses')
+    if(data){
+        console.log(data);
+        const {FoundedMycourse} = data
+        console.log(FoundedMycourse, "this is my course");  
+    }
+ }
   return (
     <div>
         <div className="w-full h-screen  p-1">
