@@ -3,6 +3,7 @@ import { FaRegHeart} from 'react-icons/fa'
 import {GiRoundStar} from "react-icons/gi"
 import { useNavigate } from 'react-router-dom'
 import { axiosIntance } from '../../Api/config'
+import AdminCourses from '../../Pages/Admin/AdminCourses'
 
 interface Course {
     _id:string
@@ -16,7 +17,7 @@ interface Course {
     SelectedSubCategory: string;
     DemoVideoLocation: string;
     Class?: [{ classVideoLocation: string, classname: string, ClassDescription: string }];
-    // MentorId : string;
+    Mentorname : string;
     Status?: boolean;
     // User ?: [string];
     // stud ?: [{id:string,date:Date,month:string,fees:number}]
@@ -85,10 +86,10 @@ const AdminDisplayCourses = () => {
                       </div>
                     </div>
                     <div className="w-full h-5 flex items-center justify-start">
-                      <h1 className='text-center font-semibold text-stone-500 text-xs'>Mr:Mentor</h1>
+                      <h1 className='text-center font-semibold text-stone-500 text-xs'>Mr:{items.Mentorname}</h1>
                     </div>
                     <div className="w-full h-10 flex justify-start items-center">
-                      <h1 className='font-semibold text-lg text-black'>₹3999</h1>
+                      <h1 className='font-semibold text-lg text-black'>₹{items.coursePrice}</h1>
                     </div>
                     <div className='w-full h-16 p-1 '>
                       <button className='bg-transparent border-2 border-black text-black w-full h-12 font-semibold text-lg  hover:bg-black hover:text-white '>View Details</button>
