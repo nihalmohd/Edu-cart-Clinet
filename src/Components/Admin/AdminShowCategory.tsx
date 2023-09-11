@@ -78,7 +78,7 @@ const AdminShowCategory = () => {
                                         )
                                     }
                                 </div>
-                                <div className="flex-shrink-0 flex gap-2">
+                                <div className="flex-shrink-0 flex gap-2 mt-2">
                                     <div className="w-10 h-10 flex justify-center items-center  border-black text-black rounded border  hover:bg-black hover:text-white " onClick={openPaymentModal} >
                                         <IoMdAdd />
                                     </div>

@@ -21,7 +21,7 @@ const navigateHome =()=>{
   return (
 <div className="flex flex-col justify-center">
       <div className="w-full h-20 sm:h-[65px] flex justify-between border shadow-lg border-b">
-        <img className="h-full " src="/Images/Untitled-1-01.png" alt="Logo" />
+        <img className="h-full hover:cursor-pointer " src="/Images/Untitled-1-01.png" alt="Logo"  onClick={()=>{navigate("/Mentor/MentorHome")}} />
 
         {/* Profile Picture and Navigation Links */}
         <div className="hidden sm:flex items-center space-x-4 p-2 relative">

@@ -5,6 +5,7 @@ import UserRoutes from './Routes/UserRoutes';
 import MentorRoutes from './Routes/MentorRoutes';
 import AdminRoutes from './Routes/AdminRoutes';
 import './App.css';
+import Pagenotfound from './Pages/404page/pagenotfound';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/*" element={<UserRoutes />} />
         <Route path="/Educart/*" element={<AdminRoutes />} />
         <Route path="/Mentor/*" element={<MentorRoutes />} />
+        <Route path='*' element={<Pagenotfound/>}/>
       </Routes>
     </Router>
   );

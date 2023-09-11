@@ -255,8 +255,7 @@ const MentorShowCourse = () => {
                                         <div className='w-full h-16 p-1 flex gap-2'>
                                             <button className='bg-transparent border-2 border-black text-black w-full h-12 font-semibold text-2xl  hover:bg-black hover:text-white mt-2 flex justify-center items-center' onClick={()=>Addclasses(items._id)}><IoMdAdd /></button>
                                             <button className='bg-transparent border-2 border-black text-black w-full h-12 font-semibold text-2xl  hover:bg-black hover:text-white mt-2 flex justify-center items-center'><BiEdit /></button>
-                                            <button className='bg-transparent border-2 border-black text-black w-full h-12 font-semibold text-2xl  hover:bg-black hover:text-white mt-2 flex justify-center items-center'><FcAbout /></button>
-
+                                            <button className='bg-transparent border-2 border-black text-black w-full h-12 font-semibold text-2xl  hover:bg-black hover:text-white mt-2 flex justify-center items-center' onClick={()=>{navigate(`/Mentor/MentorCourseDetaild/${items._id}`)}} ><FcAbout /></button>
                                         </div>
                                     </div>
                                 </div>

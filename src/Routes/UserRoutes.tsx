@@ -13,6 +13,9 @@ import Mycourses from '../Pages/User/Mycourses';
 import Categorypage from '../Pages/User/Categorypage';
 import SubCategorypage from '../Pages/User/SubCategorypage';
 import PurchasedCoursepage from '../Pages/User/PurchasedCoursepage';
+import Pagenotfound from '../Pages/404page/pagenotfound';
+
+
 
 
 
@@ -30,6 +33,7 @@ const UserRoutes = () => {
       <Route path="signUp" element={<SignIn />}/>
       <Route path="login" element={<Login />}/>
       <Route path='loading'element={<Loading/>}/>
+      <Route path='*' element={<Pagenotfound/>}/>
     </Routes>
   );
 }

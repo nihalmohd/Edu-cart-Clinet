@@ -10,6 +10,7 @@ import AdminUsers from '../Pages/Admin/AdminUsers';
 import AdminMentors from '../Pages/Admin/AdminMentors';
 import AdminCourses from '../Pages/Admin/AdminCourses';
 import AdminDashboardPage from '../Pages/Admin/AdminDashboardPage';
+import Pagenotfound from '../Pages/404page/pagenotfound';
 
 const AdminRoutes = () => {
   return (
@@ -21,6 +22,7 @@ const AdminRoutes = () => {
       <Route path="EducartMentors" element={<AdminProtectedRouter><AdminMentors /></AdminProtectedRouter>} />
       <Route path="EducartBanner" element={<AdminProtectedRouter><AdminBanner /></AdminProtectedRouter>} />
       <Route path="EducartCourses" element={<AdminProtectedRouter><AdminCourses /></AdminProtectedRouter>} />
+      <Route path='*' element={<Pagenotfound/>}/>
     </Routes>
   );
 }
