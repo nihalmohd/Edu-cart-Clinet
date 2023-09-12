@@ -13,7 +13,8 @@ import Mycourses from '../Pages/User/Mycourses';
 import Categorypage from '../Pages/User/Categorypage';
 import SubCategorypage from '../Pages/User/SubCategorypage';
 import PurchasedCoursepage from '../Pages/User/PurchasedCoursepage';
-import Pagenotfound from '../Pages/404page/pagenotfound';
+import Pagenotfound from '../Pages/404page/Pagenotfound';
+
 
 
 

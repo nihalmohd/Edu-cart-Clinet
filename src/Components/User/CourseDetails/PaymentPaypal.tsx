@@ -64,7 +64,7 @@ const PaymentPaypal = () => {
     const { data } = await axiosIntance.post("/UpdateCouseid", { CourseId: _id })
     if (data) {
       console.log(data);
-
+      navigate('/Mycourses')
     }
   }
 
