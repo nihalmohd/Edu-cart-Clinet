@@ -14,6 +14,7 @@ import Categorypage from '../Pages/User/Categorypage';
 import SubCategorypage from '../Pages/User/SubCategorypage';
 import PurchasedCoursepage from '../Pages/User/PurchasedCoursepage';
 import Pagenotfound from '../Pages/404page/Pagenotfound';
+import ChatPage from '../Pages/User/ChatPage';
 
 
 
@@ -31,6 +32,7 @@ const UserRoutes = () => {
       <Route path="Category" element={<ProtectedRoute><Categorypage /></ProtectedRoute>} />
       <Route path="SubCategory/:SelectedCategory" element={<ProtectedRoute>< SubCategorypage/></ProtectedRoute>} />
       <Route path="PurchasedCourse/:_id" element={<ProtectedRoute><PurchasedCoursepage /></ProtectedRoute>} />
+      <Route path="chat" element={<ProtectedRoute><ChatPage /></ProtectedRoute>} />
       <Route path="signUp" element={<SignIn />}/>
       <Route path="login" element={<Login />}/>
       <Route path='loading'element={<Loading/>}/>

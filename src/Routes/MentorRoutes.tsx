@@ -6,7 +6,7 @@ import MentorUsers from "../Pages/Mentor/MentorUsers";
 import MentorCourse from "../Pages/Mentor/MentorCourse";
 import MentorCourseUpload from '../Pages/Mentor/MentorCourseUpload';
 import MentorProfilePage from '../Pages/Mentor/MentorProfilePage';
-import Pagenotfound from '../Pages/404page/pagenotfound';
+import Pagenotfound from '../Pages/404page/Pagenotfound';
 import MentorCourseDetailPage from '../Pages/Mentor/MentorCourseDetailPage';
 
 
