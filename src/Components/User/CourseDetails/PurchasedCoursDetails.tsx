@@ -19,6 +19,7 @@ interface Course {
   Class?: [
     { classVideoLocation: string; classname: string; ClassDescription: string }
   ];
+  MentorId:string
   Mentorname: string;
   Status?: boolean;
 }
@@ -30,8 +31,8 @@ interface SelectedClass {
 }
 
 const PurchasedCoursDetails = () => {
+  
   const { _id } = useParams();
-
   const [courseDetails, setCourseDetails] = useState<Course>();
   const [selectedClass, SetSelectedClass] = useState<SelectedClass>();
   useEffect(() => {
@@ -45,8 +46,10 @@ const PurchasedCoursDetails = () => {
         const response = await axiosIntance.get("/CourseDeatailsByid", {
           params: { _id },
         });
-        const { FoundedCourseByid } = response.data;
+        const { FoundedCourseByid } = response.data; 
         setCourseDetails(FoundedCourseByid);
+        console.log(FoundedCourseByid);
+        
       } catch (error) {
         console.error("Error fetching course details:", error);
       }
@@ -82,6 +85,7 @@ const PurchasedCoursDetails = () => {
   //     }
 
   //   }
+
   return (
     <div>
       <div className="w-full h-full p-1  ">
@@ -124,16 +128,16 @@ const PurchasedCoursDetails = () => {
               </h1>
             </div>
           </div>
-          <div className="w-2/5 h-96 bg-slate-200 border-2 border-black p-1 overflow-auto">
+          <div  className="w-2/5 h-96 bg-slate-200 border-2 border-black p-1 overflow-auto">
             {courseDetails ? (
               courseDetails?.Class?.map((items, index) => (
                 <div
-                  className="w-full h-20 bg-white border border-black mt-1 p-1"
+                   className= "w-full h-20 bg-white border border-black mt-1 p-1"
                   onClick={() => {
                     SetSelectedClass(items as SelectedClass);
                   }}
                 >
-                  <div className="w-full  h-full flex gap-2">
+                  <div  className="w-full  h-full flex gap-2">
                     <div className="w-32 h-full ">
                       <video
                         src={items.classVideoLocation}

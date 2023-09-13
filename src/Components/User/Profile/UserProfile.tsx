@@ -180,7 +180,7 @@ const handleLogout=()=>{
 
                         <div className=" sm:w-full  md: w-4/5 h-full   p-1" >
                         <div className="w-full h-60  p-1 border-2 bg-gray-100 border-black">
-                            <div className="w-full h-10 mt-3 p-1 flex gap-1 border border-black  hover:bg-black hover:text-white ">
+                            <div className="w-full h-10 mt-3 p-1 flex gap-1 border border-black  hover:bg-black hover:text-white"  onClick={()=>{navigate("/Mycourses")}} >
                               <div className="w-16 h-full  flex justify-center items-center">
                                 <h1 className='font-semibold text-3xl text-black hover:text-white  '><SiCoursera/></h1>
                               </div>

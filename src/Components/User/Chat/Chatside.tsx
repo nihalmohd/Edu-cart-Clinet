@@ -3,8 +3,8 @@ import ChatNav from "./ChatNav";
 
 const Chatside = () => {
     return (
-        <div className="flex gap-1">
-            <div className="w-3/12 h-screen  relative  border border-black flex gap-2 mt-2 p-1 ">
+        <div className="flex gap-1 pl-1">
+            <div className="w-3/12 h-screen  relative  border border-black flex gap-2 mt-2 p-1  ">
                 <div className="w-full h-full  0">
                         <div className="w-full h-8  ">
                             <h1 className="font-semibold text-lg">Chats</h1>
@@ -12,11 +12,11 @@ const Chatside = () => {
                         <div className="w-full bg-gray-100 h-10 mt-1 ">
                             <input
                                 type="text"
-                                className="w-full h-full bg-transparent border object-cover rounded-md border-black p-2"
+                                className="w-full h-full bg-white border object-cover rounded-md border-black p-2"
                                 placeholder="Search users"
                             />
                         </div>
-                    <div className="w-full h-[468px] overflow-auto mt-2 bg-gray-100">
+                    <div className="w-full h-[470px] overflow-auto mt-2 bg-gray-100">
 
                     <div className="w-full h-16 mt-1 bg-white border border-black">
                         <div className="w-full h-full  p-1  flex gap-1">
