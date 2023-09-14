@@ -1,4 +1,4 @@
-import React from 'react'
+
 import Chating from './Chating'
 
 const ChatNav = () => {

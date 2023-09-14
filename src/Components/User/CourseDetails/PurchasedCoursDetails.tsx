@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { axiosIntance } from "../../../Api/config";
 import { useParams } from "react-router-dom";
 import { GiRoundStar } from "react-icons/gi";
 import { Rating } from "@material-tailwind/react";
-import { GrSend } from "react-icons/gr";
 
 interface Course {
   _id: string;
@@ -19,7 +18,7 @@ interface Course {
   Class?: [
     { classVideoLocation: string; classname: string; ClassDescription: string }
   ];
-  MentorId:string
+  MentorId: string
   Mentorname: string;
   Status?: boolean;
 }
@@ -31,7 +30,7 @@ interface SelectedClass {
 }
 
 const PurchasedCoursDetails = () => {
-  
+
   const { _id } = useParams();
   const [courseDetails, setCourseDetails] = useState<Course>();
   const [selectedClass, SetSelectedClass] = useState<SelectedClass>();
@@ -46,10 +45,10 @@ const PurchasedCoursDetails = () => {
         const response = await axiosIntance.get("/CourseDeatailsByid", {
           params: { _id },
         });
-        const { FoundedCourseByid } = response.data; 
+        const { FoundedCourseByid } = response.data;
         setCourseDetails(FoundedCourseByid);
         console.log(FoundedCourseByid);
-        
+
       } catch (error) {
         console.error("Error fetching course details:", error);
       }
@@ -128,16 +127,16 @@ const PurchasedCoursDetails = () => {
               </h1>
             </div>
           </div>
-          <div  className="w-2/5 h-96 bg-slate-200 border-2 border-black p-1 overflow-auto">
+          <div className="w-2/5 h-96 bg-slate-200 border-2 border-black p-1 overflow-auto">
             {courseDetails ? (
               courseDetails?.Class?.map((items, index) => (
                 <div
-                   className= "w-full h-20 bg-white border border-black mt-1 p-1"
+                  className="w-full h-20 bg-white border border-black mt-1 p-1"
                   onClick={() => {
                     SetSelectedClass(items as SelectedClass);
                   }}
                 >
-                  <div  className="w-full  h-full flex gap-2">
+                  <div className="w-full  h-full flex gap-2">
                     <div className="w-32 h-full ">
                       <video
                         src={items.classVideoLocation}

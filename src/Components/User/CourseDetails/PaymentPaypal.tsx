@@ -1,8 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
+import  { useEffect, useRef, useState } from 'react';
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { useNavigate, useParams } from 'react-router-dom';
 import { axiosIntance } from '../../../Api/config';
-import CourseDetail from '../../../Pages/User/CourseDetail';
 
 interface Course {
   _id: string;
@@ -61,10 +60,15 @@ const PaymentPaypal = () => {
   };
 
   const HanldeCourse = async () => {
+    console.log("halo");
+    
     const { data } = await axiosIntance.post("/UpdateCouseid", { CourseId: _id })
     if (data) {
-      console.log(data);
-      navigate('/Mycourses')
+      const {UpdatedCourseId} = data
+      console.log(UpdatedCourseId);
+      if(UpdatedCourseId){
+        navigate('/Mycourses')
+      }
     }
   }
 
@@ -97,8 +101,8 @@ const PaymentPaypal = () => {
                 onApprove={(_data: any, actions: any) => {
                   // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
                   return actions.order.capture().then(async function () {
-                    await HanldeCourse();
-                    console.log(" Course Payment is successfull course Id added");
+                     HanldeCourse();
+                   
                   })
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     .catch(function (error: any) {

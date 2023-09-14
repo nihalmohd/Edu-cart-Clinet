@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import  { useEffect, useRef, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { GiRoundStar } from 'react-icons/gi';
 import { axiosIntance } from '../../../Api/config';
@@ -21,11 +21,11 @@ interface Course {
   Status?: boolean;
 }
 
-interface SelectedClass {
-  classVideoLocation: string;
-  classname: string;
-  ClassDescription: string
-}
+// interface SelectedClass {
+//   classVideoLocation: string;
+//   classname: string;
+//   ClassDescription: string
+// }
 
 
 const CourseDetail = () => {
@@ -115,6 +115,17 @@ const CourseDetail = () => {
     }
   }
   console.log(courseDetails?.MentorId,"this is mentor id form data ");
+
+  const createRoom =async(MentorId:string)=>{
+    const {data} = await axiosIntance.post("/AddChat",{MentorId})
+    console.log(data);
+    const {FoundedChats} = data
+    if(FoundedChats){
+      console.log(FoundedChats,"Chat Exitst");
+    navigate('/chat')
+    }
+  }
+
   return (
 
     <div>
@@ -255,17 +266,14 @@ const CourseDetail = () => {
                   Go to Course
                 </button>
                 <button
-                      className="w-full h-10 bg-white border-2 border-black text-black mt-2 font-bold text-lg hover:bg-black hover:text-white hover:cursor-pointer "
+                      className="w-full h-10 bg-white border-2 border-black text-black mt-2 font-bold text-lg hover:bg-black hover:text-white hover:cursor-pointer"
+                      onClick={()=>{createRoom(courseDetails?.MentorId as string)}}
                     >
                       Message To {courseDetails?.Mentorname}
                     </button>
                   </div>
                 )
-
-
               }
-
-
             </div>
           </div>
         </div>

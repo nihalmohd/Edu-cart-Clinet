@@ -1,5 +1,4 @@
 // UserRoutes.js
-import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import ProtectedRoute from '../Pages/User/UserProtectedRouter';
 import Home from '../Pages/User/Home';
