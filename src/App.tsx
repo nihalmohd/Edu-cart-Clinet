@@ -4,8 +4,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import UserRoutes from './Routes/UserRoutes';
 import MentorRoutes from './Routes/MentorRoutes';
 import AdminRoutes from './Routes/AdminRoutes';
-import './App.css';
-import Pagenotfound from './Pages/404page/pagenotfound';
+
+import Pagenotfound from './Pages/404page/Pagenotfound';
 
 function App() {
   return (

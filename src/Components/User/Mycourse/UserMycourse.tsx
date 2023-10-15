@@ -43,6 +43,7 @@ const [coursdetails,setCourseDetails] = useState<User>()
     if(data){
         console.log(data);
         const {FoundedMycourse} = data
+        console.log(FoundedMycourse);
         setCourseDetails(FoundedMycourse)
         console.log(FoundedMycourse, "this is my course");  
     }
